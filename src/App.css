@@ -695,7 +695,7 @@ button:focus-visible {
   background: linear-gradient(155deg, #ffffff 0%, #fffdfb 100%);
   box-shadow: 0 11px 28px rgba(93, 52, 49, .09);
   text-align: center;
-  transform-origin: center center;
+  transform-origin: center bottom;
   transition: transform 300ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms ease;
 }
 
@@ -704,21 +704,35 @@ button:focus-visible {
   box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
 }
 
-/* Pulso secuencial: una tarjeta crece ligeramente y vuelve a su tamaño
-   antes de activar la siguiente. La propiedad scale respeta el hover existente. */
+/* Una tarjeta toma el protagonismo mientras las otras se reducen.
+   Todas se escalan desde el centro inferior: crecen arriba y a los lados.
+   Los offsets negativos sincronizan los cuatro turnos desde el primer ciclo. */
 .process-grid.is-animating .process-item {
-  /* Ease-in-out en ambos sentidos: sin escalón al reducir el tamaño. */
   animation: process-card-relay 10s cubic-bezier(.45, 0, .55, 1) infinite;
 }
 
 .process-grid.is-animating .process-item:nth-child(1) { animation-delay: 0s; }
-.process-grid.is-animating .process-item:nth-child(2) { animation-delay: 2.5s; }
-.process-grid.is-animating .process-item:nth-child(3) { animation-delay: 5s; }
-.process-grid.is-animating .process-item:nth-child(4) { animation-delay: 7.5s; }
+.process-grid.is-animating .process-item:nth-child(2) { animation-delay: -7.5s; }
+.process-grid.is-animating .process-item:nth-child(3) { animation-delay: -5s; }
+.process-grid.is-animating .process-item:nth-child(4) { animation-delay: -2.5s; }
+
+/* Se congela la secuencia completa durante el hover, sin reiniciar ni saltar
+   de tamaño al apartar el cursor. El enfoque de teclado también la pausa. */
+.process-grid:focus-within .process-item {
+  animation-play-state: paused;
+}
+
+@media (hover: hover) {
+  .process-grid:hover .process-item {
+    animation-play-state: paused;
+  }
+}
 
 @keyframes process-card-relay {
-  0%, 19%, 100% { scale: 1; }
-  7% { scale: 1.04; }
+  0%, 22%, 100% { scale: .97; }
+  4% { scale: 1.005; }
+  9%, 12% { scale: 1.095; }
+  19% { scale: .97; }
 }
 
 .process-number {
