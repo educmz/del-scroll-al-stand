@@ -129,11 +129,11 @@ export default function Entrepreneurs() {
     <main className="entre-page" id="entrepreneurs-page">
       <PageHero
         id="entre-main-title"
-        eyebrow="Haz crecer tu marca"
+        eyebrow="Para emprendedores"
         badgeIcon="store"
         compactTitle
-        title={<><span>Para</span><em>Emprendedores</em></>}
-        description="Impulsa tu emprendimiento en ferias temáticas que conectan tu marca con más personas."
+        title={<><span>Tu marca</span><em>en persona</em></>}
+        description="Conecta con nuevos clientes y haz que más personas descubran lo que haces."
         imageFile="para-emprendedores-portada.png"
         imageAlt="Emprendedora atendiendo a una visitante en su stand"
         actions={
@@ -142,7 +142,7 @@ export default function Entrepreneurs() {
               <ClipboardPenLine size={19} aria-hidden="true" /> Postula tu marca
             </a>
             <a href="#planes" className="page-hero__button page-hero__button--secondary">
-              <Play size={19} aria-hidden="true" /> Conoce los planes
+              <Play size={19} aria-hidden="true" /> Ver planes
             </a>
           </>
         }
