@@ -81,7 +81,7 @@ button:focus-visible {
   width: 190px;
   height: 111px;
   margin-bottom: -19px;
-  padding: 11px 12px 13px;
+  padding: 20px 12px 11px;
   align-self: flex-start;
   place-items: center;
   background: linear-gradient(165deg, #fffefa, #fff1e5);
@@ -297,7 +297,7 @@ button:focus-visible {
     width: 160px;
     height: 97px;
     margin-bottom: -17px;
-    padding: 10px 12px 12px;
+    padding: 18px 12px 10px;
   }
   .brand-logo {
     max-width: 147px;
