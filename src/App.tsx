@@ -8,7 +8,7 @@ import UpcomingFairs from './UpcomingFairs'
 import HomeFAQ from './HomeFAQ'
 import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import { motion, useReducedMotion } from 'motion/react'
+import { useInView } from 'motion/react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -129,7 +129,6 @@ const testimonials = [
 ]
 
 function App() {
-  const shouldReduceMotion = useReducedMotion()
   const [menuOpen, setMenuOpen] = useState(false)
   // Cada mitad del bucle debe superar el ancho de la pantalla para evitar huecos.
   const [testimonialRepeatCount, setTestimonialRepeatCount] = useState(
@@ -138,6 +137,8 @@ function App() {
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
   const [navPill, setNavPill] = useState<{ left: number; top: number; width: number; height: number } | null>(null)
   const navRef = useRef<HTMLElement | null>(null)
+  const processGridRef = useRef<HTMLDivElement | null>(null)
+  const processInView = useInView(processGridRef, { amount: 0.15 })
 
   useEffect(() => {
     const updateTestimonialRepeats = () => {
@@ -422,85 +423,21 @@ function App() {
           </div>
 
           <div className="process-background" id="participar">
-            <div className="process-grid">
+            <div
+              ref={processGridRef}
+              className={`process-grid ${processInView ? 'is-animating' : ''}`}
+            >
               {steps.map((step, index) => {
                 const Icon = step.icon
                 return (
-                  <motion.article
-                    className="process-item"
-                    key={step.title}
-                    tabIndex={0}
-                    initial="idle"
-                    animate="idle"
-                    whileHover={shouldReduceMotion ? undefined : 'draw'}
-                    whileFocus={shouldReduceMotion ? undefined : 'draw'}
-                  >
+                  <article className="process-item" key={step.title}>
                     <span className="process-number">PASO {String(index + 1).padStart(2, '0')}</span>
                     <div className="process-icon">
                       <Icon size={42} strokeWidth={2} aria-hidden="true" />
                     </div>
                     <h3>{step.title}</h3>
                     <p>{step.description}</p>
-                    {index < steps.length - 1 && (
-                      <span className="process-connector" aria-hidden="true">
-                        <motion.svg className="process-arrow-drawn" viewBox="0 0 120 48" fill="none" aria-hidden="true">
-                          {/* Flecha visible en reposo; el trazo de hover la repasa. */}
-                          <path
-                            className="process-arrow-outline"
-                            d="M4 30 C17 14 29 10 36 22 C44 36 26 39 27 27 C28 13 44 11 57 24 C72 39 93 33 112 19"
-                            stroke="currentColor"
-                            strokeWidth="2.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            vectorEffect="non-scaling-stroke"
-                          />
-                          <path
-                            className="process-arrow-outline"
-                            d="M99 15 Q108 17 113 19 Q110 25 107 31"
-                            stroke="currentColor"
-                            strokeWidth="2.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            vectorEffect="non-scaling-stroke"
-                          />
-                          <motion.path
-                            className="process-arrow-retrace"
-                            d="M4 30 C17 14 29 10 36 22 C44 36 26 39 27 27 C28 13 44 11 57 24 C72 39 93 33 112 19"
-                            stroke="currentColor"
-                            strokeWidth="2.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            vectorEffect="non-scaling-stroke"
-                            variants={{
-                              idle: { pathLength: 0, opacity: 0, transition: { pathLength: { duration: 0 }, opacity: { duration: 0.18 } } },
-                              draw: {
-                                pathLength: 1,
-                                opacity: 1,
-                                transition: { pathLength: { duration: 1, ease: 'easeInOut' }, opacity: { duration: 0.1 } },
-                              },
-                            }}
-                          />
-                          <motion.path
-                            className="process-arrow-retrace"
-                            d="M99 15 Q108 17 113 19 Q110 25 107 31"
-                            stroke="currentColor"
-                            strokeWidth="2.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            vectorEffect="non-scaling-stroke"
-                            variants={{
-                              idle: { pathLength: 0, opacity: 0, transition: { pathLength: { duration: 0 }, opacity: { duration: 0.18 } } },
-                              draw: {
-                                pathLength: 1,
-                                opacity: 1,
-                                transition: { pathLength: { duration: 0.3, delay: 0.82, ease: 'easeOut' }, opacity: { duration: 0.1, delay: 0.82 } },
-                              },
-                            }}
-                          />
-                        </motion.svg>
-                      </span>
-                    )}
-                  </motion.article>
+                  </article>
                 )
               })}
             </div>
