@@ -5,7 +5,7 @@ import SectionEyebrow from './SectionEyebrow'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
-import { ArrowRight, ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
 import './App.css'
 
@@ -432,8 +432,12 @@ function App() {
                     <p>{step.description}</p>
                     {index < steps.length - 1 && (
                       <span className="process-connector" aria-hidden="true">
-                        <ArrowRight className="process-arrow-base" size={30} strokeWidth={2.1} />
-                        <ArrowRight className="process-arrow-shine" size={30} strokeWidth={2.1} />
+                        <svg className="process-arrow-base" viewBox="0 0 100 24" fill="none" aria-hidden="true">
+                          <path d="M3 12H96M85 2L96 12L85 22" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        <svg className="process-arrow-shine" viewBox="0 0 100 24" fill="none" aria-hidden="true">
+                          <path d="M3 12H96M85 2L96 12L85 22" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                       </span>
                     )}
                   </article>
