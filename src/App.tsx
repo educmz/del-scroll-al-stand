@@ -5,20 +5,21 @@ import SectionEyebrow from './SectionEyebrow'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
+import { featuredFair, fairApplicationHref } from './fairCatalog'
 import HomeFAQ from './HomeFAQ'
 import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import { motion, useInView, useReducedMotion } from 'motion/react'
+import { motion, useAnimationFrame, useInView, useMotionValue, useReducedMotion, useTransform } from 'motion/react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
 
 const navigation = [
   { label: 'Inicio', href: '#inicio' },
-  { label: 'Próximas ferias', href: '#proximas-ferias' },
-  { label: 'Para emprendedores', href: '#emprendedores' },
-  { label: 'Planes de stand', href: '#planes' },
-  { label: 'Sobre nosotros', href: '#sobre-nosotros' },
+  { label: 'Ferias', href: '#proximas-ferias' },
+  { label: 'Emprendedores', href: '#emprendedores' },
+  { label: 'Planes y precios', href: '#planes' },
+  { label: 'Nosotros', href: '#sobre-nosotros' },
 ]
 
 // Silueta trazada a partir de la referencia; mantiene el mismo perfil en cualquier tamaño.
@@ -63,7 +64,7 @@ const benefits = [
     title: 'Comunidad emprendedora',
     description: 'Forma parte de una red de marcas locales que se apoyan y crecen juntas',
     icon: Heart,
-    tone: 'pink',
+    tone: 'lavender',
   },
 ]
 
@@ -144,6 +145,95 @@ const testimonials = [
   },
 ]
 
+/**
+ * Cartel suspendido de una bisagra fija. La cubierta superior queda
+ * inmóvil; solamente oscila el panel con un péndulo amortiguado.
+ * Los ángulos son pequeños para que no aparezca su cara posterior.
+ */
+function HangingBrand() {
+  const shouldReduceMotion = useReducedMotion()
+  const pitch = useMotionValue(0)
+  const signShadow = useTransform(pitch, (degrees) => {
+    const depth = Math.min(Math.abs(degrees) / 14, 1)
+    return `0 ${Math.round(9 + depth * 6)}px ${Math.round(18 + depth * 8)}px rgba(78, 37, 32, ${(0.14 + depth * 0.045).toFixed(3)})`
+  })
+  const pendulum = useRef({
+    angle: -0.19,
+    angularVelocity: 0,
+    lastGust: 0,
+    gustDirection: 1,
+    pointerInside: false,
+  })
+
+  useEffect(() => {
+    const state = pendulum.current
+    state.angle = shouldReduceMotion ? 0 : -0.19
+    state.angularVelocity = 0
+    state.lastGust = 0
+    state.gustDirection = 1
+    pitch.set(state.angle * 180 / Math.PI)
+  }, [shouldReduceMotion, pitch])
+
+  useAnimationFrame((elapsed, delta) => {
+    if (shouldReduceMotion) return
+
+    const state = pendulum.current
+    const dt = Math.min(delta / 1000, 0.032)
+
+    if (!state.pointerInside && elapsed - state.lastGust > 6800) {
+      state.angularVelocity += state.gustDirection * 0.5
+      state.gustDirection *= -1
+      state.lastGust = elapsed
+    }
+
+    // Gravedad y fricción: el letrero oscila desde el eje superior.
+    const angularAcceleration = -13.5 * Math.sin(state.angle) - 1.05 * state.angularVelocity
+    state.angularVelocity += angularAcceleration * dt
+    state.angle += state.angularVelocity * dt
+
+    // Tope físico suave: evita inclinaciones que descubran la parte trasera.
+    const maxAngle = 0.23
+    if (Math.abs(state.angle) > maxAngle) {
+      state.angle = Math.sign(state.angle) * maxAngle
+      state.angularVelocity *= -0.16
+    }
+
+    pitch.set(state.angle * 180 / Math.PI)
+  })
+
+  const nudge = () => {
+    if (shouldReduceMotion) return
+    const state = pendulum.current
+    state.angularVelocity += state.angle > 0 ? -0.8 : 0.8
+  }
+
+  return (
+    <div className="brand-hanger">
+      <motion.a
+        href="#inicio"
+        className="brand brand-hanging-sign"
+        aria-label="Del Scroll al Stand — Inicio"
+        style={{ rotateX: pitch, boxShadow: signShadow }}
+        onPointerEnter={() => {
+          if (!pendulum.current.pointerInside) nudge()
+          pendulum.current.pointerInside = true
+        }}
+        onPointerLeave={() => {
+          pendulum.current.pointerInside = false
+        }}
+        onFocus={nudge}
+      >
+        <img
+          src={`${baseUrl}images/logo.png`}
+          alt="Del Scroll al Stand"
+          className="brand-logo"
+          onError={(event) => { event.currentTarget.style.visibility = 'hidden' }}
+        />
+      </motion.a>
+    </div>
+  )
+}
+
 function App() {
   const shouldReduceMotion = useReducedMotion()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -187,8 +277,12 @@ function App() {
   const isAbout = currentHash.startsWith('#sobre-nosotros')
   const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
   const isEntrepreneurs = currentHash === '#emprendedores'
-  const isFairs = currentHash === '#proximas-ferias'
+  const fairSectionHashes = ['#feria-destacada', '#feria-detalles', '#que-encontraras', '#proximas-ediciones', '#ferias-anteriores']
+  const isFairAnchor = fairSectionHashes.includes(currentHash)
+  const isPastFairDetail = currentHash.startsWith('#feria/')
+  const isFairs = currentHash === '#proximas-ferias' || isFairAnchor || isPastFairDetail
   const activeHref = isAbout ? '#sobre-nosotros' : isPlans ? '#planes' : isEntrepreneurs ? '#emprendedores' : isFairs ? '#proximas-ferias' : '#inicio'
+  const participateHref = isPlans ? '#planes' : isFairs ? fairApplicationHref(featuredFair) : isEntrepreneurs ? '#planes-postular' : '#participar'
 
   // La píldora sigue únicamente a la sección seleccionada, no al hover.
   useLayoutEffect(() => {
@@ -247,6 +341,10 @@ function App() {
       window.requestAnimationFrame(() => {
         document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'auto', block: 'start' })
       })
+    } else if (isFairAnchor) {
+      window.requestAnimationFrame(() => {
+        document.getElementById(currentHash.slice(1))?.scrollIntoView({ behavior: 'auto', block: 'start' })
+      })
     } else if (currentHash === '#preguntas-frecuentes' || currentHash === '#proximas-ferias-preguntas') {
       window.requestAnimationFrame(() => {
         document.getElementById('preguntas-frecuentes')?.scrollIntoView({ behavior: 'auto', block: 'start' })
@@ -254,20 +352,13 @@ function App() {
     } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs || isFairs) {
       window.scrollTo(0, 0)
     }
-  }, [currentHash, isPlans, isEntrepreneurs, isFairs])
+  }, [currentHash, isPlans, isEntrepreneurs, isFairs, isFairAnchor])
 
   return (
     <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : isEntrepreneurs ? 'site-entrepreneurs' : isFairs ? 'site-fairs' : ''}`}>
       <header className="topbar">
         <div className="topbar-content">
-          <a href="#inicio" className="brand" aria-label="Del Scroll al Stand — Inicio">
-            <img
-              src={`${baseUrl}images/logo.png`}
-              alt="Del Scroll al Stand"
-              className="brand-logo"
-              onError={(event) => { event.currentTarget.style.visibility = 'hidden' }}
-            />
-          </a>
+          <HangingBrand />
 
           <nav
             ref={navRef}
@@ -299,7 +390,7 @@ function App() {
             ))}
             <a
               className="mobile-participate"
-              href={isPlans ? '#planes' : isEntrepreneurs || isFairs ? '#planes-postular' : '#participar'}
+              href={participateHref}
               onClick={(event) => {
                 setMenuOpen(false)
                 if (isPlans) {
@@ -315,7 +406,7 @@ function App() {
 
           <a
             className="header-cta"
-            href={isPlans ? '#planes' : isEntrepreneurs || isFairs ? '#planes-postular' : '#participar'}
+            href={participateHref}
             onClick={(event) => {
               if (isPlans) {
                 event.preventDefault()
@@ -347,7 +438,7 @@ function App() {
       ) : isEntrepreneurs ? (
         <Entrepreneurs />
       ) : isFairs ? (
-        <UpcomingFairs />
+        <UpcomingFairs selectedEditionId={isPastFairDetail ? currentHash.slice('#feria/'.length) : null} />
       ) : (
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -440,8 +531,8 @@ function App() {
                     <Icon
                       size={40}
                       strokeWidth={benefit.tone === 'mint' ? 2.6 : 2}
-                      fill={benefit.tone === 'pink' ? '#f36a7a' : 'none'}
-                      stroke={benefit.tone === 'pink' ? 'none' : 'currentColor'}
+                      fill={benefit.tone === 'lavender' ? '#8b63cc' : 'none'}
+                      stroke={benefit.tone === 'lavender' ? 'none' : 'currentColor'}
                       aria-hidden="true"
                     />
                   </div>
@@ -617,9 +708,9 @@ function App() {
           <nav className="footer-column" aria-label="Enlaces">
             <h3>Enlaces</h3>
             <a href="#inicio">Inicio</a>
-            <a href="#proximas-ferias">Próximas ferias</a>
+            <a href="#proximas-ferias">Ferias</a>
             <a href="#preguntas-frecuentes">Preguntas frecuentes</a>
-            <a href="#planes">Planes de stand</a>
+            <a href="#planes">Planes y precios</a>
           </nav>
 
           <div className="footer-column footer-contact" aria-label="Contacto">

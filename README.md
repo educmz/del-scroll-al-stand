@@ -119,33 +119,77 @@ ni envía datos por sí solo; para WhatsApp sigue la configuración del apartado
 
 Antes de difundir la feria, confirma la fecha, dirección y condiciones con el equipo organizador.
 
-## Próximas ferias
+## Ferias — estructura 2026
 
-La ruta `#proximas-ferias` muestra el evento **Feria Navideña: Mercado de Regalos**,
-con portada, detalles y mapa, ubicación y galería, y categorías participantes.
+La ruta `#proximas-ferias` comienza con un **banner general de Ferias**
+(sin etiqueta ni iconos decorativos), con una fotografía ambiental, un título
+atemporal y botones para explorar eventos o participar. La publicidad temática
+se muestra en la ficha del evento correspondiente.
 
-Las **preguntas frecuentes** se encuentran ahora en Inicio, justo antes del CTA final,
-en la ruta `#preguntas-frecuentes`. El enlace anterior
-`#proximas-ferias-preguntas` también lleva allí.
-Las fechas y el lugar de la maqueta se basan en la referencia proporcionada
-(12 y 13 de diciembre de 2026, Parque Próceres de la Independencia, Jesús María, Lima).
-Deben confirmarse con el organizador antes de anunciarse oficialmente.
+Después sigue esta arquitectura:
+**1) Feria Navideña destacada → 2) Próximas ferias → 3) Galería de ferias pasadas**.
+Se eliminó el CTA granate que aparecía debajo de la galería.
 
-El mapa utiliza Google Maps insertado mediante una búsqueda por nombre del parque,
-y un enlace externo para abrir la ubicación. No requiere una API key.
+### Feria principal: banner y ficha completa
 
-Las fotografías originales pueden subirse a `public/images/` con estos nombres:
+- Banner de `public/images/feria-navidad-banner.png` **dentro de la ficha destacada**, fecha y lugar.
+- La portada general utiliza `public/images/feria-portada.png`.
+- Cuatro datos: fecha, dirección, horario y condiciones de ingreso, junto con Google Maps.
+- Fotos adicionales editables: la foto referencial `feria-portada.png` y espacios reservados
+  para imágenes propias. No se muestran como fotos reales del evento si no lo son.
+- Marcas invitadas, identificadas individualmente cuando estén confirmadas. Mientras no
+  haya nombres reales hay cuatro espacios claramente marcados «Por anunciar».
+- Rubros de emprendimientos previstos.
+- Tres propuestas de publicación para Instagram, Facebook y TikTok con botón **Copiar contenido**,
+  y un botón **Compartir feria** con alternativa de copiar enlace.
 
-- `feria-navidad-portada.png`: imagen principal de la cabecera navideña.
-- `parque-proceres.png`: fotografía de la ubicación del evento.
-- `feria-galeria-1.png` a `feria-galeria-6.png`: galería de ediciones anteriores.
+El catálogo vive en `src/fairCatalog.ts`. Puedes editar `featuredFair` para ajustar
+horarios, ingreso, galería adicional, marcas invitadas o nuevos datos. **Los horarios
+«11:00 a. m. a 9:00 p. m.» y «Ingreso libre» son ejemplos inventados a solicitud
+del diseño y se muestran explícitamente como «Propuesta · por confirmar».**
+No publicar esos datos como oficiales sin verificar.
 
-Si falta alguna, se usa provisionalmente la foto existente `feria-portada.png`.
-Los controles del carrusel de Próximas ferias y las preguntas frecuentes en Inicio funcionan sin backend.
+### Próximas ferias
 
-El botón `Postular a esta feria` abre el formulario en Planes de stand
-(`#planes-postular`). El botón de WhatsApp se habilita al configurar
-la variable `APPLICATION_WHATSAPP_NUMBER` descrita anteriormente.
+Agregar ferias reales a `upcomingFairs` (mismo catálogo). No se inventan fechas:
+mientras el arreglo esté vacío, se muestra «Nuevas fechas por anunciar».
+
+### Galería de ferias pasadas — una tarjeta por edición
+
+Agregar ediciones reales a `pastEditions` en `src/fairCatalog.ts`. La cuadrícula se
+extiende automáticamente con **todas** las ediciones; no se limita a cinco fotografías
+ni existe un máximo fijo. Cada tarjeta navega a `#feria/<id>`, una ficha específica
+con historia, fecha, ubicación y galería propia, y enlaces para volver al catálogo.
+
+Mientras `pastEditions` no tenga datos, se muestran tres **tarjetas de demostración**
+marcadas «Ejemplo de diseño» y un aviso prominente que explica que no son eventos
+realizados. Estas tarjetas también abren fichas demostrativas. Cuando agregues una
+primera edición real, las fichas de muestra dejan de mostrarse automáticamente.
+
+Ejemplo de entrada real (completar con información y fotografías verificadas):
+
+```ts
+{
+  id: 'mi-feria-real',
+  name: 'Nombre real de la feria',
+  dates: 'Fecha oficial',
+  venue: 'Lugar real',
+  district: 'Distrito y ciudad',
+  description: 'Resumen de la edición',
+  cover: 'portada-mi-feria.png',
+  photos: [
+    { file: 'galeria-mi-feria-01.png', alt: 'Descripción de la fotografía' },
+  ],
+}
+```
+
+Las imágenes se guardan en `public/images/`. No se deben atribuir fotografías
+referenciales ni contenido ficticio a ediciones realizadas.
+
+La postulación a una feria sigue dirigiendo a `#planes-postular` con el parámetro
+`?feria=...`. El formulario incluye la feria seleccionada en el mensaje. Si no
+está configurado `VITE_APPLICATION_WHATSAPP_NUMBER`, no se afirma que se envió
+una postulación. Las preguntas frecuentes generales siguen en Inicio.
 
 ## Banners compartidos de las cuatro páginas internas
 
@@ -158,7 +202,7 @@ Para cambiar las fotos, sube los archivos a `public/images/`:
 
 | Página | Nombre de imagen |
 | --- | --- |
-| Próximas ferias | `feria-navidad-portada.png` |
+| Ferias | `feria-navidad-banner.png` |
 | Para emprendedores | `para-emprendedores-portada.png` |
 | Planes de stand | `planes-portada.png` |
 | Sobre nosotros | `sobre-nosotros-portada.png` |

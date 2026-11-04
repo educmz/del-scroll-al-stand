@@ -5,6 +5,7 @@ import {
   Send, ShieldCheck, Store, Table2, UsersRound, Zap,
 } from 'lucide-react'
 import PageHero from './PageHero'
+import { featuredFair, upcomingFairs, getFairById } from './fairCatalog'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './StandPlans.css'
@@ -125,6 +126,10 @@ function JumpToForm({ children, className = '', plan }: { children: ReactNode; c
 
 function ApplicationForm() {
   const [selectedPlan, setSelectedPlan] = useState<PlanId | ''>('')
+  const [selectedFairId, setSelectedFairId] = useState(() => {
+    const requestedId = new URLSearchParams(window.location.search).get('feria')
+    return getFairById(requestedId)?.id || ''
+  })
   const [feedback, setFeedback] = useState('')
   const [application, setApplication] = useState({
     business: '',
@@ -152,8 +157,10 @@ function ApplicationForm() {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const planName = plans.find((plan) => plan.id === selectedPlan)?.name || 'Por definir'
+    const selectedFair = getFairById(selectedFairId)
     const message = [
       'Hola, quiero postular a Del Scroll al Stand.',
+      'Feria de interés: ' + (selectedFair?.name || 'Por definir'),
       `Emprendimiento: ${application.business}`,
       `Nombre: ${application.fullName}`,
       `WhatsApp: ${application.whatsapp}`,
@@ -183,6 +190,24 @@ function ApplicationForm() {
         <SectionEyebrow>CUÉNTANOS SOBRE TU MARCA</SectionEyebrow>
         <h3>Formulario de Postulación</h3>
       </div>
+      <label>
+        Feria de interés
+        <span className="plans-select-wrap">
+          <select
+            value={selectedFairId}
+            onChange={(event) => {
+              setSelectedFairId(event.target.value)
+              setFeedback('')
+            }}
+          >
+            <option value="">Aún no lo sé</option>
+            {[featuredFair, ...upcomingFairs].map((fair) => (
+              <option key={fair.id} value={fair.id}>{fair.name}</option>
+            ))}
+          </select>
+          <ChevronDown size={17} aria-hidden="true" />
+        </span>
+      </label>
       <label>
         <span className="plans-field-label">Nombre del emprendimiento <b aria-hidden="true">*</b></span>
         <input value={application.business} onChange={(event) => setApplication({ ...application, business: event.target.value })} required maxLength={100} placeholder="Nombre de tu marca" />
@@ -231,10 +256,11 @@ export default function StandPlans() {
     <main className="stand-plans-page" id="stand-plans-page">
       <PageHero
         id="plans-main-title"
-        eyebrow="Elige tu espacio"
-        badgeIcon="sparkles"
-        title={<><span>Planes de</span><em>Stand</em></>}
-        description="Elige el plan ideal para tu emprendimiento y lleva tu marca a nuestras ferias."
+        compactTitle
+        hideDecorations
+        showSwoosh
+        title={<><span>Planes y</span><em>precios</em></>}
+        description="Encuentra el espacio ideal para tu marca y elige cómo participar en nuestras ferias."
         imageFile="planes-portada.png"
         imageAlt="Emprendedora en su stand de feria"
         actions={
@@ -249,13 +275,7 @@ export default function StandPlans() {
             </button>
           </>
         }
-      >
-        <ul className="page-hero__highlights">
-          <li>Más visibilidad en ferias con alto flujo.</li>
-          <li>Conecta con nuevos clientes y aliados.</li>
-          <li>Impulsa tus ventas en un entorno real.</li>
-        </ul>
-      </PageHero>
+      />
 
       <section className="plans-catalog" aria-labelledby="plans-catalog-title">
         <Heading
@@ -304,7 +324,14 @@ export default function StandPlans() {
                   <th scope="row">{row.feature}</th>
                   {row.values.map((value, index) => (
                     <td key={index} className={value === '—' ? 'plans-no' : 'plans-yes'}>
-                      {value.startsWith('✓') ? <><Check size={17} strokeWidth={3} aria-hidden="true" />{value.slice(1).trim() && <span>{value.slice(1).trim()}</span>}</> : value}
+                      <span className="plans-cell-content">
+                        {value.startsWith('✓') ? (
+                          <>
+                            <Check size={18} strokeWidth={3} aria-hidden="true" />
+                            {value.slice(1).trim() && <span className="plans-cell-note">{value.slice(1).trim()}</span>}
+                          </>
+                        ) : value}
+                      </span>
                     </td>
                   ))}
                 </tr>
@@ -335,18 +362,20 @@ export default function StandPlans() {
         </div>
       </section>
 
-      <section className="plans-application" aria-label="Postulación de expositores">
-        <div className="plans-apply-left">
+      <section className="plans-application" aria-labelledby="plans-apply-title">
+        <header className="plans-apply-heading">
           <div className="title-eyebrow-group">
             <SectionEyebrow>EL PRIMER PASO ES AQUÍ</SectionEyebrow>
             <div className="plans-accent-heading title-eyebrow-heading">
               <TitleRays side="left" />
-              <h2>Postula como expositor</h2>
+              <h2 id="plans-apply-title">Postula como expositor</h2>
               <TitleRays side="right" />
             </div>
           </div>
           <p className="plans-apply-intro">Es muy fácil. Completa el formulario y nuestro equipo revisará tu propuesta.</p>
-          <div className="plans-apply-content">
+        </header>
+        <div className="plans-apply-layout">
+          <div className="plans-apply-info">
             <ol className="plans-apply-steps">
               {applicationSteps.map(({ title, detail, icon: Icon }, index) => (
                 <li key={title}>
@@ -357,27 +386,27 @@ export default function StandPlans() {
                 </li>
               ))}
             </ol>
-            <ApplicationForm />
-          </div>
-        </div>
-        <aside className="plans-apply-right">
-          <div className="plans-selection-card">
-            <BadgeCheck size={44} strokeWidth={1.8} aria-hidden="true" />
-            <div>
-              <div className="title-eyebrow-group">
-                <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
-                <h3>¿Cómo elegimos a los expositores?</h3>
+            <aside className="plans-apply-right">
+              <div className="plans-selection-card">
+                <BadgeCheck size={44} strokeWidth={1.8} aria-hidden="true" />
+                <div>
+                  <div className="title-eyebrow-group">
+                    <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
+                    <h3>¿Cómo elegimos a los expositores?</h3>
+                  </div>
+                  <p>Buscamos emprendimientos auténticos, con productos o servicios de calidad, propuestas de valor claras y alineados con el espíritu de nuestras ferias: diversidad, creatividad, comunidad y experiencia positiva para los visitantes.</p>
+                  <ul>
+                    <li><Check size={15} /> Originalidad y calidad de la propuesta.</li>
+                    <li><Check size={15} /> Alineación con la temática de la feria.</li>
+                    <li><Check size={15} /> Variedad para ofrecer una experiencia diversa.</li>
+                    <li><Check size={15} /> Compromiso y buena disposición para la feria.</li>
+                  </ul>
+                </div>
               </div>
-              <p>Buscamos emprendimientos auténticos, con productos o servicios de calidad, propuestas de valor claras y alineados con el espíritu de nuestras ferias: diversidad, creatividad, comunidad y experiencia positiva para los visitantes.</p>
-              <ul>
-                <li><Check size={15} /> Originalidad y calidad de la propuesta.</li>
-                <li><Check size={15} /> Alineación con la temática de la feria.</li>
-                <li><Check size={15} /> Variedad para ofrecer una experiencia diversa.</li>
-                <li><Check size={15} /> Compromiso y buena disposición para la feria.</li>
-              </ul>
-            </div>
+            </aside>
           </div>
-        </aside>
+          <ApplicationForm />
+        </div>
       </section>
 
     </main>

@@ -38,7 +38,7 @@
 .plans-heading-block .section-overline,
 .plans-compare-intro .section-overline,
 .plans-services-heading-block .section-overline,
-.plans-apply-left .section-overline {
+.plans-apply-heading .section-overline {
   color: #aa4658;
 }
 .plans-section-heading,
@@ -235,11 +235,8 @@
 .plans-compare {
   width: min(calc(100% - 52px), 1250px);
   margin: 0 auto;
-  padding: clamp(28px, 3.5vw, 48px);
-  border: 1px solid #edd8ca;
-  border-radius: 32px;
-  background: #fffaf3;
-  box-shadow: 0 11px 30px rgba(102, 58, 47, .065);
+  padding: clamp(14px, 2.3vw, 26px) 0;
+  background: transparent;
 }
 .plans-compare-intro {
   margin: 0 auto 30px;
@@ -278,7 +275,7 @@
   font: 700 15px/1.35 var(--font-card-title);
   text-align: center;
 }
-.plans-table thead th:first-child { text-align: left; background: #fffaf6; }
+.plans-table thead th:first-child { width: 38%; text-align: center; background: #fffaf6; }
 .plans-table thead th:nth-child(2) { background: #e4f2e8; }
 .plans-table thead th:nth-child(3) { background: #fff0d5; }
 .plans-table thead th:nth-child(4) { background: #ffe3e7; }
@@ -286,10 +283,21 @@
   width: 38%;
   color: #47313d;
   font-weight: 600;
-  text-align: left;
+  text-align: center;
 }
 .plans-table tbody tr:nth-child(even) { background: #fffcfa; }
 .plans-table td {
+  text-align: center;
+}
+.plans-cell-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  min-height: 24px;
+  margin-inline: auto;
   text-align: center;
 }
 .plans-yes {
@@ -297,11 +305,21 @@
   font-weight: 700;
 }
 .plans-yes svg {
+  display: block;
+  flex: 0 0 18px;
   width: 18px;
   height: 18px;
-  vertical-align: middle;
+  margin-inline: auto;
 }
-.plans-yes span { margin-left: 5px; color: #4f3a45; font-size: 12px; font-weight: 500; }
+.plans-yes .plans-cell-note {
+  display: block;
+  margin: 0;
+  color: #4f3a45;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
 .plans-no { color: #a69298; font-size: 20px; }
 
 /* Servicios: cuatro tarjetas como las de Inicio y Emprendedores. */
@@ -385,62 +403,76 @@
   font: 400 13px/1.68 var(--font-body);
 }
 
-/* Postulación: título y descripción claros, proceso y formulario funcional. */
+/* Postulación: título centrado y dos columnas.
+   Pasos + criterios a la izquierda, formulario a la derecha. */
 .plans-application {
-  display: grid;
-  grid-template-columns: minmax(0, 1.48fr) minmax(330px, .9fr);
-  align-items: start;
-  gap: clamp(24px, 2.4vw, 36px);
-  width: min(calc(100% - 52px), 1280px);
+  width: min(calc(100% - 52px), 1240px);
   margin: 0 auto;
-  padding: clamp(18px, 2vw, 30px) 0 clamp(70px, 7vw, 102px);
+  padding: clamp(30px, 3vw, 45px) 0 clamp(75px, 7.5vw, 110px);
 }
-.plans-apply-left,
-.plans-apply-right { min-width: 0; }
-.plans-apply-left > .title-eyebrow-group {
+.plans-apply-heading {
+  max-width: 900px;
+  margin: 0 auto clamp(29px, 3.8vw, 48px);
+  text-align: center;
+}
+.plans-apply-heading > .title-eyebrow-group {
   display: flex;
   width: fit-content;
   max-width: 100%;
   margin: 0 auto;
 }
-.plans-apply-left > .title-eyebrow-group > .section-overline { text-align: center; }
-.plans-apply-left .plans-accent-heading h2 { font-size: clamp(29px, 2.75vw, 42px); }
-.plans-apply-intro {
-  max-width: 680px;
-  margin: 14px auto 28px;
-  text-align: center;
-}
-.plans-apply-content {
+.plans-apply-heading > .title-eyebrow-group > .section-overline { text-align: center; }
+.plans-apply-heading .plans-accent-heading h2 { font-size: clamp(31px, 3.15vw, 45px); }
+.plans-apply-intro { max-width: 670px; margin: 15px auto 0; text-align: center; }
+.plans-apply-layout {
   display: grid;
-  grid-template-columns: minmax(205px, .78fr) minmax(0, 1.3fr);
-  align-items: start;
-  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(22px, 3.5vw, 54px);
+  width: min(100%, 1140px);
+  margin: 0 auto;
+}
+.plans-apply-info {
+  display: grid;
+  align-content: start;
+  gap: clamp(20px, 2.4vw, 30px);
+  height: 100%;
+  min-width: 0;
 }
 .plans-apply-steps {
   display: grid;
-  gap: 14px;
-  min-width: 0;
+  gap: 13px;
+  width: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .plans-apply-steps li {
   position: relative;
-  display: grid;
-  grid-template-columns: 55px minmax(0, 1fr);
-  align-items: start;
-  gap: 13px;
-  min-height: 120px;
-  padding: 18px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 150px;
+  padding: 22px 34px;
   border: 1px solid #efdcd3;
   border-radius: 23px;
   background: #fffaf7;
+  text-align: center;
+}
+.plans-apply-steps li > div {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
 }
 .plans-step-icon {
   display: grid;
+  flex: 0 0 53px;
   place-items: center;
   width: 53px;
   height: 53px;
+  margin-inline: auto;
   border-radius: 17px;
   background: #ffe1e6;
   color: #aa465a;
@@ -467,21 +499,27 @@
   font: 700 12px/1 var(--font-section-label);
 }
 .plans-apply-steps h3 {
-  margin: 3px 0 8px;
+  margin: 0 0 6px;
   color: #3c2832;
   font: 700 13px/1.4 var(--font-card-title);
+  text-align: center;
 }
 .plans-apply-steps p {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 390px;
   color: #715f68;
   font: 400 12px/1.6 var(--font-body);
+  text-align: center;
 }
 .plans-step-arrow { display: none; }
 
 /* Formulario accesible, sin modificar lógica de postulación. */
 .plans-application-form {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
+  align-self: stretch;
+  height: 100%;
   min-width: 0;
   scroll-margin-top: 105px;
   padding: clamp(21px, 2.1vw, 30px);
@@ -573,7 +611,7 @@
   gap: 9px;
   width: 100%;
   min-height: 49px;
-  margin-top: 3px;
+  margin-top: auto;
   padding: 10px 19px;
   border: 0;
   border-radius: 999px;
@@ -594,20 +632,17 @@
 }
 
 /* Selección de marcas: criterios para la postulación. */
-.plans-apply-right {
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
-  padding-top: 86px;
-}
+.plans-apply-right { width: 100%; min-width: 0; }
 .plans-selection-card {
   display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
   padding: clamp(23px, 2.35vw, 31px);
   border: 1px solid #f0dcb9;
   border-radius: 28px;
   background: #fff5de;
+  text-align: center;
 }
 .plans-selection-card > svg {
   flex: 0 0 43px;
@@ -615,8 +650,8 @@
   height: 43px;
   color: #ae7e35;
 }
-.plans-selection-card > div { min-width: 0; }
-.plans-selection-card .title-eyebrow-group { max-width: 100%; }
+.plans-selection-card > div { min-width: 0; width: 100%; }
+.plans-selection-card .title-eyebrow-group { max-width: 100%; margin: 0 auto; }
 .plans-selection-card .section-overline {
   margin-bottom: 7px;
   color: #9b7035;
@@ -635,9 +670,12 @@
 .plans-selection-card ul {
   display: grid;
   gap: 10px;
-  margin: 0;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
   padding: 0;
   list-style: none;
+  text-align: left;
 }
 .plans-selection-card li {
   display: flex;
@@ -655,23 +693,19 @@
   .plans-catalog, .plans-compare, .plans-services, .plans-application {
     width: min(calc(100% - 44px), 1000px);
   }
-  .plans-application { grid-template-columns: 1fr; gap: 30px; }
-  .plans-apply-right {
-    display: block;
-    width: min(100%, 680px);
-    margin-inline: auto;
-    padding-top: 0;
-  }
+  .plans-apply-layout { gap: 24px; }
 }
 @media (max-width: 940px) {
   .plans-card-grid { grid-template-columns: 1fr; max-width: 600px; margin: 0 auto; gap: 24px; }
   .plans-card-photo { height: 235px; }
   .plans-services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .plans-apply-content { grid-template-columns: 1fr; }
-  .plans-apply-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .plans-apply-steps li { grid-template-columns: 1fr; gap: 10px; min-height: 200px; padding: 19px; }
+  .plans-apply-layout { grid-template-columns: 1fr; max-width: 660px; gap: 31px; }
+  .plans-apply-info { width: 100%; height: auto; }
+  .plans-apply-steps { grid-template-columns: 1fr; }
+  .plans-apply-steps li { min-height: 142px; }
   .plans-step-number { top: 13px; right: 14px; }
-  .plans-application-form { max-width: 680px; width: 100%; margin: 0 auto; }
+  .plans-application-form { max-width: 660px; width: 100%; height: auto; margin: 0 auto; }
+  .plans-submit { margin-top: 3px; }
   .plans-selection-card { width: 100%; }
 }
 @media (max-width: 640px) {
@@ -679,7 +713,7 @@
     width: calc(100% - 32px);
   }
   .plans-catalog { padding-block: 62px 68px; }
-  .plans-compare { padding: 20px 14px 24px; border-radius: 25px; }
+  .plans-compare { padding: 16px 0 22px; }
   .plans-services { padding-block: 74px; }
   .plans-heading-block { margin-bottom: 26px; }
   .plans-section-heading h2,
@@ -697,11 +731,11 @@
   .plans-service { min-height: 0; flex-direction: row; align-items: center; padding: 20px; gap: 15px; }
   .plans-service-icon { flex-basis: 58px; width: 58px; height: 58px; }
   .plans-application { padding-bottom: 73px; }
-  .plans-apply-steps { grid-template-columns: 1fr; gap: 11px; }
-  .plans-apply-steps li { grid-template-columns: 52px minmax(0, 1fr); align-items: center; min-height: 0; }
+  .plans-apply-steps { gap: 11px; }
+  .plans-apply-steps li { min-height: 135px; padding: 20px 32px; }
   .plans-application-form { padding: 23px 18px; }
   .plans-input-grid { grid-template-columns: 1fr; }
-  .plans-selection-card { flex-direction: column; }
+  .plans-selection-card { padding-inline: 19px; }
 }
 @media (max-width: 390px) {
   .plans-catalog, .plans-compare, .plans-services, .plans-application {
@@ -710,7 +744,7 @@
   .plans-card-header { align-items: flex-start; }
   .plans-card-photo { height: 170px; }
   .plans-card-content li { font-size: 12px; }
-  .plans-apply-left .plans-accent-heading h2 { font-size: 25px; }
+  .plans-apply-heading .plans-accent-heading h2 { font-size: 27px; }
 
 }
 @media (prefers-reduced-motion: reduce) {

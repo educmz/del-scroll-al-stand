@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import {
-  ArrowRight, CalendarDays, ChartNoAxesCombined, ClipboardPenLine,
-  Image as ImageIcon, MapPin, Megaphone, Play, ShieldCheck,
+  ArrowRight, CalendarDays, ChartNoAxesCombined,
+  Image as ImageIcon, MapPin, Megaphone, ShieldCheck,
   ChartColumnIncreasing, Star, Store, UsersRound,
 } from 'lucide-react'
 import PageHero from './PageHero'
+import { featuredFair, fairApplicationHref } from './fairCatalog'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './Entrepreneurs.css'
@@ -128,20 +129,20 @@ export default function Entrepreneurs() {
     <main className="entre-page" id="entrepreneurs-page">
       <PageHero
         id="entre-main-title"
-        eyebrow="Haz crecer tu marca"
-        badgeIcon="store"
         compactTitle
-        title={<><span>Para</span><em>Emprendedores</em></>}
-        description="Impulsa tu emprendimiento en ferias temáticas que conectan tu marca con más personas."
+        hideDecorations
+        showSwoosh
+        title={<><span>Tu marca</span><em>en persona</em></>}
+        description="Conecta con nuevos clientes y haz que más personas descubran lo que haces."
         imageFile="para-emprendedores-portada.png"
         imageAlt="Emprendedora atendiendo a una visitante en su stand"
         actions={
           <>
             <a href="#planes-postular" className="page-hero__button page-hero__button--primary">
-              <ClipboardPenLine size={19} aria-hidden="true" /> Postula tu marca
+              Postula tu marca
             </a>
             <a href="#planes" className="page-hero__button page-hero__button--secondary">
-              <Play size={19} aria-hidden="true" /> Conoce los planes
+              Ver planes
             </a>
           </>
         }
@@ -210,7 +211,7 @@ export default function Entrepreneurs() {
               <p><MapPin size={21} strokeWidth={2} aria-hidden="true" /><span>Parque Próceres de la Independencia, Jesús María, Lima</span></p>
             </div>
             <div className="entre-event-actions">
-              <a href="#planes-postular" className="entre-event-cta">
+              <a href={fairApplicationHref(featuredFair)} className="entre-event-cta">
                 Postula tu marca <ArrowRight size={19} aria-hidden="true" />
               </a>
               <a href="#proximas-ferias" className="entre-event-link">
