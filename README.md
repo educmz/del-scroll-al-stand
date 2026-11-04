@@ -132,7 +132,9 @@ La información de ferias se mantiene en **`src/fairCatalog.ts`**:
 - `upcomingFairs`: agregar solo ferias futuras con datos confirmados. Mientras esté vacío,
   la web muestra que no hay nuevas fechas anunciadas, sin inventar eventos.
 - `pastEditions`: registrar ediciones realizadas con fotografías auténticas en
-  `public/images/`. La galería se oculta si aún no existe material real.
+  `public/images/`. La **galería de ferias pasadas siempre es visible**;
+  mientras esté vacía muestra un mosaico de espacios reservados claramente identificados,
+  sin simular fotografías reales. Una vez cargadas, permite ampliarlas y navegar entre ellas.
 - `applicationsOpen`: establecer `true` o `false` cuando se confirme el estado
   de la convocatoria. Sin valor, se muestra «Convocatoria por confirmar».
 - `schedule` y `access`: completar al conocer horario y condiciones de ingreso.
@@ -142,6 +144,20 @@ La portada de Feria Navideña usa el recurso **`public/images/feria-navidad-bann
 disponible en el repositorio, y su respaldo visual es `feria-portada.png`.
 Las fotografías de ferias pasadas no se sustituyen por fotos ilustrativas:
 solo se publican cuando se registran ediciones verificadas.
+
+Para llenar la galería, guarda tus fotografías verificadas en `public/images/`
+y añade sus rutas, nombre y fecha a `pastEditions` en `src/fairCatalog.ts`.
+Ejemplo de una edición real (sustituye los campos con datos auténticos):
+
+```ts
+{
+  id: 'edicion-real',
+  name: 'Nombre de la edición',
+  dates: 'Fecha de realización',
+  photos: [{ file: 'feria-galeria-1.png', alt: 'Descripción de la foto' }],
+}
+```
+
 
 El visitante puede revisar los detalles y abrir Google Maps. Los emprendedores
 pueden pulsar «Quiero ser expositor» o «Solicitar participación». Esos enlaces
