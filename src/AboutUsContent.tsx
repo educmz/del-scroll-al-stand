@@ -1,4 +1,4 @@
-import { ArrowUpRight, Camera, Gem, Handshake, Heart, ShieldCheck, ShoppingBag, Sparkles, Store, Target, UsersRound, TrendingUp } from 'lucide-react'
+import { ArrowUpRight, Camera, Gem, Handshake, Heart, ShieldCheck, Sparkles, Store, Target, UsersRound, TrendingUp } from 'lucide-react'
 import SectionEyebrow from './SectionEyebrow'
 import TitleRays from './TitleRays'
 import './AboutUsContent.css'
@@ -181,7 +181,6 @@ export default function AboutUsContent() {
             label="Una fotografía que represente nuestra comunidad"
             className="about-purpose-photo"
           />
-          <span className="about-purpose-stamp" aria-hidden="true"><ShoppingBag size={23} strokeWidth={1.8} /></span>
         </div>
         <div className="about-purpose-body">
           <div className="title-eyebrow-group">
