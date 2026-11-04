@@ -1,9 +1,10 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import {
-  BadgeCheck, CalendarDays, Check, ChevronDown, ChevronRight, ClipboardList,
-  Flag, Megaphone, MessageCircle,
-  Send, ShieldCheck, Sparkles, Store, Table2, UsersRound, Zap,
+  BadgeCheck, Check, ChevronDown, ChevronRight, ClipboardList,
+  Megaphone, MessageCircle,
+  Send, ShieldCheck, Store, Table2, UsersRound, Zap,
 } from 'lucide-react'
+import PageHero from './PageHero'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './StandPlans.css'
@@ -69,32 +70,23 @@ const applicationSteps = [
   { title: 'Confirmación', detail: 'Te contactamos con los siguientes pasos y el plan asignado.', icon: MessageCircle },
 ]
 
-const planTestimonials = [
-  {
-    name: 'Ana P.',
-    handle: '@lunaarte',
-    quote: 'Participar en Del Scroll al Stand fue un gran impulso para mi marca. Vendí más de lo que esperaba y conecté con clientes increíbles.',
-    plan: 'Stand Plus',
-    image: 'testimonio-ana.webp',
-  },
-  {
-    name: 'Mateo R.',
-    handle: '@cafearte',
-    quote: 'La organización es excelente y el ambiente de la feria es muy positivo. Definitivamente volveré a participar.',
-    plan: 'Stand Premium',
-    image: 'testimonio-diego.webp',
-  },
-]
-
-function Heading({ children, eyebrow }: { children: string; eyebrow: string }) {
+function Heading({ children, eyebrow, id, description }: {
+  children: string
+  eyebrow: string
+  id?: string
+  description?: string
+}) {
   return (
     <div className="plans-heading-block">
-      <SectionEyebrow>{eyebrow}</SectionEyebrow>
-      <div className="plans-section-heading">
-        <TitleRays side="left" />
-        <h2>{children}</h2>
-        <TitleRays side="right" />
+      <div className="title-eyebrow-group">
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
+        <div className="plans-section-heading title-eyebrow-heading">
+          <TitleRays side="left" />
+          <h2 id={id}>{children}</h2>
+          <TitleRays side="right" />
+        </div>
       </div>
+      {description && <p className="plans-heading-description">{description}</p>}
     </div>
   )
 }
@@ -127,26 +119,6 @@ function JumpToForm({ children, className = '', plan }: { children: ReactNode; c
       }}
     >
       {children}
-    </button>
-  )
-}
-
-function WhatsAppReserve() {
-  const contactNumber = (import.meta.env.VITE_APPLICATION_WHATSAPP_NUMBER || '').replace(/\D/g, '')
-
-  return (
-    <button
-      type="button"
-      className="plans-final-whatsapp"
-      disabled={!contactNumber}
-      title={!contactNumber ? 'La reserva por WhatsApp se habilitará al configurar el número de contacto.' : 'Abrir WhatsApp para reservar'}
-      onClick={() => {
-        if (contactNumber) {
-          window.open(`https://wa.me/${contactNumber}?text=${encodeURIComponent('Hola, quiero reservar un stand para la próxima feria de Del Scroll al Stand.')}`, '_blank', 'noopener,noreferrer')
-        }
-      }}
-    >
-      <MessageCircle size={19} aria-hidden="true" /> Reservar por WhatsApp
     </button>
   )
 }
@@ -207,28 +179,30 @@ function ApplicationForm() {
 
   return (
     <form id="stand-plans-form" className="plans-application-form" onSubmit={onSubmit}>
-      <SectionEyebrow>CUÉNTANOS SOBRE TU MARCA</SectionEyebrow>
-      <h3>Formulario de Postulación</h3>
+      <div className="title-eyebrow-group plans-application-heading">
+        <SectionEyebrow>CUÉNTANOS SOBRE TU MARCA</SectionEyebrow>
+        <h3>Formulario de Postulación</h3>
+      </div>
       <label>
-        Nombre del emprendimiento <span aria-hidden="true">*</span>
+        <span className="plans-field-label">Nombre del emprendimiento <b aria-hidden="true">*</b></span>
         <input value={application.business} onChange={(event) => setApplication({ ...application, business: event.target.value })} required maxLength={100} placeholder="Nombre de tu marca" />
       </label>
       <label>
-        Tu nombre completo <span aria-hidden="true">*</span>
+        <span className="plans-field-label">Tu nombre completo <b aria-hidden="true">*</b></span>
         <input value={application.fullName} onChange={(event) => setApplication({ ...application, fullName: event.target.value })} required maxLength={120} placeholder="Nombres y apellidos" autoComplete="name" />
       </label>
       <div className="plans-input-grid">
         <label>
-          WhatsApp <span aria-hidden="true">*</span>
+          <span className="plans-field-label">WhatsApp <b aria-hidden="true">*</b></span>
           <input value={application.whatsapp} onChange={(event) => setApplication({ ...application, whatsapp: event.target.value })} required type="tel" inputMode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="+51 987 654 321" autoComplete="tel" />
         </label>
         <label>
-          Correo electrónico <span aria-hidden="true">*</span>
+          <span className="plans-field-label">Correo electrónico <b aria-hidden="true">*</b></span>
           <input value={application.email} onChange={(event) => setApplication({ ...application, email: event.target.value })} required type="email" placeholder="tuemail@ejemplo.com" autoComplete="email" />
         </label>
       </div>
       <label>
-        Cuéntanos sobre tu emprendimiento <span aria-hidden="true">*</span>
+        <span className="plans-field-label">Cuéntanos sobre tu emprendimiento <b aria-hidden="true">*</b></span>
         <textarea value={application.description} onChange={(event) => setApplication({ ...application, description: event.target.value })} rows={3} maxLength={1000} required placeholder="¿Qué productos o servicios ofreces? ¿Cuál es tu propuesta de valor?" />
       </label>
       <label>
@@ -255,27 +229,44 @@ function ApplicationForm() {
 export default function StandPlans() {
   return (
     <main className="stand-plans-page" id="stand-plans-page">
-      <section className="plans-hero" aria-labelledby="plans-main-title">
-        <div className="plans-hero-text">
-          <h1 id="plans-main-title"><span>Planes de</span> <em>Stand</em></h1>
-          <p className="plans-hero-ribbon">Elige el plan ideal para tu emprendimiento<br />y lleva tu marca a nuestras ferias.</p>
-          <div className="plans-hero-points">
-            <div><span className="plans-point-icon tone-yellow"><Store size={27} /></span><p><strong>Más visibilidad</strong> en ferias con alto flujo.</p></div>
-            <div><span className="plans-point-icon tone-yellow"><UsersRound size={27} /></span><p><strong>Conecta</strong> con nuevos clientes y aliados.</p></div>
-            <div><span className="plans-point-icon tone-pink"><Flag size={27} /></span><p><strong>Impulsa tus ventas</strong> en un entorno real.</p></div>
-          </div>
-        </div>
-        <div className="plans-hero-media">
-          <StandPhoto file="planes-portada.png" alt="Emprendedora en su stand de feria" className="plans-hero-image" />
-        </div>
-      </section>
+      <PageHero
+        id="plans-main-title"
+        eyebrow="Elige tu espacio"
+        badgeIcon="sparkles"
+        title={<><span>Planes de</span><em>Stand</em></>}
+        description="Elige el plan ideal para tu emprendimiento y lleva tu marca a nuestras ferias."
+        imageFile="planes-portada.png"
+        imageAlt="Emprendedora en su stand de feria"
+        actions={
+          <>
+            <JumpToForm className="page-hero__button page-hero__button--primary">Postula tu marca</JumpToForm>
+            <button
+              type="button"
+              className="page-hero__button page-hero__button--secondary"
+              onClick={() => document.getElementById('plans-comparison-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              Comparar planes
+            </button>
+          </>
+        }
+      >
+        <ul className="page-hero__highlights">
+          <li>Más visibilidad en ferias con alto flujo.</li>
+          <li>Conecta con nuevos clientes y aliados.</li>
+          <li>Impulsa tus ventas en un entorno real.</li>
+        </ul>
+      </PageHero>
 
       <section className="plans-catalog" aria-labelledby="plans-catalog-title">
-        <Heading eyebrow="ELIGE TU ESPACIO IDEAL">Conoce nuestros planes</Heading>
-        <div className="plans-card-grid" id="plans-catalog-title">
+        <Heading
+          eyebrow="ELIGE TU ESPACIO IDEAL"
+          id="plans-catalog-title"
+          description="Tres opciones pensadas para que tu marca crezca y se conecte con nuevos clientes."
+        >Conoce nuestros planes</Heading>
+        <div className="plans-card-grid">
           {plans.map((plan) => (
             <article className={`plans-card plans-card-${plan.id}`} key={plan.id}>
-              {plan.id === 'plus' && <span className="plans-most-popular">★ Más elegido</span>}
+              {plan.id === 'plus' && <span className="plans-most-popular"><BadgeCheck size={15} aria-hidden="true" /> Más elegido</span>}
               <header className="plans-card-header">
                 <span className="plans-card-icon"><Store size={38} strokeWidth={1.9} aria-hidden="true" /></span>
                 <div><h3>{plan.name}</h3><p>{plan.tagline}</p></div>
@@ -294,11 +285,13 @@ export default function StandPlans() {
 
       <section className="plans-compare" aria-labelledby="plans-comparison-title">
         <div className="plans-compare-intro">
-          <SectionEyebrow>ENCUENTRA TU MEJOR OPCIÓN</SectionEyebrow>
-          <div className="plans-accent-heading">
-            <TitleRays side="left" />
-            <h2 id="plans-comparison-title">Comparativa<br />de planes</h2>
-            <TitleRays side="right" />
+          <div className="title-eyebrow-group">
+            <SectionEyebrow>ENCUENTRA TU MEJOR OPCIÓN</SectionEyebrow>
+            <div className="plans-accent-heading title-eyebrow-heading">
+              <TitleRays side="left" />
+              <h2 id="plans-comparison-title">Comparativa<br />de planes</h2>
+              <TitleRays side="right" />
+            </div>
           </div>
           <p>Elige fácilmente el plan que mejor se adapte a tus objetivos.</p>
         </div>
@@ -323,30 +316,34 @@ export default function StandPlans() {
 
       <section className="plans-services" aria-labelledby="plans-services-title">
         <div className="plans-services-heading-block">
-          <SectionEyebrow>TODO PARA HACERTE BRILLAR</SectionEyebrow>
-          <div className="plans-accent-heading">
-          <TitleRays side="left" />
-          <h2 id="plans-services-title">Servicios que<br />potencian tu stand</h2>
-            <TitleRays side="right" />
+          <div className="title-eyebrow-group">
+            <SectionEyebrow>TODO PARA HACERTE BRILLAR</SectionEyebrow>
+            <div className="plans-accent-heading title-eyebrow-heading">
+              <TitleRays side="left" />
+              <h2 id="plans-services-title">Servicios que<br />potencian tu stand</h2>
+              <TitleRays side="right" />
+            </div>
           </div>
         </div>
         <div className="plans-services-grid">
           {services.map(({ title, text, icon: Icon, tone }) => (
-            <div className="plans-service" key={title}>
+            <article className="plans-service" key={title}>
               <span className={`plans-service-icon tone-${tone}`}><Icon size={31} strokeWidth={1.8} aria-hidden="true" /></span>
               <div><h3>{title}</h3><p>{text}</p></div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
 
       <section className="plans-application" aria-label="Postulación de expositores">
         <div className="plans-apply-left">
-          <SectionEyebrow>EL PRIMER PASO ES AQUÍ</SectionEyebrow>
-          <div className="plans-accent-heading">
-            <TitleRays side="left" />
-            <h2>Postula como expositor</h2>
-            <TitleRays side="right" />
+          <div className="title-eyebrow-group">
+            <SectionEyebrow>EL PRIMER PASO ES AQUÍ</SectionEyebrow>
+            <div className="plans-accent-heading title-eyebrow-heading">
+              <TitleRays side="left" />
+              <h2>Postula como expositor</h2>
+              <TitleRays side="right" />
+            </div>
           </div>
           <p className="plans-apply-intro">Es muy fácil. Completa el formulario y nuestro equipo revisará tu propuesta.</p>
           <div className="plans-apply-content">
@@ -367,8 +364,10 @@ export default function StandPlans() {
           <div className="plans-selection-card">
             <BadgeCheck size={44} strokeWidth={1.8} aria-hidden="true" />
             <div>
-              <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
-              <h3>¿Cómo elegimos a los expositores?</h3>
+              <div className="title-eyebrow-group">
+                <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
+                <h3>¿Cómo elegimos a los expositores?</h3>
+              </div>
               <p>Buscamos emprendimientos auténticos, con productos o servicios de calidad, propuestas de valor claras y alineados con el espíritu de nuestras ferias: diversidad, creatividad, comunidad y experiencia positiva para los visitantes.</p>
               <ul>
                 <li><Check size={15} /> Originalidad y calidad de la propuesta.</li>
@@ -378,36 +377,9 @@ export default function StandPlans() {
               </ul>
             </div>
           </div>
-          <Heading eyebrow="EXPERIENCIAS QUE INSPIRAN">Lo que dicen nuestros expositores</Heading>
-          <div className="plans-exhibitor-testimonials">
-            {planTestimonials.map((testimonial) => (
-              <article key={testimonial.name} className="plans-exhibitor-testimonial">
-                <StandPhoto file={testimonial.image} alt={`Retrato de ${testimonial.name}`} />
-                <div>
-                  <span className="plans-small-stars" aria-label="Cinco estrellas">★★★★★</span>
-                  <p>“{testimonial.quote}”</p>
-                  <strong>{testimonial.name} · {testimonial.handle}</strong>
-                  <span className="plans-testimonial-tag">{testimonial.plan}</span>
-                </div>
-              </article>
-            ))}
-          </div>
         </aside>
       </section>
 
-      <section className="plans-final-banner" aria-label="Reserva tu stand">
-        <span className="plans-final-store"><Store size={59} strokeWidth={1.5} aria-hidden="true" /></span>
-        <div className="plans-final-copy">
-          <h2>¡Reserva tu stand ahora!</h2>
-          <p>Asegura tu participación en la próxima feria y dale más visibilidad a tu emprendimiento.</p>
-        </div>
-        <div className="plans-final-actions">
-          <WhatsAppReserve />
-          <JumpToForm className="plans-final-form"><CalendarDays size={19} /> Completar formulario</JumpToForm>
-        </div>
-        <Sparkles className="plans-final-sparkles" size={36} aria-hidden="true" />
-      </section>
-      <p className="plans-reference-note">Precios, beneficios y testimonios de muestra según la referencia de diseño. Confirma las condiciones antes de abrir postulaciones.</p>
     </main>
   )
 }
