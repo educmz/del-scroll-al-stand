@@ -944,7 +944,7 @@ button:focus-visible {
 
 .footer-wave {
   width: 100%;
-  height: 50px;
+  height: 60px;
   display: block;
   fill: #1b1d4e;
 }
@@ -953,24 +953,24 @@ button:focus-visible {
   display: grid;
   grid-template-columns: minmax(315px, 2.6fr) minmax(110px, 1fr) minmax(180px, 1.4fr) minmax(135px, 1fr) minmax(175px, 1.3fr);
   align-items: center;
-  gap: 28px;
+  gap: 30px;
   width: 100%;
-  min-height: 135px;
-  padding: 8px clamp(28px, 4vw, 52px) 28px;
+  min-height: 270px;
+  padding: 48px clamp(28px, 4vw, 60px) 65px;
   background: #1b1d4e;
 }
 
 .footer-identity {
   display: grid;
-  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-columns: 132px minmax(0, 1fr);
   align-items: center;
   gap: 23px;
 }
 
 .footer-logo {
   display: block;
-  width: 118px;
-  height: 92px;
+  width: 130px;
+  height: 112px;
   object-fit: contain;
 }
 
@@ -994,13 +994,13 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 3px;
+  gap: 9px;
 }
 
 .footer-column h3,
 .footer-socials h3 {
-  margin: 0 0 1px;
-  font-size: 15px;
+  margin: 0 0 9px;
+  font-size: 16px;
   font-weight: 700;
   line-height: 1.2;
 }
@@ -1008,7 +1008,7 @@ button:focus-visible {
 .footer-column a,
 .footer-column span {
   font-size: 14px;
-  line-height: 1.35;
+  line-height: 1.5;
   white-space: nowrap;
 }
 
@@ -1023,8 +1023,8 @@ button:focus-visible {
 
 .social-icons {
   display: flex;
-  gap: 8px;
-  padding-top: 5px;
+  gap: 10px;
+  padding-top: 8px;
 }
 
 .social-icon {
@@ -1051,7 +1051,10 @@ button:focus-visible {
   }
   .footer-content {
     grid-template-columns: minmax(260px, 2fr) repeat(3, minmax(105px, 1fr));
-    gap: 22px;
+    gap: 28px 22px;
+    min-height: 270px;
+    padding-top: 43px;
+    padding-bottom: 55px;
   }
   .footer-socials {
     grid-column: 1 / -1;
@@ -1128,8 +1131,9 @@ button:focus-visible {
   }
   .footer-content {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px 20px;
-    padding: 22px 24px 40px;
+    gap: 30px 20px;
+    min-height: 0;
+    padding: 42px 24px 60px;
   }
   .footer-identity {
     grid-column: 1 / -1;
