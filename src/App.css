@@ -313,34 +313,22 @@ button:focus-visible {
 }
 
 .hero-slogan {
-  position: relative;
-  z-index: 0;
-  isolation: isolate;
   width: fit-content;
   max-width: 100%;
-  margin: 0 auto 27px;
-  padding: 22px clamp(30px, 3.2vw, 46px);
+  margin: 0 auto 24px;
+  padding: 20px clamp(22px, 2.6vw, 36px);
+  border: 1px solid #efbec7;
+  border-radius: 19px;
+  background: #f9dce0;
+  box-shadow: 0 6px 18px rgba(126, 52, 72, .055);
   color: #331b27;
-  background: transparent;
-  border: 0;
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(25px, 2.35vw, 34px);
+  font-size: clamp(24px, 2.25vw, 32px);
   font-weight: 600;
-  line-height: 1.17;
-  letter-spacing: -.025em;
+  line-height: 1.24;
+  letter-spacing: -.022em;
+  text-align: center;
   text-wrap: balance;
-}
-
-/* Fondo SVG plano con una silueta irregular propia; nada de border-radius ovalado. */
-.hero-slogan-shape {
-  position: absolute;
-  z-index: -1;
-  inset: -5px -7px;
-  display: block;
-  width: calc(100% + 14px);
-  height: calc(100% + 10px);
-  overflow: visible;
-  pointer-events: none;
 }
 
 .hero-slogan-second {
@@ -564,17 +552,11 @@ button:focus-visible {
   }
 
   .hero-slogan {
-    margin-bottom: 25px;
-    padding: 18px 24px;
-    font-size: clamp(23px, 6vw, 28px);
-    line-height: 1.18;
-    letter-spacing: -.022em;
-  }
-
-  .hero-slogan-shape {
-    inset: -4px -5px;
-    width: calc(100% + 10px);
-    height: calc(100% + 8px);
+    margin-bottom: 23px;
+    padding: 15px 17px;
+    border-radius: 16px;
+    font-size: clamp(22px, 5.8vw, 27px);
+    line-height: 1.23;
   }
 
   .hero-description {
