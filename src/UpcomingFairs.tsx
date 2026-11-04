@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import {
   ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Camera,
-  Check, Clock3, Copy, Facebook, Gift, Image as ImageIcon, Info,
+  Clock3, Copy, Facebook, Gift, Image as ImageIcon, Info,
   Instagram, MapPin, Megaphone, MessageCircle, Share2,
-  ShoppingBag, Store, Ticket, Video, UsersRound,
+  ShoppingBag, Store, Ticket, Video,
 } from 'lucide-react'
 import PageHero from './PageHero'
 import TitleRays from './TitleRays'
