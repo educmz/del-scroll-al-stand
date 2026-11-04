@@ -664,14 +664,17 @@ button:focus-visible {
 /* Las cuatro tarjetas quedan directamente sobre el fondo crema del sitio. */
 .process-background {
   position: relative;
-  width: 100%;
-  margin: 46px auto 0;
+  /* Se extiende más allá del ancho de las tarjetas de beneficios. */
+  width: min(calc(100vw - 40px), 1760px);
+  left: 50%;
+  margin: 46px 0 0;
   padding: 0;
   background: transparent;
   border: 0;
   border-radius: 0;
   box-shadow: none;
   overflow: visible;
+  transform: translateX(-50%);
 }
 
 .process-grid {
@@ -732,15 +735,30 @@ button:focus-visible {
   mask-image: linear-gradient(90deg, transparent 35%, #000 50%, transparent 65%);
   -webkit-mask-size: 300% 100%;
   mask-size: 300% 100%;
-  animation: process-arrow-shimmer 3.2s ease-in-out infinite;
+  /* En reposo no se ve el reflejo: solo se activa sobre la tarjeta relacionada. */
+  opacity: 0;
+}
+
+/* El brillo recorre la flecha entre la tarjeta enfocada y la siguiente.
+   También se activa al señalar la tarjeta a la que llega esa flecha. */
+.process-item:hover .process-arrow-shine,
+.process-item:has(+ .process-item:hover) .process-arrow-shine,
+.process-item:focus-within .process-arrow-shine,
+.process-item:has(+ .process-item:focus-within) .process-arrow-shine {
+  animation: process-arrow-shimmer 1.15s ease-in-out both;
 }
 
 @keyframes process-arrow-shimmer {
-  0%, 12% {
+  0% {
+    opacity: 0;
     -webkit-mask-position: 100% 0;
     mask-position: 100% 0;
   }
-  58%, 100% {
+  12%, 68% {
+    opacity: 1;
+  }
+  88%, 100% {
+    opacity: 0;
     -webkit-mask-position: 0% 0;
     mask-position: 0% 0;
   }
@@ -873,8 +891,11 @@ button:focus-visible {
   }
 
   .process-background {
-    margin-top: 34px;
+    width: 100%;
+    left: auto;
+    margin: 34px auto 0;
     padding: 0;
+    transform: none;
   }
 
   .process-grid {
@@ -955,7 +976,11 @@ button:focus-visible {
     transform: none;
   }
 
-  .process-arrow-shine {
+  .process-arrow-shine,
+  .process-item:hover .process-arrow-shine,
+  .process-item:has(+ .process-item:hover) .process-arrow-shine,
+  .process-item:focus-within .process-arrow-shine,
+  .process-item:has(+ .process-item:focus-within) .process-arrow-shine {
     animation: none;
     display: none;
   }
