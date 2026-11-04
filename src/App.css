@@ -56,18 +56,19 @@ button:focus-visible {
 }
 
 .brand {
-  flex: 0 0 118px;
+  flex: 0 0 172px;
   display: flex;
-  width: 118px;
-  height: 81px;
+  width: 172px;
+  height: 83px;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .brand-logo {
   display: block;
-  width: 110px;
-  height: 78px;
+  width: 166px;
+  max-width: none;
+  height: auto;
   object-fit: contain;
 }
 
@@ -351,13 +352,13 @@ button:focus-visible {
   }
 
   .brand {
-    flex-basis: 104px;
+    flex-basis: 140px;
+    width: 140px;
     height: 75px;
   }
 
   .brand-logo {
-    width: 100px;
-    height: 71px;
+    width: 138px;
   }
 
   .header-cta {
@@ -444,6 +445,15 @@ button:focus-visible {
 }
 
 @media (max-width: 550px) {
+  .brand {
+    flex-basis: 130px;
+    width: 130px;
+  }
+
+  .brand-logo {
+    width: 128px;
+  }
+
   .topbar-content {
     gap: 8px;
     padding-inline: 16px;
