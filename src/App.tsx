@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import AboutUs from './AboutUs'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
+import UpcomingFairs from './UpcomingFairs'
 import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
@@ -160,6 +161,7 @@ function App() {
   const isAbout = currentHash.startsWith('#sobre-nosotros')
   const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
   const isEntrepreneurs = currentHash === '#emprendedores'
+  const isFairs = currentHash === '#proximas-ferias' || currentHash === '#proximas-ferias-preguntas'
 
   useEffect(() => {
     const onHashChange = () => {
@@ -175,13 +177,17 @@ function App() {
       window.requestAnimationFrame(() => {
         document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'auto', block: 'start' })
       })
-    } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs) {
+    } else if (currentHash === '#proximas-ferias-preguntas') {
+      window.requestAnimationFrame(() => {
+        document.getElementById('fair-faq')?.scrollIntoView({ behavior: 'auto', block: 'start' })
+      })
+    } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs || isFairs) {
       window.scrollTo(0, 0)
     }
-  }, [currentHash, isPlans, isEntrepreneurs])
+  }, [currentHash, isPlans, isEntrepreneurs, isFairs])
 
   return (
-    <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : isEntrepreneurs ? 'site-entrepreneurs' : ''}`}>
+    <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : isEntrepreneurs ? 'site-entrepreneurs' : isFairs ? 'site-fairs' : ''}`}>
       <header className="topbar">
         <div className="topbar-content">
           <a href="#inicio" className="brand" aria-label="Del Scroll al Stand — Inicio">
@@ -198,11 +204,11 @@ function App() {
             className={`primary-nav ${menuOpen ? 'is-open' : ''}`}
             aria-label="Navegación principal"
           >
-            {navigation.filter((item) => isAbout || isPlans || isEntrepreneurs || item.label !== 'Galería').map((item) => (
+            {navigation.filter((item) => isAbout || isPlans || isEntrepreneurs || isFairs || item.label !== 'Galería').map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : isPlans ? item.href === '#planes' : isEntrepreneurs ? item.href === '#emprendedores' : item.href === '#inicio') ? 'is-active' : ''}`}
+                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : isPlans ? item.href === '#planes' : isEntrepreneurs ? item.href === '#emprendedores' : isFairs ? item.href === '#proximas-ferias' : item.href === '#inicio') ? 'is-active' : ''}`}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
@@ -210,7 +216,7 @@ function App() {
             ))}
             <a
               className="mobile-participate"
-              href={isPlans ? '#planes' : isEntrepreneurs ? '#planes-postular' : '#participar'}
+              href={isPlans ? '#planes' : isEntrepreneurs || isFairs ? '#planes-postular' : '#participar'}
               onClick={(event) => {
                 setMenuOpen(false)
                 if (isPlans) {
@@ -226,7 +232,7 @@ function App() {
 
           <a
             className="header-cta"
-            href={isPlans ? '#planes' : isEntrepreneurs ? '#planes-postular' : '#participar'}
+            href={isPlans ? '#planes' : isEntrepreneurs || isFairs ? '#planes-postular' : '#participar'}
             onClick={(event) => {
               if (isPlans) {
                 event.preventDefault()
@@ -257,6 +263,8 @@ function App() {
         <StandPlans />
       ) : isEntrepreneurs ? (
         <Entrepreneurs />
+      ) : isFairs ? (
+        <UpcomingFairs />
       ) : (
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -437,14 +445,14 @@ function App() {
           <nav className="footer-column" aria-label="Enlaces">
             <h3>Enlaces</h3>
             <a href="#inicio">Inicio</a>
-            <span>Próximas ferias</span>
+            <a href="#proximas-ferias">Próximas ferias</a>
             <a href="#planes">Planes de stand</a>
           </nav>
 
           <nav className="footer-column footer-for-entrepreneurs" aria-label="Para emprendedores">
             <h3>Para emprendedores</h3>
             <a href="#planes-postular">Cómo participar</a>
-            <span>Preguntas frecuentes</span>
+            <a href="#proximas-ferias-preguntas">Preguntas frecuentes</a>
             <span>Términos y condiciones</span>
           </nav>
 

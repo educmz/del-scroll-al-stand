@@ -107,3 +107,30 @@ y desplazan el contenido hasta el formulario existente. **Conoce los Planes** ab
 El formulario no registra ni envía datos por sí solo; para WhatsApp sigue la configuración del apartado anterior.
 
 Antes de difundir la feria, confirma la fecha, dirección y condiciones con el equipo organizador.
+
+## Próximas ferias
+
+La ruta `#proximas-ferias` muestra el evento **Feria Navideña: Mercado de Regalos**,
+con cuatro bloques sucesivos: portada, detalles y mapa, ubicación y galería,
+categorías y preguntas frecuentes desplegables.
+
+La ruta `#proximas-ferias-preguntas` abre directamente las preguntas frecuentes.
+Las fechas y el lugar de la maqueta se basan en la referencia proporcionada
+(12 y 13 de diciembre de 2026, Parque Próceres de la Independencia, Jesús María, Lima).
+Deben confirmarse con el organizador antes de anunciarse oficialmente.
+
+El mapa utiliza Google Maps insertado mediante una búsqueda por nombre del parque,
+y un enlace externo para abrir la ubicación. No requiere una API key.
+
+Las fotografías originales pueden subirse a `public/images/` con estos nombres:
+
+- `feria-navidad-portada.png`: imagen principal de la cabecera navideña.
+- `parque-proceres.png`: fotografía de la ubicación del evento.
+- `feria-galeria-1.png` a `feria-galeria-6.png`: galería de ediciones anteriores.
+
+Si falta alguna, se usa provisionalmente la foto existente `feria-portada.png`.
+Los controles del carrusel y las preguntas frecuentes funcionan sin backend.
+
+El botón `Postular a esta feria` abre el formulario en Planes de stand
+(`#planes-postular`). El botón de WhatsApp se habilita al configurar
+la variable `APPLICATION_WHATSAPP_NUMBER` descrita anteriormente.
