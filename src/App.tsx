@@ -3,7 +3,7 @@ import AboutUs from './AboutUs'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
-import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Camera, Heart, Menu, MessageCircle, Monitor, Music2, Pause, Play, Quote, Store, UsersRound, X } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Camera, Heart, Menu, MessageCircle, Monitor, Music2, Quote, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -156,7 +156,6 @@ function MarketStandIllustration() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [testimonialsPaused, setTestimonialsPaused] = useState(false)
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
   const [navPill, setNavPill] = useState<{ left: number; top: number; width: number; height: number } | null>(null)
   const navRef = useRef<HTMLElement | null>(null)
@@ -449,19 +448,9 @@ function App() {
           <div className="testimonials-heading">
             <SectionHeading>Lo que dicen nuestros emprendedores</SectionHeading>
             <p className="testimonials-subtitle">Historias que nos inspiran a seguir creciendo juntos.</p>
-            <button
-              className="testimonials-motion-toggle"
-              type="button"
-              aria-pressed={testimonialsPaused}
-              aria-label={testimonialsPaused ? 'Reanudar movimiento de testimonios' : 'Pausar movimiento de testimonios'}
-              onClick={() => setTestimonialsPaused((paused) => !paused)}
-            >
-              {testimonialsPaused ? <Play size={16} fill="currentColor" aria-hidden="true" /> : <Pause size={16} fill="currentColor" aria-hidden="true" />}
-              <span>{testimonialsPaused ? 'Reanudar' : 'Pausar'}</span>
-            </button>
           </div>
           <div
-            className={`testimonials-marquee ${testimonialsPaused ? 'is-paused' : ''}`}
+            className="testimonials-marquee"
             aria-label="Comentarios de emprendedores. El desplazamiento se pausa al pasar el cursor por encima."
           >
             <div className="testimonials-track">
@@ -505,7 +494,6 @@ function App() {
               ))}
             </div>
           </div>
-          <p className="testimonials-hint">Pasa el cursor sobre una tarjeta para detenerla y leer con calma.</p>
         </section>
 
         <section className="join-banner" aria-labelledby="join-title">
