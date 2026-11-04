@@ -225,7 +225,7 @@
 .plans-selection-card li svg { color: #159968; flex: 0 0 15px; }
 .plans-apply-right .plans-section-heading { margin: 14px 0 8px; }
 .plans-apply-right .plans-section-heading h2 { font-size: clamp(17px, 1.55vw, 21px); }
-.plans-apply-right .title-rays { width: 25px; height: 34px; flex-basis: 25px; }
+.plans-apply-right .title-rays { width: 25px; height: 49px; flex-basis: 25px; }
 .plans-exhibitor-testimonials { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
 .plans-exhibitor-testimonial { padding: 12px 10px; display: flex; gap: 7px; border-radius: 18px; border: 1px solid #eae5da; background: #fff; }
 .plans-exhibitor-testimonial > img { flex: 0 0 55px; width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
@@ -356,12 +356,12 @@
 .plans-accent-heading .title-rays {
   color: #ffba00;
   width: 25px;
-  height: 33px;
+  height: 49px;
   flex-basis: 25px;
-  transform: translateY(-11px);
+  transform: none;
 }
 .plans-accent-heading .title-rays-right {
-  transform: scaleX(-1) translateY(-11px);
+  transform: scaleX(-1);
 }
 .plans-accent-heading h2 {
   min-width: 0;
@@ -371,12 +371,12 @@
   .plans-accent-heading { gap: 4px; }
   .plans-accent-heading .title-rays {
     width: 22px;
-    height: 29px;
+    height: 42px;
     flex-basis: 22px;
-    transform: translateY(-7px);
+    transform: none;
   }
   .plans-accent-heading .title-rays-right {
-    transform: scaleX(-1) translateY(-7px);
+    transform: scaleX(-1);
   }
 }
 

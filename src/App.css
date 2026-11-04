@@ -485,7 +485,7 @@ button:focus-visible {
 
 .info-section-heading {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   gap: 10px;
   text-align: center;

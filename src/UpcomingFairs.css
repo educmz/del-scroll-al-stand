@@ -101,7 +101,7 @@
 .fair-gallery h2 .title-rays {
   color: #ffc56a;
   width: 33px;
-  height: 40px;
+  height: 60px;
   flex-basis: 33px;
 }
 .fair-serif-heading > span {
@@ -353,7 +353,7 @@
   .fair-serif-heading .title-rays,
   .fair-gallery h2 .title-rays {
     width: 24px;
-    height: 31px;
+    height: 45px;
     flex-basis: 24px;
   }
   .fair-serif-heading,

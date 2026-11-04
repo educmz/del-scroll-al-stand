@@ -242,7 +242,7 @@
 
 .about-pillar h2 .title-rays {
   width: 30px;
-  height: 36px;
+  height: 53px;
   flex: 0 0 30px;
   color: #f9af00;
 }
@@ -371,7 +371,7 @@
 .about-purpose-title .title-rays {
   color: #ffbf0b;
   width: 31px;
-  height: 40px;
+  height: 56px;
   flex-basis: 31px;
 }
 
@@ -445,12 +445,12 @@
   .about-hero-rays-right { right: 0; }
   .about-hero-copy>p { font-size: 16px; }
   .about-hero-photo { min-height: 240px; }
-  .about-title-with-rays .title-rays { width: 27px; height: 34px; flex-basis: 27px; }
+  .about-title-with-rays .title-rays { width: 27px; height: 49px; flex-basis: 27px; }
   .about-title-with-rays h2 { font-size: 28px; }
   .about-pillar { grid-template-columns: 74px 1fr; padding: 15px 12px; gap: 8px; border-radius: 25px; }
   .about-pillar-icon svg { max-width: 70px; }
   .about-pillar h2 { font-size: 25px; }
-  .about-pillar h2 .title-rays { width: 21px; height: 28px; flex-basis: 21px; }
+  .about-pillar h2 .title-rays { width: 21px; height: 39px; flex-basis: 21px; }
   .about-pillar p { font-size: 13px; }
   .about-value { padding-inline: 5px; min-height: 160px; }
   .about-value-icon { width: 97px; height: 97px; }
@@ -465,7 +465,7 @@
   .about-purpose-title { gap: 4px; }
   .about-purpose-title .title-rays {
     width: 24px;
-    height: 31px;
+    height: 45px;
     flex-basis: 24px;
   }
 }

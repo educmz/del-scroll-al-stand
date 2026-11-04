@@ -10,11 +10,11 @@ export default function TitleRays({ side = 'left', className = '' }: TitleRaysPr
   return (
     <svg
       className={`title-rays title-rays-${side} ${className}`.trim()}
-      viewBox="0 0 56 60"
+      viewBox="0 0 52 96"
       aria-hidden="true"
       focusable="false"
     >
-      <path d="M39 7 47 23 M17 23 35 34 M6 48 29 45" />
+      <path d="M37 17 18 6 M35 48 H6 M37 79 18 90" />
     </svg>
   )
 }
