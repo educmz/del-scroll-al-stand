@@ -776,10 +776,10 @@ button:focus-visible {
   display: flex;
   width: max-content;
   align-items: stretch;
-  animation: testimonials-glide 42s linear infinite;
+  animation: testimonials-glide 84s linear infinite;
   will-change: transform;
 }
-.testimonials-marquee:hover .testimonials-track,
+.testimonials-marquee:has(.testimonial-card:hover) .testimonials-track,
 .testimonials-marquee:focus-within .testimonials-track {
   animation-play-state: paused;
 }
@@ -1297,9 +1297,6 @@ button:focus-visible {
   .testimonials-set {
     gap: 16px;
     padding-right: 16px;
-  }
-  .testimonials-track {
-    animation-duration: 38s;
   }
   .testimonial-card {
     flex-basis: min(80vw, 350px);
