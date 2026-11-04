@@ -5,6 +5,11 @@
   --ink: #38120f;
   --gold: #e89106;
   --pink: #f9cbd0;
+  /* Fuente editorial de Inicio: títulos serif, tarjetas Poppins y rótulos Fredoka. */
+  --font-section-title: Georgia, 'Times New Roman', serif;
+  --font-card-title: 'Poppins', sans-serif;
+  --font-body: 'Poppins', sans-serif;
+  --font-section-label: 'Fredoka', sans-serif;
 }
 
 * {
@@ -603,7 +608,7 @@ button:focus-visible {
 .info-section-heading h2 {
   margin: 0;
   color: #241713;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-section-title);
   font-size: clamp(23px, 2.15vw, 30px);
   line-height: 1.25;
   font-weight: 400;
@@ -1106,7 +1111,7 @@ button:focus-visible {
 .testimonials-heading .info-section-heading h2 {
   color: #321e28;
   font-size: clamp(26px, 2.4vw, 36px);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: -.025em;
 }
 .testimonials-heading .heading-rays {
@@ -1308,7 +1313,7 @@ button:focus-visible {
   max-width: 860px;
   margin: 0 0 14px;
   color: #fff;
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: var(--font-section-title);
   font-size: clamp(30px, 2.6vw, 44px);
   font-weight: 700;
   letter-spacing: -.025em;

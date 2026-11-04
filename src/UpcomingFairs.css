@@ -93,7 +93,7 @@
   display: flex;
   align-items: center;
   gap: 11px;
-  font: 400 clamp(23px, 2.3vw, 32px)/1.17 Georgia, 'Times New Roman', serif;
+  font: 700 clamp(29px, 2.85vw, 39px)/1.1 var(--font-section-title);
   color: #21190e;
   white-space: normal;
 }
@@ -137,9 +137,9 @@
   color: #080808;
   border-radius: 50%;
 }
-.fair-detail-card h3 { margin: 0 0 11px; font-weight: 700; font-size: clamp(16px,1.4vw,20px); }
-.fair-detail-card p { margin: 0 0 8px; font-size: clamp(14px,1.35vw,18px); line-height: 1.24; }
-.fair-detail-card em { font-size: clamp(14px,1.35vw,18px); line-height: 1.2; }
+.fair-detail-card h3 { margin: 0 0 11px; font-family: var(--font-card-title); font-weight: 700; font-size: clamp(16px,1.4vw,20px); line-height: 1.3; }
+.fair-detail-card p { margin: 0 0 8px; font-size: clamp(14px,1.35vw,18px); line-height: 1.55; }
+.fair-detail-card em { font-size: clamp(14px,1.35vw,18px); line-height: 1.5; }
 .fair-map { position: relative; width: 100%; min-width: 0; height: 286px; background: #e5e3dc; border-radius: 6px; overflow: hidden; }
 .fair-map iframe { width: 100%; height: 100%; border: 0; display: block; }
 .fair-map a {
@@ -187,7 +187,7 @@
   align-items: center;
   gap: 8px;
   text-align: right;
-  font: 400 clamp(22px,2.2vw,31px)/1.2 Georgia,'Times New Roman',serif;
+  font: 700 clamp(25px,2.55vw,35px)/1.14 var(--font-section-title);
 }
 .fair-gallery-frame { position: relative; width: 100%; }
 .fair-gallery-images { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 9px; }
@@ -221,7 +221,7 @@
   margin: 44px auto 0;
 }
 .fair-categories .fair-serif-heading { margin-bottom: 6px; }
-.fair-categories > p { margin: 0 0 16px; font-size: 16px; line-height: 1.3; }
+.fair-categories > p { margin: 0 0 16px; font-size: 16px; line-height: 1.65; }
 .fair-categories-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 11px; }
 .fair-category {
   min-width: 0;
@@ -233,8 +233,10 @@
   gap: 5px;
   align-items: center;
   text-align: center;
+  font-family: var(--font-card-title);
   font-size: 15px;
-  line-height: 1.12;
+  font-weight: 600;
+  line-height: 1.35;
 }
 .fair-category-pink { background: #ffa1a5; }
 .fair-category-green { background: #bfe1bb; }

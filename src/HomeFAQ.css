@@ -76,7 +76,7 @@
 
 .home-faq-question {
   color: #38262f;
-  font: 600 clamp(17px, 1.45vw, 21px)/1.3 'Fredoka', sans-serif;
+  font: 600 clamp(17px, 1.45vw, 21px)/1.35 var(--font-card-title);
   transition: color 200ms ease;
 }
 
