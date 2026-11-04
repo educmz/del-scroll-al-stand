@@ -330,25 +330,28 @@ function App() {
                 </h1>
               </div>
 
-              <p className="hero-slogan">
-                Tu negocio sale del chat y entra
-                <span>al mundo real</span>
-              </p>
+              <div className="hero-message">
+                <span className="hero-eyebrow">DEL SCROLL A LAS CONEXIONES REALES</span>
+                <h2 className="hero-slogan">
+                  Tu negocio sale del chat
+                  <span className="hero-slogan-second">y entra al <em>mundo real</em></span>
+                </h2>
 
-              <p className="hero-description">
-                Conectamos marcas locales y emprendedores con ferias
-                temáticas y mercados temporales llenos de personas,
-                experiencias y ventas reales
-              </p>
+                <p className="hero-description">
+                  Conectamos tu marca con personas reales a través de ferias temáticas
+                  llenas de encuentros, experiencias y nuevas oportunidades de venta.
+                </p>
 
-              <div className="hero-actions">
-                <a className="btn btn-primary" href="#participar">
-                  Participar en una feria
-                </a>
-                <a className="btn btn-secondary" href="#sobre-nosotros">
-                  <CirclePlay aria-hidden="true" size={21} strokeWidth={2.5} />
-                  Conoce el proyecto
-                </a>
+                <div className="hero-actions">
+                  <a className="btn btn-primary" href="#participar">
+                    Participar en una feria
+                    <ArrowUpRight aria-hidden="true" size={20} strokeWidth={2.4} />
+                  </a>
+                  <a className="btn btn-secondary" href="#sobre-nosotros">
+                    <CirclePlay aria-hidden="true" size={21} strokeWidth={2.1} />
+                    Conoce el proyecto
+                  </a>
+                </div>
               </div>
             </div>
 
