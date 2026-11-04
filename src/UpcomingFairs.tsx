@@ -422,6 +422,7 @@ export default function UpcomingFairs({ selectedEditionId = null }: { selectedEd
           id="fair-main-title"
           compactTitle
           hideDecorations
+          showSwoosh
           title={<><span>Vive nuestras</span><em>ferias</em></>}
           description="Descubre marcas locales, nuevas experiencias y los próximos encuentros de nuestra comunidad."
           imageFile="feria-portada.png"
