@@ -695,7 +695,7 @@ button:focus-visible {
   background: linear-gradient(155deg, #ffffff 0%, #fffdfb 100%);
   box-shadow: 0 11px 28px rgba(93, 52, 49, .09);
   text-align: center;
-  transform-origin: center 88%;
+  transform-origin: center center;
   transition: transform 300ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms ease;
 }
 
@@ -704,9 +704,8 @@ button:focus-visible {
   box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
 }
 
-/* Vaivén secuencial: cada tarjeta se ladea a izquierda y derecha,
-   rebota con amplitud decreciente y pasa el turno a la siguiente.
-   rotate y translate independientes preservan el hover de las tarjetas. */
+/* Pulso secuencial: una tarjeta crece ligeramente y vuelve a su tamaño
+   antes de activar la siguiente. La propiedad scale respeta el hover existente. */
 .process-grid.is-animating .process-item {
   animation: process-card-relay 10s cubic-bezier(.4, 0, .2, 1) infinite;
 }
@@ -717,12 +716,9 @@ button:focus-visible {
 .process-grid.is-animating .process-item:nth-child(4) { animation-delay: 7.5s; }
 
 @keyframes process-card-relay {
-  0%, 17%, 100% { rotate: 0deg; translate: 0 0; }
-  3% { rotate: -4deg; translate: -4px 0; }
-  6% { rotate: 3.2deg; translate: 4px 0; }
-  9% { rotate: -1.8deg; translate: -2px 0; }
-  12% { rotate: 0.9deg; translate: 1px 0; }
-  15% { rotate: 0deg; translate: 0 0; }
+  0%, 18%, 100% { scale: 1; }
+  7% { scale: 1.045; }
+  12% { scale: 1.035; }
 }
 
 .process-number {
@@ -919,8 +915,7 @@ button:focus-visible {
 
   .process-grid.is-animating .process-item {
     animation: none;
-    rotate: 0deg;
-    translate: 0 0;
+    scale: 1;
   }
 }
 
