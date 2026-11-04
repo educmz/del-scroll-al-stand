@@ -679,7 +679,7 @@ button:focus-visible {
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 56px;
+  gap: clamp(16px, 1.8vw, 26px);
 }
 
 .process-item {
@@ -695,58 +695,31 @@ button:focus-visible {
   background: linear-gradient(155deg, #ffffff 0%, #fffdfb 100%);
   box-shadow: 0 11px 28px rgba(93, 52, 49, .09);
   text-align: center;
-  /* Los pasos anteriores quedan delante de los siguientes: la flecha no
-     desaparece detrás de otra tarjeta, incluso si esta tiene hover. */
-  z-index: 1;
   transition: transform 300ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms ease;
 }
 
-.process-item:nth-child(1) { z-index: 4; }
-.process-item:nth-child(2) { z-index: 3; }
-.process-item:nth-child(3) { z-index: 2; }
-.process-item:nth-child(4) { z-index: 1; }
-
-.process-item:hover,
-.process-item:focus-within {
+.process-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
 }
 
-/* Flecha curva centrada a media altura y superpuesta en profundidad:
-   la posición depende de la mitad de cada tarjeta, no de su borde superior. */
-.process-connector {
-  position: absolute;
-  z-index: 10;
-  top: 50%;
-  right: -69px;
-  display: grid;
-  place-items: center;
-  width: 82px;
-  height: 39px;
-  color: #a9606e;
-  transform: translateY(-50%);
-  pointer-events: none;
+/* Relevo automático: cada tarjeta se eleva, aterriza y da un rebote pequeño.
+   Translate/scale son independientes de transform, así conservamos el hover. */
+.process-grid.is-animating .process-item {
+  animation: process-card-relay 10s cubic-bezier(.4, 0, .2, 1) infinite;
 }
 
-.process-arrow-drawn {
-  display: block;
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
+.process-grid.is-animating .process-item:nth-child(1) { animation-delay: 0s; }
+.process-grid.is-animating .process-item:nth-child(2) { animation-delay: 2.5s; }
+.process-grid.is-animating .process-item:nth-child(3) { animation-delay: 5s; }
+.process-grid.is-animating .process-item:nth-child(4) { animation-delay: 7.5s; }
 
-.process-arrow-outline {
-  opacity: 0.9;
-}
-
-.process-arrow-retrace {
-  color: #912c4a;
-}
-
-/* La tarjeta sigue elevándose; el trazo nunca mueve las tarjetas. */
-.process-item:focus-visible {
-  outline: 2px solid #bc6774;
-  outline-offset: 4px;
+@keyframes process-card-relay {
+  0%, 16%, 100% { translate: 0 0; scale: 1; }
+  4% { translate: 0 -18px; scale: 1.012; }
+  8% { translate: 0 2px; scale: .997; }
+  11% { translate: 0 -6px; scale: 1.004; }
+  14.5% { translate: 0 0; scale: 1; }
 }
 
 .process-number {
@@ -811,14 +784,6 @@ button:focus-visible {
     min-height: 258px;
   }
 
-  .process-connector {
-    display: none;
-  }
-
-  /* Con dos columnas, conectar visualmente cada pareja de pasos. */
-  .process-item:nth-child(odd) .process-connector {
-    display: grid;
-  }
 }
 
 @media (max-width: 700px) {
@@ -882,7 +847,7 @@ button:focus-visible {
   }
 
   .process-grid {
-    gap: 76px;
+    gap: 20px;
   }
 
   .process-item {
@@ -896,17 +861,6 @@ button:focus-visible {
     width: 78px;
     height: 78px;
     flex-basis: 78px;
-  }
-
-  .process-item:not(:last-child) .process-connector {
-    display: grid;
-    top: auto;
-    right: auto;
-    bottom: -54px;
-    left: 50%;
-    width: 82px;
-    height: 39px;
-    transform: translateX(-50%) rotate(90deg);
   }
 
   .info-section-heading {
@@ -956,11 +910,15 @@ button:focus-visible {
 
   .benefit-item:hover,
   .benefit-item:hover .benefit-icon,
-  .process-item:hover,
-  .process-item:focus-within {
+  .process-item:hover {
     transform: none;
   }
 
+  .process-grid.is-animating .process-item {
+    animation: none;
+    translate: 0 0;
+    scale: 1;
+  }
 }
 
 /* Testimonios · carrusel de movimiento continuo con pausa interactiva. */
