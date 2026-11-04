@@ -1226,13 +1226,6 @@ button:focus-visible {
 }
 
 
-.footer-contact-note {
-  color: #c1c5ea;
-  font-size: 11px !important;
-  font-style: italic;
-  margin-top: 2px;
-}
-
 .social-icon {
   flex-shrink: 0;
 }

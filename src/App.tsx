@@ -3,7 +3,8 @@ import AboutUs from './AboutUs'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
-import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Camera, Heart, Menu, MessageCircle, Monitor, Music2, Quote, Store, UsersRound, X } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
+import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -521,8 +522,7 @@ function App() {
             <h3>Contacto</h3>
             <span>+51 000 000 000</span>
             <span>hola@stand.example</span>
-            <span className="footer-contact-note">Datos de ejemplo</span>
-          </div>
+           </div>
 
           <nav className="footer-column" aria-label="Sobre nosotros">
             <h3>Sobre nosotros</h3>
@@ -532,10 +532,10 @@ function App() {
           <div className="footer-socials">
             <h3>Síguenos</h3>
             <div className="social-icons" aria-label="Redes sociales (enlaces pendientes de configurar)">
-              <span className="social-icon" role="img" aria-label="Instagram"><Camera size={29} aria-hidden="true" /></span>
-              <span className="social-icon" role="img" aria-label="Facebook"><UsersRound size={27} aria-hidden="true" /></span>
-              <span className="social-icon" role="img" aria-label="TikTok"><Music2 size={27} aria-hidden="true" /></span>
-              <span className="social-icon" role="img" aria-label="WhatsApp"><MessageCircle size={29} aria-hidden="true" /></span>
+              <span className="social-icon" role="img" aria-label="Instagram"><FaInstagram size={29} aria-hidden="true" /></span>
+              <span className="social-icon" role="img" aria-label="Facebook"><FaFacebookF size={27} aria-hidden="true" /></span>
+              <span className="social-icon" role="img" aria-label="TikTok"><FaTiktok size={27} aria-hidden="true" /></span>
+              <span className="social-icon" role="img" aria-label="WhatsApp"><FaWhatsapp size={29} aria-hidden="true" /></span>
             </div>
           </div>
         </div>
