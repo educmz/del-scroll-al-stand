@@ -7,6 +7,7 @@ import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
 import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
+import { motion, useReducedMotion } from 'motion/react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -127,6 +128,7 @@ const testimonials = [
 ]
 
 function App() {
+  const shouldReduceMotion = useReducedMotion()
   const [menuOpen, setMenuOpen] = useState(false)
   // Cada mitad del bucle debe superar el ancho de la pantalla para evitar huecos.
   const [testimonialRepeatCount, setTestimonialRepeatCount] = useState(
@@ -423,7 +425,15 @@ function App() {
               {steps.map((step, index) => {
                 const Icon = step.icon
                 return (
-                  <article className="process-item" key={step.title}>
+                  <motion.article
+                    className="process-item"
+                    key={step.title}
+                    tabIndex={0}
+                    initial={shouldReduceMotion ? 'draw' : 'idle'}
+                    animate={shouldReduceMotion ? 'draw' : 'idle'}
+                    whileHover={shouldReduceMotion ? undefined : 'draw'}
+                    whileFocus={shouldReduceMotion ? undefined : 'draw'}
+                  >
                     <span className="process-number">PASO {String(index + 1).padStart(2, '0')}</span>
                     <div className="process-icon">
                       <Icon size={42} strokeWidth={2} aria-hidden="true" />
@@ -432,15 +442,43 @@ function App() {
                     <p>{step.description}</p>
                     {index < steps.length - 1 && (
                       <span className="process-connector" aria-hidden="true">
-                        <svg className="process-arrow-base" viewBox="0 0 100 24" fill="none" aria-hidden="true">
-                          <path d="M3 12H96M85 2L96 12L85 22" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        <svg className="process-arrow-shine" viewBox="0 0 100 24" fill="none" aria-hidden="true">
-                          <path d="M3 12H96M85 2L96 12L85 22" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <motion.svg className="process-arrow-drawn" viewBox="0 0 112 52" fill="none" aria-hidden="true">
+                          <motion.path
+                            d="M3 37 C14 16 26 12 34 26 C42 41 18 45 22 29 C27 5 48 5 60 22 C73 39 88 35 106 17"
+                            stroke="currentColor"
+                            strokeWidth="3.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            vectorEffect="non-scaling-stroke"
+                            variants={{
+                              idle: { pathLength: 0, opacity: 0 },
+                              draw: {
+                                pathLength: 1,
+                                opacity: 1,
+                                transition: { pathLength: { duration: 1, ease: 'easeInOut' }, opacity: { duration: 0.1 } },
+                              },
+                            }}
+                          />
+                          <motion.path
+                            d="M92 12 L107 17 L100 31"
+                            stroke="currentColor"
+                            strokeWidth="3.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            vectorEffect="non-scaling-stroke"
+                            variants={{
+                              idle: { pathLength: 0, opacity: 0 },
+                              draw: {
+                                pathLength: 1,
+                                opacity: 1,
+                                transition: { pathLength: { duration: 0.3, delay: 0.82, ease: 'easeOut' }, opacity: { duration: 0.1, delay: 0.82 } },
+                              },
+                            }}
+                          />
+                        </motion.svg>
                       </span>
                     )}
-                  </article>
+                  </motion.article>
                 )
               })}
             </div>
