@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import AboutUs from './AboutUs'
 import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
@@ -9,6 +10,7 @@ const navigation = [
   { label: 'Próximas ferias', href: '#proximas-ferias' },
   { label: 'Para emprendedores', href: '#emprendedores' },
   { label: 'Planes de stand', href: '#planes' },
+  { label: 'Galería', href: '#sobre-nosotros-galeria' },
   { label: 'Sobre nosotros', href: '#sobre-nosotros' },
 ]
 
@@ -152,9 +154,26 @@ function MarketStandIllustration() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [currentHash, setCurrentHash] = useState(() => window.location.hash)
+  const isAbout = currentHash.startsWith('#sobre-nosotros')
+
+  useEffect(() => {
+    const onHashChange = () => {
+      setCurrentHash(window.location.hash)
+      setMenuOpen(false)
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
+  useEffect(() => {
+    if (currentHash === '#sobre-nosotros') {
+      window.scrollTo(0, 0)
+    }
+  }, [currentHash])
 
   return (
-    <div id="inicio" className="site">
+    <div id="inicio" className={`site ${isAbout ? 'site-about' : ''}`}>
       <header className="topbar">
         <div className="topbar-content">
           <a href="#inicio" className="brand" aria-label="Del Scroll al Stand — Inicio">
@@ -171,11 +190,11 @@ function App() {
             className={`primary-nav ${menuOpen ? 'is-open' : ''}`}
             aria-label="Navegación principal"
           >
-            {navigation.map((item, index) => (
+            {navigation.filter((item) => isAbout || item.label !== 'Galería').map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className={`nav-link ${index === 0 ? 'is-active' : ''}`}
+                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : item.href === '#inicio') ? 'is-active' : ''}`}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
@@ -209,6 +228,9 @@ function App() {
         </div>
       </header>
 
+      {isAbout ? (
+        <AboutUs />
+      ) : (
       <main>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-content">
@@ -368,8 +390,9 @@ function App() {
           </svg>
         </section>
       </main>
+      )}
 
-      <footer className="site-footer" id="sobre-nosotros">
+      <footer className="site-footer">
         <svg className="footer-wave" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true">
           <path d="M0 24 C220 46 475 48 700 31 S1180 0 1440 24 L1440 48 L0 48 Z" />
         </svg>
