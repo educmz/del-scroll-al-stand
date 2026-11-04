@@ -695,28 +695,36 @@ button:focus-visible {
   background: linear-gradient(155deg, #ffffff 0%, #fffdfb 100%);
   box-shadow: 0 11px 28px rgba(93, 52, 49, .09);
   text-align: center;
+  /* Los pasos anteriores quedan delante de los siguientes: la flecha no
+     desaparece detrás de otra tarjeta, incluso si esta tiene hover. */
   z-index: 1;
   transition: transform 300ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms ease;
 }
 
+.process-item:nth-child(1) { z-index: 4; }
+.process-item:nth-child(2) { z-index: 3; }
+.process-item:nth-child(3) { z-index: 2; }
+.process-item:nth-child(4) { z-index: 1; }
+
 .process-item:hover,
 .process-item:focus-within {
-  z-index: 6;
   transform: translateY(-5px);
   box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
 }
 
-/* Flechas visibles por encima de las tarjetas; Motion las vuelve a trazar al hover. */
+/* Flecha curva centrada a media altura y superpuesta en profundidad:
+   la posición depende de la mitad de cada tarjeta, no de su borde superior. */
 .process-connector {
   position: absolute;
   z-index: 10;
-  top: -24px;
-  right: -60px;
+  top: 50%;
+  right: -69px;
   display: grid;
   place-items: center;
-  width: 64px;
+  width: 82px;
   height: 39px;
-  color: #b97983;
+  color: #a9606e;
+  transform: translateY(-50%);
   pointer-events: none;
 }
 
@@ -874,7 +882,7 @@ button:focus-visible {
   }
 
   .process-grid {
-    gap: 68px;
+    gap: 76px;
   }
 
   .process-item {
@@ -894,9 +902,9 @@ button:focus-visible {
     display: grid;
     top: auto;
     right: auto;
-    bottom: -52px;
+    bottom: -54px;
     left: 50%;
-    width: 64px;
+    width: 82px;
     height: 39px;
     transform: translateX(-50%) rotate(90deg);
   }
