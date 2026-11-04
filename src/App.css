@@ -744,7 +744,9 @@ button:focus-visible {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   min-width: 0;
   min-height: 270px;
   padding: clamp(25px, 2.1vw, 34px);
@@ -758,7 +760,7 @@ button:focus-visible {
 
 .benefit-item:nth-child(2) { --benefit-accent: #83bf98; }
 .benefit-item:nth-child(3) { --benefit-accent: #edae5b; }
-.benefit-item:nth-child(4) { --benefit-accent: #ee8d9f; }
+.benefit-item:nth-child(4) { --benefit-accent: #b69adf; }
 
 .benefit-item::before {
   position: absolute;
@@ -818,6 +820,11 @@ button:focus-visible {
   background: #ffcd85;
 }
 
+.benefit-icon-lavender {
+  background: #e7d8fb;
+  color: #7953a8;
+}
+
 .benefit-item:hover .benefit-icon {
   transform: rotate(-5deg) scale(1.045);
 }
@@ -825,7 +832,9 @@ button:focus-visible {
 .benefit-text {
   position: relative;
   z-index: 1;
+  width: 100%;
   padding-top: 23px;
+  text-align: center;
 }
 
 .benefit-text h3 {
@@ -839,7 +848,8 @@ button:focus-visible {
 }
 
 .benefit-text p {
-  margin: 0;
+  max-width: 33ch;
+  margin: 0 auto;
   color: #64585a;
   font-family: 'Poppins', sans-serif;
   font-size: 14px;
@@ -1061,12 +1071,13 @@ button:focus-visible {
   }
 
   .benefit-item {
-    display: grid;
-    grid-template-columns: 76px minmax(0, 1fr);
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 18px;
-    min-height: 0;
-    padding: 23px 20px;
+    justify-content: center;
+    gap: 0;
+    min-height: 225px;
+    padding: 24px 20px;
     border-radius: 24px;
   }
 
@@ -1078,7 +1089,7 @@ button:focus-visible {
   }
 
   .benefit-text {
-    padding-top: 0;
+    padding-top: 17px;
   }
 
   .benefit-text h3 {
