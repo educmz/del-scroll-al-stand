@@ -400,7 +400,7 @@
 
 .about-value-card-top {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 9px;
   margin-bottom: 24px;
@@ -414,13 +414,6 @@
   border-radius: 20px;
   background: var(--about-value-bg);
   color: var(--about-value-ink);
-}
-
-.about-value-card-number {
-  padding-top: 8px;
-  color: var(--about-value-ink);
-  font: 600 11px/1.3 'Fredoka', sans-serif;
-  letter-spacing: .08em;
 }
 
 .about-value-card h3 {
