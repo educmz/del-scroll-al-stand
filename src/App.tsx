@@ -3,7 +3,7 @@ import AboutUs from './AboutUs'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
-import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Camera, Heart, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Camera, Heart, Menu, MessageCircle, Monitor, Music2, Pause, Play, Quote, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -156,6 +156,7 @@ function MarketStandIllustration() {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [testimonialsPaused, setTestimonialsPaused] = useState(false)
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
   const [navPill, setNavPill] = useState<{ left: number; top: number; width: number; height: number } | null>(null)
   const navRef = useRef<HTMLElement | null>(null)
@@ -445,27 +446,66 @@ function App() {
         </section>
 
         <section className="testimonials-section" id="testimonios" aria-label="Testimonios de emprendedores">
-          <SectionHeading>Lo que dicen nuestros emprendedores</SectionHeading>
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial) => (
-              <article className="testimonial-card" key={testimonial.name}>
-                <img
-                  className="testimonial-photo"
-                  src={`${baseUrl}images/${testimonial.image}`}
-                  alt={`Retrato de ${testimonial.name}`}
-                  width="134"
-                  height="134"
-                  loading="lazy"
-                />
-                <div className="testimonial-body">
-                  <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-                  <blockquote>“{testimonial.quote}”</blockquote>
-                  <p className="testimonial-author">{testimonial.name} <span>{testimonial.handle}</span></p>
-                  <span className="testimonial-category">{testimonial.category}</span>
-                </div>
-              </article>
-            ))}
+          <div className="testimonials-heading">
+            <SectionHeading>Lo que dicen nuestros emprendedores</SectionHeading>
+            <p className="testimonials-subtitle">Historias que nos inspiran a seguir creciendo juntos.</p>
+            <button
+              className="testimonials-motion-toggle"
+              type="button"
+              aria-pressed={testimonialsPaused}
+              aria-label={testimonialsPaused ? 'Reanudar movimiento de testimonios' : 'Pausar movimiento de testimonios'}
+              onClick={() => setTestimonialsPaused((paused) => !paused)}
+            >
+              {testimonialsPaused ? <Play size={16} fill="currentColor" aria-hidden="true" /> : <Pause size={16} fill="currentColor" aria-hidden="true" />}
+              <span>{testimonialsPaused ? 'Reanudar' : 'Pausar'}</span>
+            </button>
           </div>
+          <div
+            className={`testimonials-marquee ${testimonialsPaused ? 'is-paused' : ''}`}
+            aria-label="Comentarios de emprendedores. El desplazamiento se pausa al pasar el cursor por encima."
+          >
+            <div className="testimonials-track">
+              {[0, 1].map((copyIndex) => (
+                <div
+                  className="testimonials-set"
+                  key={copyIndex}
+                  aria-hidden={copyIndex === 1 ? true : undefined}
+                >
+                  {testimonials.map((testimonial) => (
+                    <article
+                      className="testimonial-card"
+                      key={testimonial.name}
+                      tabIndex={copyIndex === 0 ? 0 : -1}
+                    >
+                      <div className="testimonial-card-top">
+                        <div className="testimonial-person">
+                          <img
+                            className="testimonial-photo"
+                            src={`${baseUrl}images/${testimonial.image}`}
+                            alt={copyIndex === 0 ? `Retrato de ${testimonial.name}` : ''}
+                            width="78"
+                            height="78"
+                            loading="lazy"
+                          />
+                          <div className="testimonial-identity">
+                            <p className="testimonial-author">{testimonial.name}</p>
+                            <span className="testimonial-handle">{testimonial.handle}</span>
+                          </div>
+                        </div>
+                        <Quote className="testimonial-quote-icon" aria-hidden="true" size={30} strokeWidth={1.6} />
+                      </div>
+                      <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+                      <blockquote>“{testimonial.quote}”</blockquote>
+                      <div className="testimonial-card-bottom">
+                        <span className="testimonial-category">{testimonial.category}</span>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="testimonials-hint">Pasa el cursor sobre una tarjeta para detenerla y leer con calma.</p>
         </section>
 
         <section className="join-banner" aria-labelledby="join-title">
