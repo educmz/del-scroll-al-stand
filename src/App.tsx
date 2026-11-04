@@ -128,16 +128,16 @@ const testimonials = [
   },
   {
     name: 'Mariana',
-    handle: null,
-    quote: null,
-    category: 'Historia en preparación',
+    handle: 'Emprendedora creativa',
+    quote: 'Fue emocionante ver cómo las personas se acercaban a conocer mi marca. Me llevé nuevas ideas, contactos y muchas ganas de seguir creciendo',
+    category: 'Accesorios y regalos',
     image: 'testimonio-mariana.webp',
   },
   {
     name: 'Rodrigo',
-    handle: null,
-    quote: null,
-    category: 'Historia en preparación',
+    handle: 'Emprendedor local',
+    quote: 'Me sorprendió la buena energía entre emprendedores y el interés del público. Además de vender, pude conectar con personas que valoran lo que hago',
+    category: 'Productos artesanales',
     image: 'testimonio-rodrigo.webp',
   },
 ]
@@ -521,7 +521,7 @@ function App() {
         <section className="testimonials-section" id="testimonios" aria-label="Testimonios de emprendedores">
           <div className="testimonials-heading">
             <SectionHeading eyebrow="HISTORIAS QUE INSPIRAN">Lo que dicen nuestros emprendedores</SectionHeading>
-            <p className="testimonials-subtitle">Historias que nos inspiran a seguir creciendo juntos.</p>
+            <p className="testimonials-subtitle">Historias que nos inspiran a seguir creciendo juntos. <span className="testimonials-disclaimer">Testimonios ilustrativos.</span></p>
           </div>
           <div
             className="testimonials-marquee"
@@ -536,7 +536,7 @@ function App() {
                   {Array.from({ length: testimonialRepeatCount }, (_, repeatIndex) =>
                     testimonials.map((testimonial) => (
                     <article
-                      className={`testimonial-card${testimonial.quote ? '' : ' testimonial-card-pending'}`}
+                      className="testimonial-card"
                       key={`${repeatIndex}-${testimonial.name}`}
                       aria-hidden={copyIndex > 0 || repeatIndex > 0 ? true : undefined}
                       tabIndex={copyIndex === 0 && repeatIndex === 0 ? 0 : -1}
@@ -558,18 +558,10 @@ function App() {
                             )}
                           </div>
                         </div>
-                        {testimonial.quote && (
-                          <Quote className="testimonial-quote-icon" aria-hidden="true" size={30} strokeWidth={1.6} />
-                        )}
+                        <Quote className="testimonial-quote-icon" aria-hidden="true" size={30} strokeWidth={1.6} />
                       </div>
-                      {testimonial.quote ? (
-                        <>
-                          <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-                          <blockquote>“{testimonial.quote}”</blockquote>
-                        </>
-                      ) : (
-                        <p className="testimonial-pending-note">Pronto compartiremos su experiencia en la feria.</p>
-                      )}
+                      <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+                      <blockquote>“{testimonial.quote}”</blockquote>
                       <div className="testimonial-card-bottom">
                         <span className="testimonial-category">{testimonial.category}</span>
                       </div>
