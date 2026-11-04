@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CalendarDays, ChartNoAxesCombined, CirclePlay, Facebook, Heart, Instagram, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
+import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -407,8 +407,18 @@ function App() {
           <div className="footer-socials">
             <h3>Síguenos</h3>
             <div className="social-icons" aria-label="Redes sociales, pendientes de configurar">
-              <span className="social-icon" title="Instagram"><Instagram size={30} strokeWidth={2.5} /></span>
-              <span className="social-icon" title="Facebook"><Facebook size={30} fill="currentColor" strokeWidth={1.6}/></span>
+              <span className="social-icon" title="Instagram">
+                <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>
+              </span>
+              <span className="social-icon" title="Facebook">
+                <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true">
+                  <path d="M14.6 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-1 .3-1.6 1.7-1.6H18V4.1a22 22 0 0 0-2.5-.1c-3.2 0-5.2 2-5.2 5.4v1.2H7.5v3.2h2.8V22Z" />
+                </svg>
+              </span>
               <span className="social-icon" title="TikTok"><Music2 size={30} strokeWidth={3} /></span>
               <span className="social-icon" title="WhatsApp"><MessageCircle size={30} strokeWidth={2.5} /></span>
             </div>
