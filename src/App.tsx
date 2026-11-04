@@ -35,7 +35,7 @@ function App() {
         <div className="topbar-content">
           <Brand />
 
-          <nav className={`primary-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Navegación principal">
+          <nav id="mobile-navigation" className={`primary-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Navegación principal">
             {navigation.map((item, index) => (
               <a
                 key={item.href}
