@@ -128,14 +128,14 @@ const testimonials = [
   },
   {
     name: 'Mariana',
-    handle: 'Emprendedora creativa',
+    handle: '@mariiiz_c',
     quote: 'Fue emocionante ver cómo las personas se acercaban a conocer mi marca. Me llevé nuevas ideas, contactos y muchas ganas de seguir creciendo',
     category: 'Accesorios y regalos',
     image: 'testimonio-mariana.webp',
   },
   {
     name: 'Rodrigo',
-    handle: 'Emprendedor local',
+    handle: '@rodrigoez',
     quote: 'Me sorprendió la buena energía entre emprendedores y el interés del público. Además de vender, pude conectar con personas que valoran lo que hago',
     category: 'Productos artesanales',
     image: 'testimonio-rodrigo.webp',
