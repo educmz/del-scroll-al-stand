@@ -12,12 +12,6 @@
 }
 .entre-page * { box-sizing: border-box; }
 
-/* El banner superior comparte fondo con toda la página, sin alterar
-   los otros tres banners que reutilizan PageHero. */
-.entre-page .page-hero {
-  background: var(--entre-cream);
-}
-
 /* Subtítulos centrados en relación con el ancho de cada título. */
 .entre-section-intro {
   max-width: 810px;
