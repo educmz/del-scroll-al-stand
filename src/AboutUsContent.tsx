@@ -70,11 +70,13 @@ function AboutHeading({ eyebrow, title, id, description }: {
 }) {
   return (
     <div className="about-content-section-heading">
-      <SectionEyebrow>{eyebrow}</SectionEyebrow>
-      <div className="about-content-heading-row">
-        <TitleRays side="left" />
-        <h2 id={id}>{title}</h2>
-        <TitleRays side="right" />
+      <div className="title-eyebrow-group">
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
+        <div className="about-content-heading-row title-eyebrow-heading">
+          <TitleRays side="left" />
+          <h2 id={id}>{title}</h2>
+          <TitleRays side="right" />
+        </div>
       </div>
       {description && <p>{description}</p>}
     </div>
@@ -86,11 +88,13 @@ export default function AboutUsContent() {
     <div className="about-redesign">
       <section className="about-story" aria-labelledby="about-intro-title">
         <div className="about-story-copy">
-          <SectionEyebrow>NUESTRA HISTORIA</SectionEyebrow>
-          <div className="about-content-heading-row about-story-heading">
-            <TitleRays side="left" />
-            <h2 id="about-intro-title">¿Quiénes somos?</h2>
-            <TitleRays side="right" />
+          <div className="title-eyebrow-group">
+            <SectionEyebrow>NUESTRA HISTORIA</SectionEyebrow>
+            <div className="about-content-heading-row about-story-heading title-eyebrow-heading">
+              <TitleRays side="left" />
+              <h2 id="about-intro-title">¿Quiénes somos?</h2>
+              <TitleRays side="right" />
+            </div>
           </div>
           <p className="about-story-lead">
             Somos <strong>Del Scroll al Stand</strong>, una iniciativa que ayuda a emprendedores y pequeñas marcas a dar el salto del mundo digital a las ferias presenciales.
@@ -131,8 +135,10 @@ export default function AboutUsContent() {
               <span className="about-direction-icon"><Target size={34} strokeWidth={1.9} aria-hidden="true" /></span>
               <span className="about-direction-counter">01</span>
             </div>
-            <SectionEyebrow>LO QUE NOS IMPULSA</SectionEyebrow>
-            <h3>Nuestra misión</h3>
+            <div className="title-eyebrow-group">
+              <SectionEyebrow>LO QUE NOS IMPULSA</SectionEyebrow>
+              <h3>Nuestra misión</h3>
+            </div>
             <p>Brindar experiencias de feria que potencien la visibilidad, las ventas y el crecimiento de los emprendimientos locales.</p>
             <span className="about-direction-accent" aria-hidden="true" />
           </article>
@@ -141,8 +147,10 @@ export default function AboutUsContent() {
               <span className="about-direction-icon"><TrendingUp size={34} strokeWidth={1.9} aria-hidden="true" /></span>
               <span className="about-direction-counter">02</span>
             </div>
-            <SectionEyebrow>HACIA DÓNDE VAMOS</SectionEyebrow>
-            <h3>Nuestra visión</h3>
+            <div className="title-eyebrow-group">
+              <SectionEyebrow>HACIA DÓNDE VAMOS</SectionEyebrow>
+              <h3>Nuestra visión</h3>
+            </div>
             <p>Ser una plataforma de ferias temáticas reconocida por conectar emprendimientos con comunidades reales en Lima.</p>
             <span className="about-direction-accent" aria-hidden="true" />
           </article>
@@ -181,11 +189,13 @@ export default function AboutUsContent() {
           <span className="about-purpose-stamp" aria-hidden="true"><ShoppingBag size={23} strokeWidth={1.8} /></span>
         </div>
         <div className="about-purpose-body">
-          <SectionEyebrow>LA RAZÓN DE TODO</SectionEyebrow>
-          <div className="about-content-heading-row about-purpose-heading">
-            <TitleRays side="left" />
-            <h2 id="about-purpose-title">Nuestro <span>propósito</span></h2>
-            <TitleRays side="right" />
+          <div className="title-eyebrow-group">
+            <SectionEyebrow>LA RAZÓN DE TODO</SectionEyebrow>
+            <div className="about-content-heading-row about-purpose-heading title-eyebrow-heading">
+              <TitleRays side="left" />
+              <h2 id="about-purpose-title">Nuestro <span>propósito</span></h2>
+              <TitleRays side="right" />
+            </div>
           </div>
           <p>Crear espacios donde las ideas digitales se conviertan en experiencias reales, acercando productos únicos, talento local y una comunidad que valora lo nuestro.</p>
           <a href="#proximas-ferias" className="about-purpose-link">
