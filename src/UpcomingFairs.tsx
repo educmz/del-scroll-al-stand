@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   ArrowLeft, ArrowRight, CalendarDays, MapPin, MessageCircle,
-  Gift, Snowflake, Sparkles, Store,
+  Gift, Snowflake, Sparkles,
 } from 'lucide-react'
 import './UpcomingFairs.css'
 
