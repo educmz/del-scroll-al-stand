@@ -5,25 +5,6 @@
   background: #fff9f0;
 }
 
-.site-about .topbar,
-.site-about .primary-nav {
-  background: #fffdfa;
-}
-
-.site-about .header-cta,
-.site-about .mobile-participate {
-  background: linear-gradient(135deg, #e81d3d, #a90029);
-}
-
-.site-about .nav-link.is-active {
-  color: #a90029;
-  font-weight: 700;
-}
-
-.site-about .nav-link.is-active::after {
-  background: #c00c33;
-}
-
 .about-page {
   overflow: hidden;
   background: #fff9f0;
