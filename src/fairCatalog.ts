@@ -50,6 +50,13 @@ export function getFairById(id: string | null): Fair | undefined {
   return [featuredFair, ...upcomingFairs].find((fair) => fair.id === id)
 }
 
+/** No asumir que aceptar solicitudes de interés implica convocatoria abierta. */
+export function fairApplicationStatus(fair: Fair): string {
+  if (fair.applicationsOpen === true) return 'Convocatoria abierta'
+  if (fair.applicationsOpen === false) return 'Convocatoria cerrada'
+  return 'Convocatoria por confirmar'
+}
+
 export function fairApplicationHref(fair: Fair): string {
   return `?feria=${encodeURIComponent(fair.id)}#planes-postular`
 }
