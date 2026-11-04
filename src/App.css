@@ -812,6 +812,7 @@ button:focus-visible {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(16px, 1.8vw, 26px);
+  /* El gap no cambia. La animación redistribuye el ancho real de las columnas. */
 }
 
 .process-item {
@@ -836,35 +837,74 @@ button:focus-visible {
   box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
 }
 
-/* Una tarjeta toma el protagonismo mientras las otras se reducen.
-   Todas se escalan desde el centro inferior: crecen arriba y a los lados.
-   Los offsets negativos sincronizan los cuatro turnos desde el primer ciclo. */
+/* El protagonismo se consigue repartiendo espacio en una cuadrícula única:
+   una columna crece y las otras tres se estrechan de verdad, sin alterar
+   el gap ni cambiar el ancho total de la sección. */
+@media (min-width: 1101px) {
+  .process-grid.is-animating {
+    animation: process-grid-rebalance 12s cubic-bezier(.45, 0, .55, 1) infinite;
+  }
+}
+
+@keyframes process-grid-rebalance {
+  0%, 100% {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  7%, 17% {
+    grid-template-columns: minmax(0, 1.39fr) minmax(0, .87fr) minmax(0, .87fr) minmax(0, .87fr);
+  }
+  31%, 42% {
+    grid-template-columns: minmax(0, .87fr) minmax(0, 1.39fr) minmax(0, .87fr) minmax(0, .87fr);
+  }
+  56%, 67% {
+    grid-template-columns: minmax(0, .87fr) minmax(0, .87fr) minmax(0, 1.39fr) minmax(0, .87fr);
+  }
+  81%, 92% {
+    grid-template-columns: minmax(0, .87fr) minmax(0, .87fr) minmax(0, .87fr) minmax(0, 1.39fr);
+  }
+}
+
+/* La tarjeta activa también crece hacia arriba, nunca hacia abajo.
+   scaleY no modifica el reparto horizontal: eso lo controla la cuadrícula. */
 .process-grid.is-animating .process-item {
-  animation: process-card-relay 10s cubic-bezier(.45, 0, .55, 1) infinite;
+  animation: process-card-rise 12s cubic-bezier(.45, 0, .55, 1) infinite;
 }
 
 .process-grid.is-animating .process-item:nth-child(1) { animation-delay: 0s; }
-.process-grid.is-animating .process-item:nth-child(2) { animation-delay: -7.5s; }
-.process-grid.is-animating .process-item:nth-child(3) { animation-delay: -5s; }
-.process-grid.is-animating .process-item:nth-child(4) { animation-delay: -2.5s; }
+.process-grid.is-animating .process-item:nth-child(2) { animation-delay: -9s; }
+.process-grid.is-animating .process-item:nth-child(3) { animation-delay: -6s; }
+.process-grid.is-animating .process-item:nth-child(4) { animation-delay: -3s; }
 
-/* Se congela la secuencia completa durante el hover, sin reiniciar ni saltar
-   de tamaño al apartar el cursor. El enfoque de teclado también la pausa. */
-.process-grid:focus-within .process-item {
+@keyframes process-card-rise {
+  0%, 22%, 100% { scale: 1 1; }
+  7%, 17% { scale: 1 1.065; }
+}
+
+/* Congelamos tanto el ancho de las columnas como la altura de las tarjetas
+   en el fotograma exacto al señalar o enfocar la sección. */
+.process-grid.is-animating:focus-within,
+.process-grid.is-animating:focus-within .process-item {
   animation-play-state: paused;
 }
 
 @media (hover: hover) {
-  .process-grid:hover .process-item {
+  .process-grid.is-animating:hover,
+  .process-grid.is-animating:hover .process-item {
     animation-play-state: paused;
   }
 }
 
-@keyframes process-card-relay {
-  0%, 22%, 100% { scale: .97; }
-  4% { scale: 1.005; }
-  9%, 12% { scale: 1.095; }
-  19% { scale: .97; }
+/* En dos columnas no se puede ensanchar una única celda sin afectar la
+   columna de la otra fila; aquí se conserva un relevo visual suave. */
+@media (max-width: 1100px) {
+  .process-grid.is-animating .process-item {
+    animation-name: process-card-compact;
+  }
+}
+
+@keyframes process-card-compact {
+  0%, 22%, 100% { scale: .975 .985; }
+  7%, 17% { scale: 1.06 1.065; }
 }
 
 .process-number {
@@ -1059,6 +1099,7 @@ button:focus-visible {
     transform: none;
   }
 
+  .process-grid.is-animating,
   .process-grid.is-animating .process-item {
     animation: none;
     scale: 1;
