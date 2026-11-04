@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CalendarDays, CirclePlay, Menu, X } from 'lucide-react'
+import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -29,6 +29,71 @@ C 44 208, 31 171, 36 139
 C 40 109, 64 82, 94 77
 C 129 68, 174 78, 213 74
 C 260 57, 312 21, 401 19 Z`
+
+
+const benefits = [
+  {
+    title: 'Más visibilidad',
+    description: 'Lleva tu marca del mundo digital a un público real',
+    icon: ChartNoAxesCombined,
+    tone: 'coral',
+  },
+  {
+    title: 'Más clientes',
+    description: 'Conecta, muestra y vende directamente en la feria',
+    icon: UsersRound,
+    tone: 'mint',
+  },
+  {
+    title: 'Entorno temático',
+    description: 'Ferias con temáticas atractivas que generan mayor interés y flujo de personas',
+    icon: Store,
+    tone: 'gold',
+  },
+  {
+    title: 'Comunidad emprendedora',
+    description: 'Forma parte de una red de marcas locales que se apoyan y crecen juntas',
+    icon: Heart,
+    tone: 'pink',
+  },
+]
+
+const steps = [
+  {
+    title: 'Postula',
+    description: 'Completa el formulario con tu marca y propuesta',
+    icon: Monitor,
+  },
+  {
+    title: 'Te confirmamos',
+    description: 'Revisamos tu postulación y te contamos los detalles',
+    icon: CalendarDays,
+  },
+  {
+    title: 'Prepara tu stand',
+    description: 'Alista tus productos, tu marca y vive la experiencia',
+    icon: Store,
+  },
+  {
+    title: '¡Vende en la feria!',
+    description: 'Conecta con nuevos clientes y haz crecer tu emprendimiento',
+    icon: UsersRound,
+  },
+]
+
+function SectionHeading({ children }: { children: string }) {
+  return (
+    <div className="info-section-heading">
+      <svg className="heading-rays heading-rays-left" viewBox="0 0 58 58" aria-hidden="true">
+        <path d="M47 5 53 23M24 15 40 32M10 43 32 45" />
+      </svg>
+      <h2>{children}</h2>
+      <svg className="heading-rays heading-rays-right" viewBox="0 0 58 58" aria-hidden="true">
+        <path d="M47 5 53 23M24 15 40 32M10 43 32 45" />
+      </svg>
+    </div>
+  )
+}
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -153,6 +218,54 @@ function App() {
                   </g>
                 </svg>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="benefits-and-process" aria-label="Beneficios y participación">
+          <SectionHeading>¿Por qué participar con nosotros?</SectionHeading>
+
+          <div className="benefits-grid" id="emprendedores">
+            {benefits.map((benefit) => {
+              const Icon = benefit.icon
+              return (
+                <article className="benefit-item" key={benefit.title}>
+                  <div className={'benefit-icon benefit-icon-' + benefit.tone}>
+                    <Icon
+                      size={50}
+                      strokeWidth={benefit.tone === 'mint' ? 3 : 2}
+                      fill={benefit.tone === 'pink' ? '#ff6870' : 'none'}
+                      stroke={benefit.tone === 'pink' ? 'none' : 'currentColor'}
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <div className="benefit-text">
+                    <h3>{benefit.title}</h3>
+                    <p>{benefit.description}</p>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+
+          <div className="process-heading" id="planes">
+            <SectionHeading>¿Cómo funciona?</SectionHeading>
+          </div>
+
+          <div className="process-background" id="participar">
+            <div className="process-grid">
+              {steps.map((step) => {
+                const Icon = step.icon
+                return (
+                  <article className="process-item" key={step.title}>
+                    <div className="process-icon">
+                      <Icon size={55} strokeWidth={2.2} aria-hidden="true" />
+                    </div>
+                    <h3>{step.title}</h3>
+                    <p>{step.description}</p>
+                  </article>
+                )
+              })}
             </div>
           </div>
         </section>

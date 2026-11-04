@@ -454,3 +454,261 @@ button:focus-visible {
   }
 
 }
+
+
+/* Beneficios y pasos, siguiendo la segunda sección de la referencia */
+.benefits-and-process {
+  width: min(100%, 1290px);
+  margin: 0 auto;
+  padding: 7px 16px 40px;
+  background: var(--cream);
+}
+
+.info-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  text-align: center;
+}
+
+.info-section-heading h2 {
+  margin: 0;
+  color: #241713;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(23px, 2.15vw, 30px);
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.heading-rays {
+  flex: 0 0 55px;
+  width: 55px;
+  height: 55px;
+  fill: none;
+  stroke: #ffcf8d;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.heading-rays-left {
+  transform: rotate(0deg);
+}
+
+.heading-rays-right {
+  transform: scaleX(-1);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin: 20px 38px 22px 52px;
+}
+
+.benefit-item {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  align-items: center;
+  gap: 17px;
+  min-width: 0;
+}
+
+.benefit-icon {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  color: #050505;
+}
+
+.benefit-icon-coral,
+.benefit-icon-pink {
+  background: #ff9e9f;
+}
+
+.benefit-icon-mint {
+  background: #b6dfae;
+}
+
+.benefit-icon-gold {
+  background: #ffc36c;
+}
+
+.benefit-text h3,
+.process-item h3 {
+  margin: 0 0 6px;
+  color: #0e0b09;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.benefit-text p,
+.process-item p {
+  margin: 0;
+  color: #141414;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.process-heading {
+  margin: 10px 0 13px;
+}
+
+.process-background {
+  width: 100%;
+  padding: 16px 32px 14px;
+  background: #c5e2bd;
+  border-radius: 65px;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.process-item {
+  min-width: 0;
+  text-align: center;
+}
+
+.process-icon {
+  display: grid;
+  place-items: center;
+  width: 105px;
+  height: 84px;
+  margin: 0 auto 8px;
+  border-radius: 50%;
+  background: #ff9e9f;
+  color: #080808;
+}
+
+.process-item h3 {
+  margin-bottom: 4px;
+}
+
+.process-item p {
+  max-width: 235px;
+  margin: 0 auto;
+}
+
+@media (max-width: 1150px) {
+  .benefits-grid {
+    margin-inline: 18px;
+    gap: 15px;
+  }
+
+  .benefit-item {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .benefit-icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .benefit-icon svg {
+    width: 43px;
+    height: 43px;
+  }
+
+  .benefit-text h3,
+  .process-item h3 {
+    font-size: 14px;
+  }
+
+  .benefit-text p,
+  .process-item p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 850px) {
+  .benefits-and-process {
+    padding: 18px 20px 40px;
+  }
+
+  .benefits-grid,
+  .process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .benefits-grid {
+    margin: 24px 0 36px;
+  }
+
+  .process-background {
+    padding: 25px;
+    border-radius: 42px;
+  }
+
+  .benefit-text h3,
+  .process-item h3 {
+    font-size: 16px;
+  }
+
+  .benefit-text p,
+  .process-item p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 550px) {
+  .benefits-and-process {
+    padding-inline: 16px;
+  }
+
+  .info-section-heading {
+    gap: 2px;
+  }
+
+  .info-section-heading h2 {
+    font-size: clamp(20px, 5vw, 26px);
+  }
+
+  .heading-rays {
+    width: 34px;
+    height: 38px;
+    flex-basis: 34px;
+    stroke-width: 10;
+  }
+
+  .benefits-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-grid {
+    gap: 19px;
+    margin: 22px 10px 36px;
+  }
+
+  .benefit-item {
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .benefit-icon {
+    width: 78px;
+    height: 78px;
+  }
+
+  .process-background {
+    padding: 24px 16px;
+    border-radius: 36px;
+  }
+
+  .process-grid {
+    gap: 28px;
+  }
+
+  .process-item p {
+    max-width: 280px;
+  }
+}
