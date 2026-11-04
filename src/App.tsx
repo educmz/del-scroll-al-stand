@@ -353,6 +353,21 @@ function App() {
 
               <div className="hero-message">
                 <h2 className="hero-slogan">
+                  <svg
+                    className="hero-slogan-shape"
+                    viewBox="0 0 640 230"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M75 39 C120 20 150 44 198 27 C233 15 266 15 294 28 C334 47 368 6 418 19 C470 32 502 28 542 57 C574 81 602 93 587 123 C581 144 609 156 571 180 C540 200 506 182 467 190 C422 200 396 221 349 198 C297 173 259 208 222 204 C185 200 153 174 108 192 C61 211 43 177 51 151 C59 127 26 115 36 88 C43 65 58 55 75 39 Z"
+                      fill="#f6c8d0"
+                      stroke="#e8a7b5"
+                      strokeWidth="1.8"
+                      vectorEffect="non-scaling-stroke"
+                    />
+                  </svg>
                   Tu negocio sale del chat
                   <span className="hero-slogan-second">y entra al <em>mundo real</em></span>
                 </h2>

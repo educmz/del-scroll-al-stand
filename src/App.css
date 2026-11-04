@@ -318,8 +318,8 @@ button:focus-visible {
   isolation: isolate;
   width: fit-content;
   max-width: 100%;
-  margin: 0 auto 24px;
-  padding: 20px clamp(24px, 3vw, 40px);
+  margin: 0 auto 27px;
+  padding: 22px clamp(30px, 3.2vw, 46px);
   color: #331b27;
   background: transparent;
   border: 0;
@@ -331,16 +331,16 @@ button:focus-visible {
   text-wrap: balance;
 }
 
-/* Fondo plano con silueta orgánica, inspirado en el contorno del banner. */
-.hero-slogan::before {
-  content: '';
+/* Fondo SVG plano con una silueta irregular propia; nada de border-radius ovalado. */
+.hero-slogan-shape {
   position: absolute;
-  inset: 0;
   z-index: -1;
-  background: #f6c8d0;
-  border: 1px solid rgba(184, 92, 112, .18);
-  border-radius: 46% 54% 50% 50% / 34% 42% 38% 46%;
-  transform: scale(1.04, 1.18) rotate(-1deg);
+  inset: -5px -7px;
+  display: block;
+  width: calc(100% + 14px);
+  height: calc(100% + 10px);
+  overflow: visible;
+  pointer-events: none;
 }
 
 .hero-slogan-second {
@@ -564,16 +564,17 @@ button:focus-visible {
   }
 
   .hero-slogan {
-    margin-bottom: 22px;
-    padding: 16px 20px;
+    margin-bottom: 25px;
+    padding: 18px 24px;
     font-size: clamp(23px, 6vw, 28px);
     line-height: 1.18;
     letter-spacing: -.022em;
   }
 
-  .hero-slogan::before {
-    border-radius: 42% 58% 48% 52% / 34% 40% 36% 44%;
-    transform: scale(1.03, 1.14) rotate(-.8deg);
+  .hero-slogan-shape {
+    inset: -4px -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 8px);
   }
 
   .hero-description {
