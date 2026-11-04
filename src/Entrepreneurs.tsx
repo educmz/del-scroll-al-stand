@@ -111,7 +111,9 @@ export default function Entrepreneurs() {
     <main className="entre-page" id="entrepreneurs-page">
       <PageHero
         id="entre-main-title"
-        eyebrow="Para emprendedores"
+        eyebrow="Haz crecer tu marca"
+        badgeIcon="store"
+        compactTitle
         title={<><span>Para</span><em>Emprendedores</em></>}
         description="Impulsa tu emprendimiento en ferias temáticas que conectan tu marca con más personas."
         imageFile="para-emprendedores-portada.png"
