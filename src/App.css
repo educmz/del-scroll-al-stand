@@ -709,9 +709,15 @@ button:focus-visible {
   background: linear-gradient(155deg, #ffffff 0%, #fffdfb 100%);
   box-shadow: 0 11px 28px rgba(93, 52, 49, .09);
   text-align: center;
+  transition: transform 300ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms ease;
 }
 
-/* Flecha sobria y estática, sin círculo, sombras ni animación. */
+.process-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
+}
+
+/* Flecha sin fondo, con reflejo que atraviesa su trazo sin moverla. */
 .process-connector {
   position: absolute;
   z-index: 5;
@@ -724,6 +730,35 @@ button:focus-visible {
   color: #bd6171;
   transform: translateY(-50%);
   pointer-events: none;
+}
+
+.process-arrow-base {
+  display: block;
+}
+
+.process-arrow-shine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fff1c9;
+  filter: drop-shadow(0 0 3px rgba(255, 222, 156, .95));
+  transform: translate(-50%, -50%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 35%, #000 50%, transparent 65%);
+  mask-image: linear-gradient(90deg, transparent 35%, #000 50%, transparent 65%);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  animation: process-arrow-shimmer 3.2s ease-in-out infinite;
+}
+
+@keyframes process-arrow-shimmer {
+  0%, 12% {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+  58%, 100% {
+    -webkit-mask-position: 0% 0;
+    mask-position: 0% 0;
+  }
 }
 
 .process-number {
@@ -924,13 +959,20 @@ button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .benefit-item,
-  .benefit-icon {
+  .benefit-icon,
+  .process-item {
     transition: none;
   }
 
   .benefit-item:hover,
-  .benefit-item:hover .benefit-icon {
+  .benefit-item:hover .benefit-icon,
+  .process-item:hover {
     transform: none;
+  }
+
+  .process-arrow-shine {
+    animation: none;
+    display: none;
   }
 }
 
