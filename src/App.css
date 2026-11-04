@@ -1225,6 +1225,22 @@ button:focus-visible {
   font-weight: 400;
   line-height: 1.55;
 }
+.testimonial-pending-note {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  margin: 18px 0 17px;
+  color: #8b7176;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.6;
+}
+.testimonial-card-pending .testimonial-category {
+  border-color: #efddd8;
+  background: #fcf0ec;
+  color: #996e76;
+}
 .testimonial-card-bottom {
   display: flex;
   align-items: center;
