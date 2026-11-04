@@ -1,7 +1,7 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import {
   BadgeCheck, CalendarDays, Check, ChevronDown, ChevronRight, ClipboardList,
-  Flag, Headphones, MapPin, Megaphone, MessageCircle, PackageCheck,
+  Flag, Megaphone, MessageCircle,
   Send, ShieldCheck, Sparkles, Store, Table2, UsersRound, Zap,
 } from 'lucide-react'
 import './StandPlans.css'
@@ -109,7 +109,7 @@ function StandPhoto({ file, alt, className = '' }: { file: string; alt: string; 
   )
 }
 
-function JumpToForm({ children, className = '', plan }: { children: React.ReactNode; className?: string; plan?: PlanId }) {
+function JumpToForm({ children, className = '', plan }: { children: ReactNode; className?: string; plan?: PlanId }) {
   return (
     <button
       type="button"
@@ -126,6 +126,26 @@ function JumpToForm({ children, className = '', plan }: { children: React.ReactN
   )
 }
 
+function WhatsAppReserve() {
+  const contactNumber = (import.meta.env.VITE_APPLICATION_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+
+  return (
+    <button
+      type="button"
+      className="plans-final-whatsapp"
+      disabled={!contactNumber}
+      title={!contactNumber ? 'La reserva por WhatsApp se habilitará al configurar el número de contacto.' : 'Abrir WhatsApp para reservar'}
+      onClick={() => {
+        if (contactNumber) {
+          window.open(`https://wa.me/${contactNumber}?text=${encodeURIComponent('Hola, quiero reservar un stand para la próxima feria de Del Scroll al Stand.')}`, '_blank', 'noopener,noreferrer')
+        }
+      }}
+    >
+      <MessageCircle size={19} aria-hidden="true" /> Reservar por WhatsApp
+    </button>
+  )
+}
+
 function ApplicationForm() {
   const [selectedPlan, setSelectedPlan] = useState<PlanId | ''>('')
   const [feedback, setFeedback] = useState('')
@@ -137,6 +157,15 @@ function ApplicationForm() {
     description: '',
   })
   const contactNumber = (import.meta.env.VITE_APPLICATION_WHATSAPP_NUMBER || '').replace(/\D/g, '')
+
+  useEffect(() => {
+    const onPlanChoice = (event: Event) => {
+      setSelectedPlan((event as CustomEvent<PlanId>).detail)
+      setFeedback('')
+    }
+    window.addEventListener('stand-plan-choice', onPlanChoice)
+    return () => window.removeEventListener('stand-plan-choice', onPlanChoice)
+  }, [])
 
   const choosePlan = (plan: PlanId) => {
     setSelectedPlan(plan)
@@ -165,8 +194,10 @@ function ApplicationForm() {
       return
     }
 
-    window.open(`https://wa.me/${contactNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
-    setFeedback('Se abrió WhatsApp con tus datos. Debes pulsar Enviar allí para completar la postulación.')
+    const whatsappWindow = window.open(`https://wa.me/${contactNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
+    setFeedback(whatsappWindow
+      ? 'Se abrió WhatsApp con tus datos. Debes pulsar Enviar allí para completar la postulación.'
+      : 'Si WhatsApp no se abrió, comprueba que tu navegador permita ventanas emergentes. Tu postulación aún no se ha enviado.')
   }
 
   return (
@@ -347,12 +378,12 @@ export default function StandPlans() {
           <p>Asegura tu participación en la próxima feria y dale más visibilidad a tu emprendimiento.</p>
         </div>
         <div className="plans-final-actions">
-          <JumpToForm className="plans-final-whatsapp"><MessageCircle size={19} /> Reservar por WhatsApp</JumpToForm>
+          <WhatsAppReserve />
           <JumpToForm className="plans-final-form"><CalendarDays size={19} /> Completar formulario</JumpToForm>
         </div>
         <Sparkles className="plans-final-sparkles" size={36} aria-hidden="true" />
       </section>
-      <p className="plans-reference-note">Precios y beneficios mostrados según la referencia de diseño; confirmar condiciones antes de abrir postulaciones.</p>
+      <p className="plans-reference-note">Precios, beneficios y testimonios de muestra según la referencia de diseño. Confirma las condiciones antes de abrir postulaciones.</p>
     </main>
   )
 }
