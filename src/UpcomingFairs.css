@@ -334,16 +334,30 @@
 .fair-content .section-overline {
   color: #98506a;
 }
-.fair-gallery > .section-overline {
+.fair-gallery > .title-eyebrow-group > .section-overline {
   width: 100%;
   text-align: right;
 }
 @media (max-width: 720px) {
-  .fair-gallery > .section-overline { text-align: center; }
+  .fair-gallery > .title-eyebrow-group > .section-overline { text-align: center; }
 }
 
 @media (max-width: 720px) {
   .fair-categories-section {
     margin-top: 34px;
+  }
+}
+
+/* La galería conserva su encabezado a la derecha. Solo el subtítulo
+   se centra respecto al título; no respecto a la sección completa. */
+.fair-gallery > .title-eyebrow-group {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+}
+@media (max-width: 720px) {
+  .fair-gallery > .title-eyebrow-group {
+    margin-inline: auto;
   }
 }
