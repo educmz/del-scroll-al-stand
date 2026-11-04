@@ -4,7 +4,7 @@ import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Store, UsersRound, X } from 'lucide-react'
+import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -472,12 +472,14 @@ function App() {
         <section className="join-banner" aria-labelledby="join-title">
           <MarketStandIllustration />
           <div className="join-copy">
+            <span className="join-kicker">EL PRÓXIMO PASO DE TU MARCA</span>
             <h2 id="join-title">¿Listo para llevar tu marca del scroll al stand?</h2>
             <p>Sé parte de nuestras próximas ferias y conecta con más personas en el mundo real.</p>
           </div>
           <a className="join-cta" href="#participar">
-            <Store aria-hidden="true" size={26} strokeWidth={1.8} />
-            Quiero participar ahora
+            <Store aria-hidden="true" size={25} strokeWidth={1.9} />
+            <span>Quiero participar ahora</span>
+            <ArrowUpRight className="join-cta-arrow" aria-hidden="true" size={19} strokeWidth={2.2} />
           </a>
           <svg className="join-rays" viewBox="0 0 58 58" aria-hidden="true">
             <path d="M5 24 31 17M13 38 38 47M31 9 48 4" />
