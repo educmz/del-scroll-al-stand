@@ -4,7 +4,7 @@ import TitleRays from './TitleRays'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
-import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
 import './App.css'
 
@@ -428,6 +428,11 @@ function App() {
                     </div>
                     <h3>{step.title}</h3>
                     <p>{step.description}</p>
+                    {index < steps.length - 1 && (
+                      <span className="process-connector" aria-hidden="true">
+                        <ArrowRight size={21} strokeWidth={2.7} />
+                      </span>
+                    )}
                   </article>
                 )
               })}
