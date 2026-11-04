@@ -93,18 +93,29 @@ confirmarse antes de abrir postulaciones.
 
 ## Página Para emprendedores
 
-La ruta `#emprendedores` muestra una vista independiente con:
+La ruta `#emprendedores` utiliza el banner `PageHero` compartido, seguido de dos
+bloques editoriales coherentes con Sobre nosotros:
 
-- Portada temática navideña con accesos a planes y al formulario.
-- Cuatro beneficios y cinco servicios para expositores.
-- Bloque de la feria navideña **12 y 13 de diciembre de 2026**, en Parque Próceres de la Independencia, Jesús María, Lima, según la referencia de diseño.
+- **Haz crecer tu marca:** cuatro tarjetas de beneficios con iconos pastel y colores coral, verde y dorado.
+- **¿Qué te ofrecemos?:** cinco tarjetas de servicios adaptables a escritorio, tablet y móvil.
+- **Feria Navideña:** una sección final con la información de la feria del **12 y 13 de diciembre de 2026**
+  (Parque Próceres de la Independencia, Jesús María, Lima) y un espacio grande reservado
+  para el banner promocional oficial.
 
-La imagen `public/images/para-emprendedores-portada.png` se utiliza como fotografía principal.
-Mientras no exista, aparece la imagen de feria `feria-portada.png`.
+### Imágenes de Para emprendedores
 
-Los botones **Postula tu Marca** y **Postula Ahora** llevan a la página de planes
-y desplazan el contenido hasta el formulario existente. **Conoce los Planes** abre la comparativa.
-El formulario no registra ni envía datos por sí solo; para WhatsApp sigue la configuración del apartado anterior.
+Sube los archivos a `public/images/` con estos nombres exactos:
+
+- `para-emprendedores-portada.png`: fotografía del banner superior de la página.
+- **`banner-feria-navidad.png`**: banner promocional de la última sección.
+  Mientras no exista, aparece una tarjeta provisional con el texto «Feria Navideña».
+  La imagen se muestra completa con `object-fit: contain`, sin cortar letras, personas ni logotipos.
+
+Mientras falte la fotografía superior, se usa `feria-portada.png` como respaldo.
+
+Los botones de postulación llevan al formulario existente en Planes de stand.
+Los accesos a planes y a Próximas ferias se conservan. El formulario no registra
+ni envía datos por sí solo; para WhatsApp sigue la configuración del apartado anterior.
 
 Antes de difundir la feria, confirma la fecha, dirección y condiciones con el equipo organizador.
 
