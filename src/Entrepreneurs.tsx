@@ -137,11 +137,13 @@ export default function Entrepreneurs() {
       </section>
 
       <section className="entre-offerings" aria-labelledby="entre-offerings-heading">
-        <SectionEyebrow>CRECEMOS CONTIGO</SectionEyebrow>
-        <div className="entre-section-heading">
-          <TitleRays side="left" />
-          <h2 id="entre-offerings-heading">¿Qué te ofrecemos?</h2>
-          <TitleRays side="right" />
+        <div className="title-eyebrow-group">
+          <SectionEyebrow>CRECEMOS CONTIGO</SectionEyebrow>
+          <div className="entre-section-heading title-eyebrow-heading">
+            <TitleRays side="left" />
+            <h2 id="entre-offerings-heading">¿Qué te ofrecemos?</h2>
+            <TitleRays side="right" />
+          </div>
         </div>
         <div className="entre-offering-grid">
           {offerings.map(({ title, description, icon: Icon }) => (
