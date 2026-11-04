@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import AboutUs from './AboutUs'
 import StandPlans from './StandPlans'
+import Entrepreneurs from './Entrepreneurs'
 import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
@@ -157,7 +158,8 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
   const isAbout = currentHash.startsWith('#sobre-nosotros')
-  const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand'
+  const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
+  const isEntrepreneurs = currentHash === '#emprendedores'
 
   useEffect(() => {
     const onHashChange = () => {
@@ -169,13 +171,17 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (currentHash === '#sobre-nosotros' || isPlans) {
+    if (currentHash === '#planes-postular') {
+      window.requestAnimationFrame(() => {
+        document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'instant', block: 'start' })
+      })
+    } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs) {
       window.scrollTo(0, 0)
     }
-  }, [currentHash, isPlans])
+  }, [currentHash, isPlans, isEntrepreneurs])
 
   return (
-    <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : ''}`}>
+    <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : isEntrepreneurs ? 'site-entrepreneurs' : ''}`}>
       <header className="topbar">
         <div className="topbar-content">
           <a href="#inicio" className="brand" aria-label="Del Scroll al Stand — Inicio">
@@ -192,11 +198,11 @@ function App() {
             className={`primary-nav ${menuOpen ? 'is-open' : ''}`}
             aria-label="Navegación principal"
           >
-            {navigation.filter((item) => isAbout || isPlans || item.label !== 'Galería').map((item) => (
+            {navigation.filter((item) => isAbout || isPlans || isEntrepreneurs || item.label !== 'Galería').map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : isPlans ? item.href === '#planes' : item.href === '#inicio') ? 'is-active' : ''}`}
+                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : isPlans ? item.href === '#planes' : isEntrepreneurs ? item.href === '#emprendedores' : item.href === '#inicio') ? 'is-active' : ''}`}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
@@ -204,7 +210,7 @@ function App() {
             ))}
             <a
               className="mobile-participate"
-              href={isPlans ? '#planes' : '#participar'}
+              href={isPlans ? '#planes' : isEntrepreneurs ? '#planes-postular' : '#participar'}
               onClick={(event) => {
                 setMenuOpen(false)
                 if (isPlans) {
@@ -220,7 +226,7 @@ function App() {
 
           <a
             className="header-cta"
-            href={isPlans ? '#planes' : '#participar'}
+            href={isPlans ? '#planes' : isEntrepreneurs ? '#planes-postular' : '#participar'}
             onClick={(event) => {
               if (isPlans) {
                 event.preventDefault()
@@ -249,6 +255,8 @@ function App() {
         <AboutUs />
       ) : isPlans ? (
         <StandPlans />
+      ) : isEntrepreneurs ? (
+        <Entrepreneurs />
       ) : (
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -435,7 +443,7 @@ function App() {
 
           <nav className="footer-column footer-for-entrepreneurs" aria-label="Para emprendedores">
             <h3>Para emprendedores</h3>
-            <a href="#participar">Cómo participar</a>
+            <a href="#planes-postular">Cómo participar</a>
             <span>Preguntas frecuentes</span>
             <span>Términos y condiciones</span>
           </nav>

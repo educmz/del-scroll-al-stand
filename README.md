@@ -90,3 +90,20 @@ Al estar incluido en el JavaScript público, **no debe considerarse secreto**.
 
 Los precios, beneficios y testimonios de la maqueta son contenido de referencia y deben
 confirmarse antes de abrir postulaciones.
+
+## Página Para emprendedores
+
+La ruta `#emprendedores` muestra una vista independiente con:
+
+- Portada temática navideña con accesos a planes y al formulario.
+- Cuatro beneficios y cinco servicios para expositores.
+- Bloque de la feria navideña **12 y 13 de diciembre de 2026**, en Parque Próceres de la Independencia, Jesús María, Lima, según la referencia de diseño.
+
+La imagen `public/images/para-emprendedores-portada.png` se utiliza como fotografía principal.
+Mientras no exista, aparece la imagen de feria `feria-portada.png`.
+
+Los botones **Postula tu Marca** y **Postula Ahora** llevan a la página de planes
+y desplazan el contenido hasta el formulario existente. **Conoce los Planes** abre la comparativa.
+El formulario no registra ni envía datos por sí solo; para WhatsApp sigue la configuración del apartado anterior.
+
+Antes de difundir la feria, confirma la fecha, dirección y condiciones con el equipo organizador.
