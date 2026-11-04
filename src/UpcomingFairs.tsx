@@ -32,29 +32,6 @@ const categories = [
   { name: 'Productos sostenibles', emoji: '♻️', tone: 'pink' },
 ]
 
-const questions = [
-  {
-    question: '¿Cómo puedo participar como expositor?',
-    answer: 'Completa el formulario de postulación con los datos de tu emprendimiento, rubro, redes sociales y el plan de stand de tu interés. Nuestro equipo revisará la información y te contactará por WhatsApp Business o correo para confirmar los siguientes pasos.',
-  },
-  {
-    question: '¿Cuáles son los requisitos para participar?',
-    answer: 'Debes contar con un emprendimiento o pequeño negocio activo, ofrecer productos o servicios compatibles con la temática de la feria, brindar información básica de tu marca y aceptar las condiciones de participación. También se evaluará que tu propuesta esté alineada con las categorías y el público de cada edición.',
-  },
-  {
-    question: '¿Qué incluye el espacio del stand?',
-    answer: 'El servicio incluye el espacio asignado dentro de la feria y, según el plan elegido, puede incluir mesa, sillas, punto de electricidad, señalización de la marca, seguridad, promoción digital y presencia en el catálogo de expositores.',
-  },
-  {
-    question: '¿Cuándo confirman a los expositores seleccionados?',
-    answer: 'Después de revisar la postulación, nuestro equipo se comunicará con el emprendimiento para informar si fue seleccionado y confirmar disponibilidad, plan, condiciones y proceso de pago. La confirmación se realizará antes del cierre de inscripciones de cada edición.',
-  },
-  {
-    question: '¿Puedo elegir la ubicación de mi stand?',
-    answer: 'La ubicación dependerá de la disponibilidad, el plan seleccionado y la distribución de categorías dentro de la feria. Buscamos organizar los stands de forma equilibrada y evitar una concentración excesiva de negocios con productos muy similares.',
-  },
-]
-
 function EventImage({ file, alt, className = '' }: { file: string; alt: string; className?: string }) {
   return (
     <img
@@ -213,7 +190,7 @@ export default function UpcomingFairs() {
           <Gallery />
         </section>
 
-        <section className="fair-categories-faq" aria-label="Categorías y preguntas frecuentes">
+        <section className="fair-categories-section" aria-label="Categorías participantes">
           <div className="fair-categories">
             <SectionEyebrow>MARCAS QUE HACEN LA DIFERENCIA</SectionEyebrow>
             <h2 className="fair-serif-heading"><TitleRays side="left" /><span>Categorías participantes</span><TitleRays side="right" /></h2>
@@ -224,18 +201,6 @@ export default function UpcomingFairs() {
                   <span className="fair-category-emoji" aria-hidden="true">{category.emoji}</span>
                   <span>{category.name}</span>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="fair-faq" id="fair-faq">
-            <SectionEyebrow>RESOLVEMOS TUS DUDAS</SectionEyebrow>
-            <h2 className="fair-serif-heading"><TitleRays side="left" /><span>Preguntas frecuentes</span><TitleRays side="right" /></h2>
-            <div className="fair-faq-list">
-              {questions.map((item) => (
-                <details key={item.question} open>
-                  <summary>{item.question}</summary>
-                  <p>{item.answer}</p>
-                </details>
               ))}
             </div>
           </div>

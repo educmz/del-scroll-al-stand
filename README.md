@@ -111,10 +111,11 @@ Antes de difundir la feria, confirma la fecha, dirección y condiciones con el e
 ## Próximas ferias
 
 La ruta `#proximas-ferias` muestra el evento **Feria Navideña: Mercado de Regalos**,
-con cuatro bloques sucesivos: portada, detalles y mapa, ubicación y galería,
-categorías y preguntas frecuentes desplegables.
+con portada, detalles y mapa, ubicación y galería, y categorías participantes.
 
-La ruta `#proximas-ferias-preguntas` abre directamente las preguntas frecuentes.
+Las **preguntas frecuentes** se encuentran ahora en Inicio, justo antes del CTA final,
+en la ruta `#preguntas-frecuentes`. El enlace anterior
+`#proximas-ferias-preguntas` también lleva allí.
 Las fechas y el lugar de la maqueta se basan en la referencia proporcionada
 (12 y 13 de diciembre de 2026, Parque Próceres de la Independencia, Jesús María, Lima).
 Deben confirmarse con el organizador antes de anunciarse oficialmente.
@@ -129,7 +130,7 @@ Las fotografías originales pueden subirse a `public/images/` con estos nombres:
 - `feria-galeria-1.png` a `feria-galeria-6.png`: galería de ediciones anteriores.
 
 Si falta alguna, se usa provisionalmente la foto existente `feria-portada.png`.
-Los controles del carrusel y las preguntas frecuentes funcionan sin backend.
+Los controles del carrusel de Próximas ferias y las preguntas frecuentes en Inicio funcionan sin backend.
 
 El botón `Postular a esta feria` abre el formulario en Planes de stand
 (`#planes-postular`). El botón de WhatsApp se habilita al configurar

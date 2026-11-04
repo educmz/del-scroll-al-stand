@@ -216,15 +216,11 @@
 .fair-gallery-dots button:focus-visible,
 .fair-gallery-arrow:focus-visible { outline: 3px solid #b80b30; outline-offset: 3px; }
 
-.fair-categories-faq {
-  display: grid;
-  grid-template-columns: minmax(0,47%) minmax(0,53%);
-  align-items: start;
-  gap: 45px;
-  margin-top: 25px;
+.fair-categories-section {
+  width: min(100%, 1050px);
+  margin: 44px auto 0;
 }
-.fair-categories .fair-serif-heading,
-.fair-faq .fair-serif-heading { margin-bottom: 6px; }
+.fair-categories .fair-serif-heading { margin-bottom: 6px; }
 .fair-categories > p { margin: 0 0 16px; font-size: 16px; line-height: 1.3; }
 .fair-categories-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 11px; }
 .fair-category {
@@ -244,34 +240,6 @@
 .fair-category-green { background: #bfe1bb; }
 .fair-category-peach { background: #ffdaa0; }
 .fair-category-emoji { display: grid; place-items: center; min-height: 66px; font-size: 49px; line-height: 1; }
-.fair-faq-list { display: grid; gap: 9px; }
-.fair-faq-list details { border: 1px solid #ffa0a4; background: #fff; }
-.fair-faq-list summary {
-  display: list-item;
-  list-style: none;
-  cursor: pointer;
-  position: relative;
-  background: #ffa2a5;
-  padding: 7px 36px 7px 12px;
-  color: #1e1d1b;
-  font-size: 14px;
-  line-height: 1.2;
-}
-.fair-faq-list summary::-webkit-details-marker { display: none; }
-.fair-faq-list summary::after {
-  content: '⌄';
-  position: absolute;
-  right: 12px;
-  top: 0;
-  color: #191314;
-  font-size: 25px;
-  font-weight: bold;
-  line-height: 30px;
-}
-.fair-faq-list details[open] summary::after { content: '⌃'; }
-.fair-faq-list details p { margin: 0; padding: 8px 12px 9px; font-size: 13px; line-height: 1.32; color: #252020; }
-.fair-faq-list summary:focus-visible { outline: 2px solid #b90b30; outline-offset: -2px; }
-
 @media (max-width: 1260px) {
   .fair-hero { min-height: 440px; }
   .fair-market-label { margin-left: 20%; }
@@ -282,7 +250,7 @@
   .fair-detail-card p, .fair-detail-card em { font-size: 14px; }
   .fair-detail-card h3 { font-size: 15px; }
   .fair-details-grid { gap: 20px; }
-  .fair-location-gallery, .fair-categories-faq { gap: 24px; }
+  .fair-location-gallery { gap: 24px; }
 }
 @media (max-width: 980px) {
   .fair-hero { min-height: 390px; }
@@ -316,7 +284,7 @@
   .fair-detail-card { grid-template-columns: 73px minmax(0,1fr); text-align: left; min-height: 148px; justify-items: stretch; }
   .fair-detail-icon { width: 72px; height: 72px; }
   .fair-map { height: 285px; }
-  .fair-location-gallery, .fair-categories-faq { grid-template-columns: 1fr; margin-top: 28px; gap: 26px; }
+  .fair-location-gallery { grid-template-columns: 1fr; margin-top: 28px; gap: 26px; }
   .fair-gallery h2 { justify-content: center; text-align: center; }
   .fair-gallery-images { grid-template-columns: repeat(4,minmax(0,1fr)); }
   .fair-gallery-images img:nth-child(n + 3) { display: block; }
@@ -342,8 +310,6 @@
   .fair-categories-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .fair-categories > p { font-size: 14px; }
   .fair-category { min-height: 137px; }
-  .fair-faq-list summary { font-size: 13px; }
-  .fair-faq-list details p { font-size: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .fair-hero-actions a, .fair-gallery-arrow { transition: none; }
@@ -372,4 +338,10 @@
 }
 @media (max-width: 720px) {
   .fair-gallery > .section-overline { text-align: center; }
+}
+
+@media (max-width: 720px) {
+  .fair-categories-section {
+    margin-top: 34px;
+  }
 }

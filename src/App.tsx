@@ -5,6 +5,7 @@ import SectionEyebrow from './SectionEyebrow'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
+import HomeFAQ from './HomeFAQ'
 import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
 import { motion, useReducedMotion } from 'motion/react'
@@ -148,7 +149,7 @@ function App() {
   const isAbout = currentHash.startsWith('#sobre-nosotros')
   const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
   const isEntrepreneurs = currentHash === '#emprendedores'
-  const isFairs = currentHash === '#proximas-ferias' || currentHash === '#proximas-ferias-preguntas'
+  const isFairs = currentHash === '#proximas-ferias'
   const activeHref = isAbout ? '#sobre-nosotros' : isPlans ? '#planes' : isEntrepreneurs ? '#emprendedores' : isFairs ? '#proximas-ferias' : '#inicio'
 
   // La píldora sigue únicamente a la sección seleccionada, no al hover.
@@ -208,9 +209,9 @@ function App() {
       window.requestAnimationFrame(() => {
         document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'auto', block: 'start' })
       })
-    } else if (currentHash === '#proximas-ferias-preguntas') {
+    } else if (currentHash === '#preguntas-frecuentes' || currentHash === '#proximas-ferias-preguntas') {
       window.requestAnimationFrame(() => {
-        document.getElementById('fair-faq')?.scrollIntoView({ behavior: 'auto', block: 'start' })
+        document.getElementById('preguntas-frecuentes')?.scrollIntoView({ behavior: 'auto', block: 'start' })
       })
     } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs || isFairs) {
       window.scrollTo(0, 0)
@@ -560,6 +561,14 @@ function App() {
           </div>
         </section>
 
+        <section className="home-faq" id="preguntas-frecuentes" aria-label="Preguntas frecuentes">
+          <div className="home-faq-heading">
+            <SectionHeading eyebrow="RESOLVEMOS TUS DUDAS">Preguntas frecuentes</SectionHeading>
+            <p className="home-faq-intro">Encuentra aquí las respuestas antes de vivir tu próxima feria con nosotros.</p>
+          </div>
+          <HomeFAQ />
+        </section>
+
         <section className="join-banner" aria-labelledby="join-title">
           <div className="join-copy">
             <span className="join-kicker">EL PRÓXIMO PASO DE TU MARCA</span>
@@ -594,6 +603,7 @@ function App() {
             <h3>Enlaces</h3>
             <a href="#inicio">Inicio</a>
             <a href="#proximas-ferias">Próximas ferias</a>
+            <a href="#preguntas-frecuentes">Preguntas frecuentes</a>
             <a href="#planes">Planes de stand</a>
           </nav>
 
