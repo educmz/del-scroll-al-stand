@@ -135,28 +135,26 @@
   font: 400 13px/1.65 'Poppins', sans-serif;
 }
 
-/* Servicios: cinco tarjetas organizadas en filas 3 + 2. */
+/* Servicios: las cinco tarjetas siempre en una sola fila. */
 .entre-offerings-section {
   padding: clamp(56px, 5.7vw, 82px) clamp(20px, 4vw, 68px)
            clamp(65px, 6.5vw, 92px);
   background: var(--entre-cream);
 }
-.entre-offerings-content { width: min(100%, 1180px); margin: 0 auto; }
+.entre-offerings-content { width: min(100%, 1320px); margin: 0 auto; }
 .entre-offering-grid {
   display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: clamp(15px, 1.7vw, 22px);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(12px, 1.3vw, 19px);
 }
 .entre-offering {
-  grid-column: span 2;
-  min-height: 226px;
-  padding: clamp(22px, 2vw, 29px);
-  border-radius: 27px;
+  min-height: 254px;
+  padding: clamp(18px, 1.7vw, 25px);
+  border-radius: 25px;
 }
-.entre-offering:nth-child(4), .entre-offering:nth-child(5) { grid-column: span 3; }
 .entre-offering-top { margin-bottom: 17px; }
-.entre-offering .entre-card-icon { width: 60px; height: 60px; border-radius: 18px; }
-.entre-offering h3 { font-size: clamp(18px, 1.6vw, 23px); }
+.entre-offering .entre-card-icon { width: 57px; height: 57px; border-radius: 18px; }
+.entre-offering h3 { font-size: clamp(17px, 1.3vw, 21px); }
 
 /* Feria Navideña: bloque de información + afiche oficial sin recortar. */
 .entre-event-section {
@@ -319,6 +317,21 @@
   font: 500 13px/1.65 'Poppins', sans-serif;
 }
 
+/* En pantallas estrechas, una sola fila deslizable evita tarjetas diminutas. */
+@media (max-width: 1180px) {
+  .entre-offering-grid {
+    grid-template-columns: repeat(5, minmax(215px, 1fr));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    scrollbar-color: #dfa9a4 transparent;
+    padding: 7px 2px 17px;
+  }
+
+  .entre-offering { scroll-snap-align: start; }
+}
+
 /* Responsive: tablet, móvil y teléfonos pequeños. */
 @media (max-width: 1020px) {
   .entre-benefits-grid {
@@ -326,12 +339,6 @@
     max-width: 770px;
   }
   .entre-benefit { min-height: 210px; }
-  .entre-offering-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .entre-offering, .entre-offering:nth-child(4), .entre-offering:nth-child(5) {
-    grid-column: auto;
-    min-height: 218px;
-  }
-  .entre-offering:last-child { grid-column: 1 / -1; min-height: 190px; }
   .entre-event {
     grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
     gap: 24px;
@@ -369,12 +376,12 @@
   .entre-section-title h2 { font-size: clamp(26px, 7vw, 34px); }
   .entre-section-title .title-rays { width: 21px; height: 40px; flex-basis: 21px; }
   .entre-section-intro > p { font-size: 13px; }
-  .entre-benefits-grid, .entre-offering-grid {
+  .entre-benefits-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 14px;
   }
-  .entre-benefit, .entre-offering, .entre-offering:last-child {
-    grid-column: auto;
+  .entre-offering-grid { gap: 14px; }
+  .entre-benefit, .entre-offering {
     min-height: 0;
     padding: 23px;
     border-radius: 24px;
