@@ -7,8 +7,9 @@ export default function AboutUs() {
     <main className="about-page" id="about-page">
       <PageHero
         id="about-main-title"
-        eyebrow="Sobre nosotros"
-        title={<><span>Del Scroll</span><em>al Stand</em></>}
+        eyebrow="Nuestra esencia"
+        badgeIcon="heart"
+        title={<><span>Sobre</span><em>Nosotros</em></>}
         description="Conectamos el mundo digital de los emprendedores con ferias reales llenas de oportunidades."
         imageFile="sobre-nosotros-portada.png"
         imageAlt="Feria con emprendedores, stands y visitantes"
