@@ -430,7 +430,7 @@ function App() {
                     <p>{step.description}</p>
                     {index < steps.length - 1 && (
                       <span className="process-connector" aria-hidden="true">
-                        <ArrowRight size={21} strokeWidth={2.7} />
+                        <ArrowRight size={30} strokeWidth={2.1} />
                       </span>
                     )}
                   </article>
