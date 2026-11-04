@@ -258,7 +258,8 @@ export default function StandPlans() {
     <main className="stand-plans-page" id="stand-plans-page">
       <PageHero
         id="plans-main-title"
-        eyebrow="Planes de stand"
+        eyebrow="Elige tu espacio"
+        badgeIcon="sparkles"
         title={<><span>Planes de</span><em>Stand</em></>}
         description="Elige el plan ideal para tu emprendimiento y lleva tu marca a nuestras ferias."
         imageFile="planes-portada.png"
