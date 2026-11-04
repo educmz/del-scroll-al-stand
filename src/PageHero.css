@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: minmax(0, 40%) minmax(0, 60%);
   width: min(100%, 1560px);
-  min-height: 515px;
+  min-height: 460px;
   margin: 0 auto;
   overflow: hidden;
   /* Rojo granate original: transición sutil de arriba hacia abajo, común a las cuatro portadas. */
@@ -24,7 +24,7 @@
   justify-content: center;
   align-items: center;
   min-width: 0;
-  padding: 24px clamp(24px, 2.8vw, 46px) 26px clamp(24px, 3.4vw, 54px);
+  padding: 20px clamp(24px, 2.8vw, 46px) 21px clamp(24px, 3.4vw, 54px);
   text-align: center;
 }
 
@@ -35,8 +35,8 @@
   align-items: center;
   gap: 10px;
   max-width: 100%;
-  padding: 11px clamp(15px, 1.7vw, 24px);
-  margin: 0 auto 19px;
+  padding: 9px clamp(15px, 1.7vw, 24px);
+  margin: 0 auto 13px;
   border-radius: 17px;
   background: #fff6ea;
   color: #8e1432;
@@ -55,7 +55,7 @@
   position: relative;
   width: 100%;
   min-width: 0;
-  padding: 6px 0 12px;
+  padding: 4px 0 9px;
 }
 
 .page-hero__title {
@@ -63,7 +63,7 @@
   z-index: 1;
   max-width: 100%;
   margin: 0;
-  font: italic 700 clamp(52px, 5vw, 82px)/.91 Georgia, 'Times New Roman', serif;
+  font: italic 700 clamp(48px, 4.6vw, 74px)/.94 Georgia, 'Times New Roman', serif;
   letter-spacing: -.055em;
   text-wrap: balance;
 }
@@ -120,7 +120,7 @@
 
 .page-hero__description {
   max-width: 445px;
-  margin: 16px 0 0;
+  margin: 12px 0 0;
   color: #fff1ec;
   font: 400 clamp(14px, 1.17vw, 17px)/1.6 'Poppins', sans-serif;
   text-wrap: pretty;
@@ -133,12 +133,12 @@
 
 .page-hero__extras {
   width: 100%;
-  margin-top: 13px;
+  margin-top: 9px;
 }
 
 .page-hero__highlights {
   display: grid;
-  gap: 8px;
+  gap: 5px;
   width: min(100%, 390px);
   margin: 0 auto;
   padding: 0;
@@ -175,7 +175,7 @@
   align-items: center;
   gap: 11px;
   width: 100%;
-  margin-top: 19px;
+  margin-top: 13px;
 }
 
 .page-hero .page-hero__actions .page-hero__button {
@@ -259,15 +259,15 @@
   .page-hero {
     grid-template-columns: minmax(0, 43%) minmax(0, 57%);
     /* Reserva suficiente para los beneficios extra de Planes sin alargar las otras portadas. */
-    min-height: 555px;
+    min-height: 500px;
   }
 
   .page-hero__copy {
-    padding: 20px 23px 22px 30px;
+    padding: 18px 23px 19px 30px;
   }
 
   .page-hero__title {
-    font-size: clamp(44px, 5.3vw, 60px);
+    font-size: clamp(41px, 4.9vw, 55px);
   }
 
   .page-hero--compact-title .page-hero__title {
@@ -292,8 +292,8 @@
   /* Misma altura de columna de texto para las cuatro versiones móviles. */
   .page-hero__copy {
     width: 100%;
-    min-height: 475px;
-    padding: 24px 28px;
+    min-height: 415px;
+    padding: 20px 28px;
   }
 
   .page-hero__title {
@@ -318,7 +318,7 @@
   .page-hero__media {
     flex: 0 0 auto;
     width: 100%;
-    height: clamp(235px, 50vw, 315px);
+    height: clamp(210px, 44vw, 285px);
     min-height: 0;
     border-radius: 30px 30px 0 0;
   }
@@ -326,8 +326,8 @@
 
 @media (max-width: 420px) {
   .page-hero__copy {
-    min-height: 530px;
-    padding: 22px 20px;
+    min-height: 475px;
+    padding: 18px 20px;
   }
 
   .page-hero__title {
@@ -360,7 +360,7 @@
 
   .page-hero__media {
     min-height: 0;
-    height: 220px;
+    height: 195px;
   }
 }
 
