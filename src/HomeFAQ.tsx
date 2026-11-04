@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import './HomeFAQ.css'
 
@@ -25,11 +26,18 @@ const questions = [
 ]
 
 export default function HomeFAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0)
+
   return (
     <div className="home-faq-list">
       {questions.map(({ question, answer }, index) => (
-        <details className="home-faq-item" key={question} open={index === 0}>
-          <summary>
+        <details className="home-faq-item" key={question} open={openIndex === index}>
+          <summary
+            onClick={(event) => {
+              event.preventDefault()
+              setOpenIndex((current) => current === index ? null : index)
+            }}
+          >
             <span className="home-faq-number" aria-hidden="true">
               {String(index + 1).padStart(2, '0')}
             </span>
