@@ -388,3 +388,10 @@
 @media (prefers-reduced-motion: reduce) {
   .entre-button, .entre-event-cta { transition: none; }
 }
+
+/* El subtítulo acompaña al encabezado, sin decoraciones propias. */
+.entre-offerings > .section-overline {
+  width: 100%;
+  text-align: center;
+  color: #a33548;
+}

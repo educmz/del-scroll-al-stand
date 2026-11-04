@@ -361,3 +361,15 @@
     gap: 6px;
   }
 }
+
+/* Subtítulos superiores de las secciones de Próximas ferias. */
+.fair-content .section-overline {
+  color: #98506a;
+}
+.fair-gallery > .section-overline {
+  width: 100%;
+  text-align: right;
+}
+@media (max-width: 720px) {
+  .fair-gallery > .section-overline { text-align: center; }
+}

@@ -4,6 +4,7 @@ import {
   Gift, Snowflake, Sparkles,
 } from 'lucide-react'
 import TitleRays from './TitleRays'
+import SectionEyebrow from './SectionEyebrow'
 import './UpcomingFairs.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -95,6 +96,7 @@ function Gallery() {
 
   return (
     <section className="fair-gallery" aria-labelledby="fair-gallery-title">
+      <SectionEyebrow>RECUERDOS DE NUESTRAS FERIAS</SectionEyebrow>
       <h2 id="fair-gallery-title"><TitleRays side="left" /><span>Galería de ediciones anteriores</span><TitleRays side="right" /></h2>
       <div className="fair-gallery-frame">
         <button className="fair-gallery-arrow fair-gallery-prev" type="button" aria-label="Ver fotografías anteriores" onClick={() => changePage(-1)}>
@@ -177,6 +179,7 @@ export default function UpcomingFairs() {
       <div className="fair-content">
         <section className="fair-details-grid" aria-labelledby="fair-details-title">
           <div className="fair-details-left">
+            <SectionEyebrow>TODO LO QUE NECESITAS SABER</SectionEyebrow>
             <h2 id="fair-details-title" className="fair-serif-heading"><TitleRays side="left" /><span>Detalles del evento</span><TitleRays side="right" /></h2>
             <div className="fair-detail-cards">
               <article className="fair-detail-card">
@@ -197,6 +200,7 @@ export default function UpcomingFairs() {
 
         <section className="fair-location-gallery" aria-label="Ubicación y galería">
           <div className="fair-location">
+            <SectionEyebrow>ENCUÉNTRANOS AQUÍ</SectionEyebrow>
             <h2 className="fair-serif-heading"><TitleRays side="left" /><span>Ubicación del evento</span><TitleRays side="right" /></h2>
             <div className="fair-location-photo-wrap">
               <EventImage file="parque-proceres.png" alt="Monumento del Parque Próceres de la Independencia" className="fair-location-photo" />
@@ -211,6 +215,7 @@ export default function UpcomingFairs() {
 
         <section className="fair-categories-faq" aria-label="Categorías y preguntas frecuentes">
           <div className="fair-categories">
+            <SectionEyebrow>MARCAS QUE HACEN LA DIFERENCIA</SectionEyebrow>
             <h2 className="fair-serif-heading"><TitleRays side="left" /><span>Categorías participantes</span><TitleRays side="right" /></h2>
             <p>Recibimos emprendimientos de diversos rubros navideños y locales</p>
             <div className="fair-categories-grid">
@@ -223,6 +228,7 @@ export default function UpcomingFairs() {
             </div>
           </div>
           <div className="fair-faq" id="fair-faq">
+            <SectionEyebrow>RESOLVEMOS TUS DUDAS</SectionEyebrow>
             <h2 className="fair-serif-heading"><TitleRays side="left" /><span>Preguntas frecuentes</span><TitleRays side="right" /></h2>
             <div className="fair-faq-list">
               {questions.map((item) => (

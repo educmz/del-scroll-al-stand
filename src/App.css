@@ -524,21 +524,6 @@ button:focus-visible {
   text-align: center;
 }
 
-.section-eyebrow {
-  display: inline-block;
-  margin: 0 0 12px;
-  color: #a04455;
-  font-family: 'Poppins', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .2em;
-  line-height: 1.6;
-}
-
-.section-eyebrow-mint {
-  color: #4b7a5a;
-}
-
 .benefits-heading .info-section-heading h2,
 .process-heading .info-section-heading h2 {
   color: #34202a;
@@ -1177,25 +1162,17 @@ button:focus-visible {
   max-width: 920px;
 }
 .join-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 15px;
+  display: block;
+  width: fit-content;
+  margin-bottom: 13px;
   color: #fff4d6;
-  font-family: 'Poppins', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .16em;
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 600;
+  letter-spacing: .085em;
   line-height: 1.4;
 }
-.join-kicker::before {
-  display: block;
-  width: 17px;
-  height: 2px;
-  content: '';
-  background: #ffdc9b;
-  border-radius: 99px;
-}
+
 .join-copy h2 {
   max-width: 860px;
   margin: 0 0 14px;
@@ -1584,3 +1561,10 @@ button:focus-visible {
 /* Todos los encabezados de sección comparten rayos centrados en el título. */
 .info-section-heading .title-rays { color: #ffcf8d; }
 .testimonials-heading .title-rays { color: #ffc782; }
+
+/* Los textos superiores quedan exactamente encima de cada encabezado. */
+.section-heading-stack .section-overline {
+  margin-inline: auto;
+  text-align: center;
+}
+.process-heading .section-overline { color: #4b7a5a; }

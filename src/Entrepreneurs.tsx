@@ -4,6 +4,7 @@ import {
   ChartColumnIncreasing, Star, Store, UsersRound, Sparkles,
 } from 'lucide-react'
 import TitleRays from './TitleRays'
+import SectionEyebrow from './SectionEyebrow'
 import './Entrepreneurs.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -156,6 +157,7 @@ export default function Entrepreneurs() {
       </section>
 
       <section className="entre-offerings" aria-labelledby="entre-offerings-heading">
+        <SectionEyebrow>CRECEMOS CONTIGO</SectionEyebrow>
         <div className="entre-section-heading">
           <TitleRays side="left" />
           <h2 id="entre-offerings-heading">¿Qué te ofrecemos?</h2>

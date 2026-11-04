@@ -469,3 +469,14 @@
     flex-basis: 24px;
   }
 }
+
+/* Textos superiores de las secciones sobre la misma línea visual. */
+.about-intro-copy > .section-overline,
+.about-values > .section-overline {
+  width: 100%;
+  text-align: center;
+  color: #9f3550;
+}
+.about-pillar .section-overline {
+  color: #9f3550;
+}

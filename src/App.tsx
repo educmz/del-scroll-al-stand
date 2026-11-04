@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import AboutUs from './AboutUs'
 import TitleRays from './TitleRays'
+import SectionEyebrow from './SectionEyebrow'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
@@ -87,12 +88,15 @@ const steps = [
   },
 ]
 
-function SectionHeading({ children }: { children: string }) {
+function SectionHeading({ children, eyebrow }: { children: string; eyebrow: string }) {
   return (
-    <div className="info-section-heading">
-      <TitleRays side="left" />
-      <h2>{children}</h2>
-      <TitleRays side="right" />
+    <div className="section-heading-stack">
+      <SectionEyebrow>{eyebrow}</SectionEyebrow>
+      <div className="info-section-heading">
+        <TitleRays side="left" />
+        <h2>{children}</h2>
+        <TitleRays side="right" />
+      </div>
     </div>
   )
 }
@@ -378,8 +382,7 @@ function App() {
 
         <section className="benefits-and-process" aria-label="Beneficios y participación">
           <div className="benefits-heading">
-            <span className="section-eyebrow">TU MARCA MERECE MÁS</span>
-            <SectionHeading>¿Por qué participar con nosotros?</SectionHeading>
+            <SectionHeading eyebrow="TU MARCA MERECE MÁS">¿Por qué participar con nosotros?</SectionHeading>
             <p className="section-intro">
               Mucho más que un espacio para vender: nuevas conexiones, experiencias y oportunidades para crecer.
             </p>
@@ -409,8 +412,7 @@ function App() {
           </div>
 
           <div className="process-heading" id="planes">
-            <span className="section-eyebrow section-eyebrow-mint">ASÍ DE FÁCIL ES EMPEZAR</span>
-            <SectionHeading>¿Cómo funciona?</SectionHeading>
+            <SectionHeading eyebrow="ASÍ DE FÁCIL ES EMPEZAR">¿Cómo funciona?</SectionHeading>
             <p className="section-intro">
               Te acompañamos desde el primer paso hasta el momento de encontrarte con tus clientes.
             </p>
@@ -443,7 +445,7 @@ function App() {
 
         <section className="testimonials-section" id="testimonios" aria-label="Testimonios de emprendedores">
           <div className="testimonials-heading">
-            <SectionHeading>Lo que dicen nuestros emprendedores</SectionHeading>
+            <SectionHeading eyebrow="HISTORIAS QUE INSPIRAN">Lo que dicen nuestros emprendedores</SectionHeading>
             <p className="testimonials-subtitle">Historias que nos inspiran a seguir creciendo juntos.</p>
           </div>
           <div

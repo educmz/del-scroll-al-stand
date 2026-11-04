@@ -379,3 +379,37 @@
     transform: scaleX(-1) translateY(-3px);
   }
 }
+
+/* Subtítulos solo tipográficos, agrupados arriba de cada título. */
+.plans-heading-block .section-overline {
+  margin-inline: auto;
+  text-align: center;
+}
+.plans-heading-block .plans-section-heading {
+  margin-bottom: 17px;
+}
+.plans-apply-right .plans-section-heading {
+  margin-top: 0;
+}
+.plans-compare-intro .section-overline,
+.plans-services-heading-block .section-overline,
+.plans-apply-left > .section-overline {
+  color: #9c4050;
+}
+.plans-services-heading-block {
+  min-width: 0;
+}
+.plans-application-form > .section-overline {
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+.plans-selection-card .section-overline {
+  color: #855524;
+  font-size: 11px;
+  letter-spacing: .055em;
+}
+@media (max-width: 600px) {
+  .plans-heading-block .section-overline { margin-bottom: 7px; }
+}

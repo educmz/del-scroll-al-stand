@@ -1,0 +1,31 @@
+/* Etiquetas superiores de secciones: tipografía limpia y consistente. */
+.section-overline {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 10px;
+  padding: 0;
+  color: #a04455;
+  font-family: 'Fredoka', sans-serif;
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: .085em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+/* Sin pseudo-elementos: los subtítulos son exclusivamente texto. */
+.section-overline::before,
+.section-overline::after {
+  content: none;
+}
+
+@media (max-width: 600px) {
+  .section-overline {
+    margin-bottom: 8px;
+    font-size: 12px;
+    letter-spacing: .07em;
+  }
+}

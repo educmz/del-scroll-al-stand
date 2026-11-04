@@ -1,5 +1,6 @@
 import { Flag, Gem, Handshake, Mountain, ShieldCheck, ShoppingBag, Target, UsersRound } from 'lucide-react'
 import TitleRays from './TitleRays'
+import SectionEyebrow from './SectionEyebrow'
 import './AboutUs.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -94,6 +95,7 @@ export default function AboutUs() {
           <FairStandArt />
         </div>
         <div className="about-intro-copy">
+          <SectionEyebrow>NUESTRA HISTORIA</SectionEyebrow>
           <div className="about-title-with-rays">
             <TitleRays side="left" />
             <h2 id="about-intro-title">¿Quiénes somos?</h2>
@@ -111,6 +113,7 @@ export default function AboutUs() {
         <article className="about-pillar about-mission">
           <div className="about-pillar-icon"><Target size={92} strokeWidth={2.4} aria-hidden="true" /></div>
           <div>
+            <SectionEyebrow>LO QUE NOS IMPULSA</SectionEyebrow>
             <h2><TitleRays side="left" />Nuestra Misión<TitleRays side="right" /></h2>
             <p>Brindar experiencias de feria que potencien la visibilidad, las ventas y el crecimiento de emprendimientos locales.</p>
           </div>
@@ -121,6 +124,7 @@ export default function AboutUs() {
             <Mountain size={100} strokeWidth={1.8} aria-hidden="true" />
           </div>
           <div>
+            <SectionEyebrow>HACIA DÓNDE VAMOS</SectionEyebrow>
             <h2><TitleRays side="left" />Nuestra Visión<TitleRays side="right" /></h2>
             <p>Ser la plataforma de ferias temáticas más reconocida por conectar emprendimientos con comunidades reales, en todo Lima.</p>
           </div>
@@ -128,6 +132,7 @@ export default function AboutUs() {
       </section>
 
       <section className="about-values" aria-labelledby="about-values-title">
+        <SectionEyebrow>LO QUE NOS DEFINE</SectionEyebrow>
         <div className="about-title-with-rays about-values-heading">
           <TitleRays side="left" />
           <h2 id="about-values-title">Nuestros Valores</h2>

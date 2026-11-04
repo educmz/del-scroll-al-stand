@@ -5,6 +5,7 @@ import {
   Send, ShieldCheck, Sparkles, Store, Table2, UsersRound, Zap,
 } from 'lucide-react'
 import TitleRays from './TitleRays'
+import SectionEyebrow from './SectionEyebrow'
 import './StandPlans.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -85,12 +86,15 @@ const planTestimonials = [
   },
 ]
 
-function Heading({ children }: { children: string }) {
+function Heading({ children, eyebrow }: { children: string; eyebrow: string }) {
   return (
-    <div className="plans-section-heading">
-      <TitleRays side="left" />
-      <h2>{children}</h2>
-      <TitleRays side="right" />
+    <div className="plans-heading-block">
+      <SectionEyebrow>{eyebrow}</SectionEyebrow>
+      <div className="plans-section-heading">
+        <TitleRays side="left" />
+        <h2>{children}</h2>
+        <TitleRays side="right" />
+      </div>
     </div>
   )
 }
@@ -203,7 +207,8 @@ function ApplicationForm() {
 
   return (
     <form id="stand-plans-form" className="plans-application-form" onSubmit={onSubmit}>
-      <h3><span aria-hidden="true">✦</span> Formulario de Postulación <span aria-hidden="true">✦</span></h3>
+      <SectionEyebrow>CUÉNTANOS SOBRE TU MARCA</SectionEyebrow>
+      <h3>Formulario de Postulación</h3>
       <label>
         Nombre del emprendimiento <span aria-hidden="true">*</span>
         <input value={application.business} onChange={(event) => setApplication({ ...application, business: event.target.value })} required maxLength={100} placeholder="Nombre de tu marca" />
@@ -266,7 +271,7 @@ export default function StandPlans() {
       </section>
 
       <section className="plans-catalog" aria-labelledby="plans-catalog-title">
-        <Heading>Conoce nuestros planes</Heading>
+        <Heading eyebrow="ELIGE TU ESPACIO IDEAL">Conoce nuestros planes</Heading>
         <div className="plans-card-grid" id="plans-catalog-title">
           {plans.map((plan) => (
             <article className={`plans-card plans-card-${plan.id}`} key={plan.id}>
@@ -289,6 +294,7 @@ export default function StandPlans() {
 
       <section className="plans-compare" aria-labelledby="plans-comparison-title">
         <div className="plans-compare-intro">
+          <SectionEyebrow>ENCUENTRA TU MEJOR OPCIÓN</SectionEyebrow>
           <div className="plans-accent-heading">
             <TitleRays side="left" />
             <h2 id="plans-comparison-title">Comparativa<br />de planes</h2>
@@ -316,10 +322,13 @@ export default function StandPlans() {
       </section>
 
       <section className="plans-services" aria-labelledby="plans-services-title">
-        <div className="plans-accent-heading">
+        <div className="plans-services-heading-block">
+          <SectionEyebrow>TODO PARA HACERTE BRILLAR</SectionEyebrow>
+          <div className="plans-accent-heading">
           <TitleRays side="left" />
           <h2 id="plans-services-title">Servicios que<br />potencian tu stand</h2>
-          <TitleRays side="right" />
+            <TitleRays side="right" />
+          </div>
         </div>
         <div className="plans-services-grid">
           {services.map(({ title, text, icon: Icon, tone }) => (
@@ -333,6 +342,7 @@ export default function StandPlans() {
 
       <section className="plans-application" aria-label="Postulación de expositores">
         <div className="plans-apply-left">
+          <SectionEyebrow>EL PRIMER PASO ES AQUÍ</SectionEyebrow>
           <div className="plans-accent-heading">
             <TitleRays side="left" />
             <h2>Postula como expositor</h2>
@@ -357,6 +367,7 @@ export default function StandPlans() {
           <div className="plans-selection-card">
             <BadgeCheck size={44} strokeWidth={1.8} aria-hidden="true" />
             <div>
+              <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
               <h3>¿Cómo elegimos a los expositores?</h3>
               <p>Buscamos emprendimientos auténticos, con productos o servicios de calidad, propuestas de valor claras y alineados con el espíritu de nuestras ferias: diversidad, creatividad, comunidad y experiencia positiva para los visitantes.</p>
               <ul>
@@ -367,7 +378,7 @@ export default function StandPlans() {
               </ul>
             </div>
           </div>
-          <Heading>Lo que dicen nuestros expositores</Heading>
+          <Heading eyebrow="EXPERIENCIAS QUE INSPIRAN">Lo que dicen nuestros expositores</Heading>
           <div className="plans-exhibitor-testimonials">
             {planTestimonials.map((testimonial) => (
               <article key={testimonial.name} className="plans-exhibitor-testimonial">
