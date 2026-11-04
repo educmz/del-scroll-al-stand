@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: minmax(0, 40%) minmax(0, 60%);
   width: min(100%, 1560px);
-  min-height: 590px;
+  min-height: 515px;
   margin: 0 auto;
   overflow: hidden;
   /* Rojo granate original: transición sutil de arriba hacia abajo, común a las cuatro portadas. */
@@ -24,7 +24,7 @@
   justify-content: center;
   align-items: center;
   min-width: 0;
-  padding: 30px clamp(24px, 2.8vw, 46px) 32px clamp(24px, 3.4vw, 54px);
+  padding: 24px clamp(24px, 2.8vw, 46px) 26px clamp(24px, 3.4vw, 54px);
   text-align: center;
 }
 
@@ -36,7 +36,7 @@
   gap: 10px;
   max-width: 100%;
   padding: 11px clamp(15px, 1.7vw, 24px);
-  margin: 0 auto 26px;
+  margin: 0 auto 19px;
   border-radius: 17px;
   background: #fff6ea;
   color: #8e1432;
@@ -55,7 +55,7 @@
   position: relative;
   width: 100%;
   min-width: 0;
-  padding: 6px 0 17px;
+  padding: 6px 0 12px;
 }
 
 .page-hero__title {
@@ -120,7 +120,7 @@
 
 .page-hero__description {
   max-width: 445px;
-  margin: 22px 0 0;
+  margin: 16px 0 0;
   color: #fff1ec;
   font: 400 clamp(14px, 1.17vw, 17px)/1.6 'Poppins', sans-serif;
   text-wrap: pretty;
@@ -133,7 +133,7 @@
 
 .page-hero__extras {
   width: 100%;
-  margin-top: 18px;
+  margin-top: 13px;
 }
 
 .page-hero__highlights {
@@ -175,7 +175,7 @@
   align-items: center;
   gap: 11px;
   width: 100%;
-  margin-top: 25px;
+  margin-top: 19px;
 }
 
 .page-hero .page-hero__actions .page-hero__button {
@@ -258,12 +258,12 @@
 @media (max-width: 980px) {
   .page-hero {
     grid-template-columns: minmax(0, 43%) minmax(0, 57%);
-    /* Más margen en tablet para el banner de Planes, que incorpora tres beneficios. */
-    min-height: 650px;
+    /* Reserva suficiente para los beneficios extra de Planes sin alargar las otras portadas. */
+    min-height: 555px;
   }
 
   .page-hero__copy {
-    padding: 24px 23px 27px 30px;
+    padding: 20px 23px 22px 30px;
   }
 
   .page-hero__title {
@@ -292,8 +292,8 @@
   /* Misma altura de columna de texto para las cuatro versiones móviles. */
   .page-hero__copy {
     width: 100%;
-    min-height: 540px;
-    padding: 32px 28px;
+    min-height: 475px;
+    padding: 24px 28px;
   }
 
   .page-hero__title {
@@ -308,17 +308,17 @@
   .page-hero__spark--right { right: 0; }
 
   .page-hero__description {
-    margin-top: 14px;
+    margin-top: 12px;
   }
 
   .page-hero__actions {
-    margin-top: 22px;
+    margin-top: 17px;
   }
 
   .page-hero__media {
     flex: 0 0 auto;
     width: 100%;
-    height: clamp(275px, 60vw, 380px);
+    height: clamp(235px, 50vw, 315px);
     min-height: 0;
     border-radius: 30px 30px 0 0;
   }
@@ -326,8 +326,8 @@
 
 @media (max-width: 420px) {
   .page-hero__copy {
-    min-height: 620px;
-    padding: 27px 20px;
+    min-height: 530px;
+    padding: 22px 20px;
   }
 
   .page-hero__title {
@@ -341,7 +341,7 @@
   .page-hero__badge {
     font-size: 14px;
     padding: 10px 15px;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
   }
 
   .page-hero__spark {
@@ -360,7 +360,7 @@
 
   .page-hero__media {
     min-height: 0;
-    height: 255px;
+    height: 220px;
   }
 }
 
