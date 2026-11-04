@@ -94,18 +94,13 @@ function App() {
           <div className="hero-content">
             <div className="hero-copy">
               <div className="headline-art">
-                <svg className="headline-rays rays-left" viewBox="0 0 70 80" aria-hidden="true">
-                  <path d="M43 13 58 37M12 45 35 58M6 73 29 71" />
-                </svg>
                 <h1 id="hero-title" className="hero-title">
-                  <span className="title-line-first">Del Scroll</span>
-                  <span className="title-line-second">
-                    al <span className="title-stand">Stand</span>
-                  </span>
+                  <img
+                    className="hero-title-image"
+                    src={`${baseUrl}images/titulo-portada.svg`}
+                    alt="Del Scroll al Stand"
+                  />
                 </h1>
-                <svg className="headline-rays rays-right" viewBox="0 0 65 80" aria-hidden="true">
-                  <path d="M11 39 26 13M27 58 52 44" />
-                </svg>
               </div>
 
               <p className="hero-slogan">
