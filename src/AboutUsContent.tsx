@@ -106,7 +106,7 @@ export default function AboutUsContent() {
         </div>
         <div className="about-story-visual">
           <AboutPhoto
-            filename="sobre-nosotros-historia.jpg"
+            filename="sobre-nosotros-historia.png"
             alt="Emprendedores y visitantes compartiendo en una feria de Del Scroll al Stand"
             label="Una fotografía de nuestros emprendedores"
             className="about-story-photo"
@@ -176,7 +176,7 @@ export default function AboutUsContent() {
       <section className="about-purpose-panel" id="sobre-nosotros-galeria" aria-labelledby="about-purpose-title">
         <div className="about-purpose-visual">
           <AboutPhoto
-            filename="sobre-nosotros-proposito.jpg"
+            filename="sobre-nosotros-proposito.png"
             alt="Experiencia de compra y conexión entre expositores y visitantes de una feria"
             label="Una fotografía que represente nuestra comunidad"
             className="about-purpose-photo"
