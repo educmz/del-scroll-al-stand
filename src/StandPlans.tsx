@@ -210,8 +210,10 @@ function ApplicationForm() {
 
   return (
     <form id="stand-plans-form" className="plans-application-form" onSubmit={onSubmit}>
-      <SectionEyebrow>CUÉNTANOS SOBRE TU MARCA</SectionEyebrow>
-      <h3>Formulario de Postulación</h3>
+      <div className="title-eyebrow-group plans-application-heading">
+        <SectionEyebrow>CUÉNTANOS SOBRE TU MARCA</SectionEyebrow>
+        <h3>Formulario de Postulación</h3>
+      </div>
       <label>
         Nombre del emprendimiento <span aria-hidden="true">*</span>
         <input value={application.business} onChange={(event) => setApplication({ ...application, business: event.target.value })} required maxLength={100} placeholder="Nombre de tu marca" />
@@ -389,8 +391,10 @@ export default function StandPlans() {
           <div className="plans-selection-card">
             <BadgeCheck size={44} strokeWidth={1.8} aria-hidden="true" />
             <div>
-              <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
-              <h3>¿Cómo elegimos a los expositores?</h3>
+              <div className="title-eyebrow-group">
+                <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
+                <h3>¿Cómo elegimos a los expositores?</h3>
+              </div>
               <p>Buscamos emprendimientos auténticos, con productos o servicios de calidad, propuestas de valor claras y alineados con el espíritu de nuestras ferias: diversidad, creatividad, comunidad y experiencia positiva para los visitantes.</p>
               <ul>
                 <li><Check size={15} /> Originalidad y calidad de la propuesta.</li>
