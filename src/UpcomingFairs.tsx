@@ -1,5 +1,7 @@
+import { useEffect, useRef, useState } from 'react'
 import {
-  ArrowRight, ArrowUpRight, BookOpen, CalendarDays, ChefHat, Clock3,
+  ArrowLeft, ArrowRight, ArrowUpRight, X, Images,
+ BookOpen, CalendarDays, ChefHat, Clock3,
   House, Info, Leaf, MapPin, MessageCircle, Palette, Shirt,
   ShoppingBag, Sparkles, Store, Ticket,
 } from 'lucide-react'
@@ -103,38 +105,126 @@ function UpcomingEditionCard({ fair }: { fair: Fair }) {
 }
 
 function PreviousEditions() {
-  // La galería se publica únicamente si existen imágenes reales registradas en fairCatalog.
-  if (pastEditions.length === 0) return null
+  const photos = pastEditions.flatMap((edition) =>
+    edition.photos.map((photo) => ({
+      ...photo,
+      editionName: edition.name,
+      dates: edition.dates,
+    })),
+  )
+  const [activePhoto, setActivePhoto] = useState<number | null>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const lastTriggerRef = useRef<HTMLButtonElement | null>(null)
+
+  useEffect(() => {
+    if (activePhoto === null) return
+    closeButtonRef.current?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setActivePhoto(null)
+      } else if (event.key === 'ArrowRight') {
+        setActivePhoto((current) => current === null ? null : (current + 1) % photos.length)
+      } else if (event.key === 'ArrowLeft') {
+        setActivePhoto((current) => current === null ? null : (current - 1 + photos.length) % photos.length)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [activePhoto, photos.length])
+
+  const closeGallery = () => {
+    setActivePhoto(null)
+    window.requestAnimationFrame(() => lastTriggerRef.current?.focus())
+  }
+
+  const hasPhotos = photos.length > 0
 
   return (
     <section className="fair-history-section" id="ferias-anteriores" aria-labelledby="fair-history-title">
       <FairHeading
-        eyebrow="NUESTROS ENCUENTROS"
-        title="Así vivimos nuestras ferias"
+        eyebrow="RECUERDOS DE NUESTRAS FERIAS"
+        title="Galería de ferias pasadas"
         id="fair-history-title"
-        description="Momentos reales que hemos compartido junto a nuestra comunidad emprendedora."
+        description={hasPhotos
+          ? 'Revive algunos momentos de nuestras ediciones anteriores y descubre cómo se viven nuestros encuentros.'
+          : 'Este espacio está reservado para las fotografías auténticas de nuestras ediciones anteriores.'}
       />
-      <div className="fair-history-grid">
-        {pastEditions.map((edition) => (
-          <article className="fair-history-card" key={edition.id}>
-            <div className="fair-history-photos">
-              {edition.photos.map((photo) => (
-                <img
-                  src={baseUrl + 'images/' + photo.file}
-                  alt={photo.alt}
-                  key={photo.file}
-                  className="fair-history-photo"
-                  loading="lazy"
-                />
-              ))}
+
+      {hasPhotos ? (
+        <div className="fair-gallery-mosaic">
+          {photos.map((photo, index) => (
+            <button
+              key={photo.editionName + '-' + photo.file}
+              type="button"
+              className="fair-gallery-item"
+              onClick={(event) => {
+                lastTriggerRef.current = event.currentTarget
+                setActivePhoto(index)
+              }}
+              aria-label={'Ampliar fotografía de ' + photo.editionName + ': ' + photo.alt}
+            >
+              <img src={baseUrl + 'images/' + photo.file} alt={photo.alt} loading="lazy" />
+              <span className="fair-gallery-item-caption">
+                <strong>{photo.editionName}</strong>
+                <span>{photo.dates}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="fair-gallery-empty">
+          <div className="fair-gallery-mosaic fair-gallery-mosaic--preview" aria-hidden="true">
+            {Array.from({ length: 5 }, (_, index) => (
+              <div className={'fair-gallery-item fair-gallery-item--placeholder fair-gallery-item--placeholder-' + (index + 1)} key={index}>
+                <Images size={index === 0 ? 48 : 27} strokeWidth={1.45} />
+                {index === 0 && <span>Un espacio para nuestros mejores recuerdos</span>}
+              </div>
+            ))}
+          </div>
+          <div className="fair-gallery-empty-copy">
+            <span className="fair-gallery-empty-label">GALERÍA EN PREPARACIÓN</span>
+            <h3>Pronto compartiremos nuestras mejores fotos</h3>
+            <p>Las fotografías de ferias pasadas todavía no están disponibles. Cuando las incorporemos, podrás explorarlas y ampliarlas aquí mismo.</p>
+          </div>
+        </div>
+      )}
+
+      {activePhoto !== null && photos[activePhoto] && (
+        <div
+          className="fair-lightbox-backdrop"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) closeGallery()
+          }}
+        >
+          <div className="fair-lightbox" role="dialog" aria-modal="true" aria-label="Fotografía ampliada de feria pasada">
+            <div className="fair-lightbox-toolbar">
+              <span>{activePhoto + 1} de {photos.length}</span>
+              <button type="button" ref={closeButtonRef} onClick={closeGallery} aria-label="Cerrar galería">
+                <X size={23} aria-hidden="true" />
+              </button>
             </div>
-            <div className="fair-history-copy">
-              <h3>{edition.name}</h3>
-              <p>{edition.dates}</p>
+            <img
+              src={baseUrl + 'images/' + photos[activePhoto].file}
+              alt={photos[activePhoto].alt}
+              className="fair-lightbox-image"
+            />
+            <div className="fair-lightbox-footer">
+              <button type="button" onClick={() => setActivePhoto((activePhoto - 1 + photos.length) % photos.length)} aria-label="Fotografía anterior" disabled={photos.length < 2}>
+                <ArrowLeft size={21} aria-hidden="true" />
+              </button>
+              <div>
+                <strong>{photos[activePhoto].editionName}</strong>
+                <span>{photos[activePhoto].dates}</span>
+              </div>
+              <button type="button" onClick={() => setActivePhoto((activePhoto + 1) % photos.length)} aria-label="Siguiente fotografía" disabled={photos.length < 2}>
+                <ArrowRight size={21} aria-hidden="true" />
+              </button>
             </div>
-          </article>
-        ))}
-      </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }
@@ -176,7 +266,7 @@ export default function UpcomingFairs() {
           <a href="#feria-detalles">Información del evento</a>
           <a href="#que-encontraras">Qué encontrarás</a>
           <a href="#proximas-ediciones">Próximas ediciones</a>
-          {pastEditions.length > 0 && <a href="#ferias-anteriores">Ediciones anteriores</a>}
+          <a href="#ferias-anteriores">Ferias pasadas</a>
         </nav>
 
         <section className="fair-details-section" id="feria-detalles" aria-labelledby="fair-details-title">
