@@ -77,9 +77,13 @@ export default function AboutUs() {
         </div>
         <div className="about-hero-photo">
           <img
-            src={`${baseUrl}images/feria-portada.png`}
+            src={`${baseUrl}images/sobre-nosotros-portada.png`}
             alt="Feria con emprendedores, stands y visitantes"
             loading="eager"
+            onError={(event) => {
+              event.currentTarget.onerror = null
+              event.currentTarget.src = `${baseUrl}images/feria-portada.png`
+            }}
           />
         </div>
       </section>
@@ -142,7 +146,15 @@ export default function AboutUs() {
 
       <section className="about-purpose" id="sobre-nosotros-galeria" aria-labelledby="about-purpose-title">
         <div className="about-purpose-image">
-          <img src={`${baseUrl}images/feria-portada.png`} alt="Stand de una feria con emprendedores y visitantes" loading="lazy" />
+          <img
+            src={`${baseUrl}images/sobre-nosotros-proposito.png`}
+            alt="Stand de una feria con emprendedores y visitantes"
+            loading="lazy"
+            onError={(event) => {
+              event.currentTarget.onerror = null
+              event.currentTarget.src = `${baseUrl}images/feria-portada.png`
+            }}
+          />
           <div className="about-purpose-sign">
             <img src={`${baseUrl}images/logo.png`} alt="" loading="lazy" />
           </div>
