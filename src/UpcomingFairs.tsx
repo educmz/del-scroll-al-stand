@@ -420,34 +420,28 @@ export default function UpcomingFairs({ selectedEditionId = null }: { selectedEd
       <div id="feria-destacada">
         <PageHero
           id="fair-main-title"
-          eyebrow="PRÓXIMA FERIA · MERCADO DE REGALOS"
-          badgeIcon="gift"
-          title={<><span>Feria</span><em>Navideña</em></>}
-          description={<>Descubre regalos únicos, apoya el talento local y vive una experiencia navideña llena de emprendimientos.</>}
-          imageFile={featuredFair.image}
-          imageAlt="Banner promocional de la Feria Navideña"
+          compactTitle
+          hideDecorations
+          title={<><span>Ferias que</span><em>conectan</em><em className="fair-general-hero-last-line">marcas y personas</em></>}
+          description="Descubre espacios llenos de creatividad, talento local y experiencias únicas. Conoce nuestras próximas ferias, encuentra nuevas marcas y sé parte de una comunidad que sigue creciendo."
+          imageFile="feria-portada.png"
+          imageAlt="Ambiente de una feria de emprendimientos con stands y visitantes"
           actions={
             <>
-              <a className="page-hero__button page-hero__button--primary" href={fairApplicationHref(featuredFair)}>
-                <Store size={18} aria-hidden="true" /> Quiero ser expositor
+              <a className="page-hero__button page-hero__button--primary" href="#feria-detalles">
+                Explorar próximas ferias
               </a>
-              <a className="page-hero__button page-hero__button--secondary" href="#feria-detalles">
-                Información del evento <ArrowRight size={18} aria-hidden="true" />
+              <a className="page-hero__button page-hero__button--secondary" href="#planes-postular">
+                Quiero participar
               </a>
             </>
           }
-        >
-          <div className="fair-hero-facts">
-            <span><CalendarDays size={17} aria-hidden="true" />{featuredFair.dates}</span>
-            <span><MapPin size={17} aria-hidden="true" />{featuredFair.district}</span>
-            <span className="fair-hero-status">{fairApplicationStatus(featuredFair)}</span>
-          </div>
-        </PageHero>
+        />
       </div>
 
       <div className="fair-content">
         <nav className="fair-quick-nav" aria-label="Explorar ferias">
-          <a href="#feria-destacada">Feria Navideña 2026</a>
+          <a href="#feria-detalles">Feria Navideña 2026</a>
           <a href="#proximas-ediciones">Próximas ferias</a>
           <a href="#ferias-anteriores">Ferias pasadas</a>
         </nav>
@@ -459,6 +453,18 @@ export default function UpcomingFairs({ selectedEditionId = null }: { selectedEd
             id="fair-details-title"
             description="Fecha, horario, ubicación, marcas invitadas y contenido para compartir esta experiencia."
           />
+          <figure className="fair-featured-banner">
+            <FairPhoto
+              file={featuredFair.image}
+              alt="Banner promocional de la Feria Navideña 2026, Mercado de Regalos"
+              className="fair-featured-banner-image"
+            />
+            <figcaption>
+              <span>Feria Navideña 2026</span>
+              <strong>{featuredFair.dates} · {featuredFair.district}</strong>
+              <span className="fair-featured-status">{fairApplicationStatus(featuredFair)}</span>
+            </figcaption>
+          </figure>
           <FairDetails fair={featuredFair} />
           <AdditionalPhotos fair={featuredFair} />
           <GuestBrands fair={featuredFair} />
@@ -483,7 +489,7 @@ export default function UpcomingFairs({ selectedEditionId = null }: { selectedEd
                 <h3>Nuevas fechas por anunciar</h3>
                 <p>Estamos preparando las siguientes ediciones. Por ahora, la próxima cita anunciada es la Feria Navideña 2026.</p>
               </div>
-              <a href="#feria-destacada" className="fair-text-link">Ver feria destacada <ArrowRight size={18} aria-hidden="true" /></a>
+              <a href="#feria-detalles" className="fair-text-link">Ver feria destacada <ArrowRight size={18} aria-hidden="true" /></a>
             </div>
           )}
         </section>
