@@ -90,11 +90,13 @@ const planTestimonials = [
 function Heading({ children, eyebrow }: { children: string; eyebrow: string }) {
   return (
     <div className="plans-heading-block">
-      <SectionEyebrow>{eyebrow}</SectionEyebrow>
-      <div className="plans-section-heading">
-        <TitleRays side="left" />
-        <h2>{children}</h2>
-        <TitleRays side="right" />
+      <div className="title-eyebrow-group">
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
+        <div className="plans-section-heading title-eyebrow-heading">
+          <TitleRays side="left" />
+          <h2>{children}</h2>
+          <TitleRays side="right" />
+        </div>
       </div>
     </div>
   )
@@ -308,11 +310,13 @@ export default function StandPlans() {
 
       <section className="plans-compare" aria-labelledby="plans-comparison-title">
         <div className="plans-compare-intro">
-          <SectionEyebrow>ENCUENTRA TU MEJOR OPCIÓN</SectionEyebrow>
-          <div className="plans-accent-heading">
-            <TitleRays side="left" />
-            <h2 id="plans-comparison-title">Comparativa<br />de planes</h2>
-            <TitleRays side="right" />
+          <div className="title-eyebrow-group">
+            <SectionEyebrow>ENCUENTRA TU MEJOR OPCIÓN</SectionEyebrow>
+            <div className="plans-accent-heading title-eyebrow-heading">
+              <TitleRays side="left" />
+              <h2 id="plans-comparison-title">Comparativa<br />de planes</h2>
+              <TitleRays side="right" />
+            </div>
           </div>
           <p>Elige fácilmente el plan que mejor se adapte a tus objetivos.</p>
         </div>
@@ -337,11 +341,13 @@ export default function StandPlans() {
 
       <section className="plans-services" aria-labelledby="plans-services-title">
         <div className="plans-services-heading-block">
-          <SectionEyebrow>TODO PARA HACERTE BRILLAR</SectionEyebrow>
-          <div className="plans-accent-heading">
-          <TitleRays side="left" />
-          <h2 id="plans-services-title">Servicios que<br />potencian tu stand</h2>
-            <TitleRays side="right" />
+          <div className="title-eyebrow-group">
+            <SectionEyebrow>TODO PARA HACERTE BRILLAR</SectionEyebrow>
+            <div className="plans-accent-heading title-eyebrow-heading">
+              <TitleRays side="left" />
+              <h2 id="plans-services-title">Servicios que<br />potencian tu stand</h2>
+              <TitleRays side="right" />
+            </div>
           </div>
         </div>
         <div className="plans-services-grid">
@@ -356,11 +362,13 @@ export default function StandPlans() {
 
       <section className="plans-application" aria-label="Postulación de expositores">
         <div className="plans-apply-left">
-          <SectionEyebrow>EL PRIMER PASO ES AQUÍ</SectionEyebrow>
-          <div className="plans-accent-heading">
-            <TitleRays side="left" />
-            <h2>Postula como expositor</h2>
-            <TitleRays side="right" />
+          <div className="title-eyebrow-group">
+            <SectionEyebrow>EL PRIMER PASO ES AQUÍ</SectionEyebrow>
+            <div className="plans-accent-heading title-eyebrow-heading">
+              <TitleRays side="left" />
+              <h2>Postula como expositor</h2>
+              <TitleRays side="right" />
+            </div>
           </div>
           <p className="plans-apply-intro">Es muy fácil. Completa el formulario y nuestro equipo revisará tu propuesta.</p>
           <div className="plans-apply-content">
