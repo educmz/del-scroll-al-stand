@@ -90,8 +90,52 @@ button:focus-visible {
   border-radius: 0 0 25px 25px;
   box-shadow: 0 9px 18px rgba(78, 37, 32, .14);
 }
-/* Eje de suspensión en el borde superior: el cartel pivota en 3D.
-   La profundidad la controla Motion con un resorte amortiguado. */
+/* Bisagra fija: tapa el borde superior del cartel y cubre la línea
+   decorativa del header para que no asome durante el balanceo. */
+.brand-hanger {
+  position: relative;
+  z-index: 3;
+  flex: 0 0 190px;
+  width: 190px;
+  height: 111px;
+  margin-bottom: -19px;
+  align-self: flex-start;
+  perspective: 850px;
+  perspective-origin: center top;
+}
+.brand-hanger .brand {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+  flex: none;
+  align-self: auto;
+}
+.brand-hanger::before {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  right: -2px;
+  left: -2px;
+  height: 12px;
+  content: '';
+  pointer-events: none;
+  background: linear-gradient(180deg, #fffefa, #fff7ee);
+  border-bottom: 1px solid #e9d7c4;
+  box-shadow: 0 2px 4px rgba(78, 37, 32, .055);
+}
+.brand-hanger::after {
+  position: absolute;
+  z-index: 6;
+  top: 2px;
+  right: 0;
+  left: 0;
+  height: 7px;
+  content: '';
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 27% 50%, #c49367 0 2px, #fff2e3 2.2px 3.3px, transparent 3.5px),
+    radial-gradient(circle at 73% 50%, #c49367 0 2px, #fff2e3 2.2px 3.3px, transparent 3.5px);
+}
 .brand-hanging-sign {
   transform-origin: 50% 0%;
   transform-style: preserve-3d;
@@ -242,6 +286,12 @@ button:focus-visible {
 @media (max-width: 850px) {
   .topbar,
   .topbar-content { min-height: 80px; }
+  .brand-hanger {
+    flex-basis: 160px;
+    width: 160px;
+    height: 97px;
+    margin-bottom: -17px;
+  }
   .brand {
     flex-basis: 160px;
     width: 160px;
@@ -258,6 +308,12 @@ button:focus-visible {
   .topbar-content {
     padding-inline: 16px;
     gap: 12px;
+  }
+  .brand-hanger {
+    flex-basis: 144px;
+    width: 144px;
+    height: 94px;
+    margin-bottom: -14px;
   }
   .brand {
     flex-basis: 144px;
