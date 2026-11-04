@@ -183,18 +183,32 @@
   padding: clamp(18px, 2.2vw, 31px) clamp(4px, 1vw, 14px);
   text-align: center;
 }
-.entre-event-eyebrow {
-  display: inline-flex;
-  justify-content: center;
+/* Jerarquía de Inicio: subtítulo centrado sobre el título, rayos a los lados. */
+.entre-event-heading {
+  width: 100%;
+  max-width: 100%;
   align-items: center;
-  gap: 9px;
+}
+.entre-event-heading > .section-overline {
   margin: 0 auto 12px;
   color: #ffca86;
-  font: 600 clamp(12px, 1.1vw, 14px)/1.4 var(--font-section-label);
+  font-family: var(--font-section-label);
+  font-size: clamp(12px, 1.1vw, 14px);
+  font-weight: 600;
   letter-spacing: .085em;
+  line-height: 1.4;
   text-align: center;
 }
-.entre-event-eyebrow svg { flex: 0 0 auto; }
+.entre-event-title-row {
+  justify-content: center;
+  gap: clamp(5px, .75vw, 11px);
+}
+.entre-event-title-row .title-rays {
+  flex: 0 0 clamp(21px, 2.1vw, 29px);
+  width: clamp(21px, 2.1vw, 29px);
+  height: clamp(40px, 4vw, 54px);
+  color: #ffbd75;
+}
 .entre-event h2 {
   max-width: 470px;
   margin: 0 auto;
@@ -408,7 +422,13 @@
   .entre-event-section { padding: 59px 15px 72px; }
   .entre-event { padding: 15px; border-radius: 26px; }
   .entre-event-content { padding: 19px 8px 17px; }
-  .entre-event h2 { font-size: 34px; }
+  .entre-event h2 { font-size: clamp(28px, 7.5vw, 34px); }
+  .entre-event-title-row { gap: 4px; }
+  .entre-event-title-row .title-rays {
+    width: 18px;
+    height: 34px;
+    flex-basis: 18px;
+  }
   .entre-event-actions { flex-direction: column; align-items: stretch; }
   .entre-event-cta, .entre-event-link { width: 100%; }
   .entre-promo-visual { aspect-ratio: 4 / 3; border-radius: 19px; }

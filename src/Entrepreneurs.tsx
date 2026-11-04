@@ -1,7 +1,7 @@
 import {
   ArrowRight, CalendarDays, ChartNoAxesCombined, ClipboardPenLine,
   Image as ImageIcon, MapPin, Megaphone, Play, ShieldCheck,
-  ChartColumnIncreasing, Star, Store, UsersRound, Sparkles,
+  ChartColumnIncreasing, Star, Store, UsersRound,
 } from 'lucide-react'
 import PageHero from './PageHero'
 import TitleRays from './TitleRays'
@@ -107,7 +107,7 @@ function PromotionalBanner() {
         <span>Espacio para el banner promocional oficial</span>
       </div>
       <img
-        src={`${baseUrl}images/banner-feria-navidad.png`}
+        src={`${baseUrl}images/feria-navidad-banner.png`}
         alt="Banner promocional oficial de la Feria Navideña de Del Scroll al Stand"
         loading="lazy"
         decoding="async"
@@ -191,10 +191,14 @@ export default function Entrepreneurs() {
       <section className="entre-event-section" aria-labelledby="entre-event-title">
         <div className="entre-event">
           <div className="entre-event-content">
-            <span className="entre-event-eyebrow">
-              <Sparkles size={19} aria-hidden="true" /> PRÓXIMA FERIA
-            </span>
-            <h2 id="entre-event-title">Nos vemos en la <em>Feria Navideña</em></h2>
+            <div className="entre-event-heading title-eyebrow-group">
+              <SectionEyebrow className="entre-event-eyebrow">PRÓXIMA FERIA</SectionEyebrow>
+              <div className="entre-event-title-row title-eyebrow-heading">
+                <TitleRays side="left" />
+                <h2 id="entre-event-title">Nos vemos en la <em>Feria Navideña</em></h2>
+                <TitleRays side="right" />
+              </div>
+            </div>
             <p className="entre-event-intro">
               Una nueva oportunidad para compartir tus productos, conocer clientes y ser parte de nuestra comunidad emprendedora.
             </p>
