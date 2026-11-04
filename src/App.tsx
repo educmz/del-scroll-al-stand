@@ -8,7 +8,7 @@ import UpcomingFairs from './UpcomingFairs'
 import HomeFAQ from './HomeFAQ'
 import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import { useInView } from 'motion/react'
+import { motion, useInView, useReducedMotion } from 'motion/react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -129,6 +129,7 @@ const testimonials = [
 ]
 
 function App() {
+  const shouldReduceMotion = useReducedMotion()
   const [menuOpen, setMenuOpen] = useState(false)
   // Cada mitad del bucle debe superar el ancho de la pantalla para evitar huecos.
   const [testimonialRepeatCount, setTestimonialRepeatCount] = useState(
@@ -139,6 +140,22 @@ function App() {
   const navRef = useRef<HTMLElement | null>(null)
   const processGridRef = useRef<HTMLDivElement | null>(null)
   const processInView = useInView(processGridRef, { amount: 0.15 })
+  const [activeProcessStep, setActiveProcessStep] = useState(0)
+  const [processHovered, setProcessHovered] = useState(false)
+  const [processFocused, setProcessFocused] = useState(false)
+  const processPaused = processHovered || processFocused
+
+  // Motion anima posición y tamaño juntos; solo cambiamos de paso cuando
+  // la sección es visible y nadie está interactuando con las tarjetas.
+  useEffect(() => {
+    if (!processInView || processPaused || shouldReduceMotion) return
+
+    const cycle = window.setInterval(() => {
+      setActiveProcessStep((current) => (current + 1) % steps.length)
+    }, 3000)
+
+    return () => window.clearInterval(cycle)
+  }, [processInView, processPaused, shouldReduceMotion])
 
   useEffect(() => {
     const updateTestimonialRepeats = () => {
@@ -427,19 +444,43 @@ function App() {
           <div className="process-background" id="participar">
             <div
               ref={processGridRef}
-              className={`process-grid ${processInView ? 'is-animating' : ''}`}
+              className="process-grid"
+              data-active-step={processInView && !shouldReduceMotion ? activeProcessStep : undefined}
+              onMouseEnter={() => setProcessHovered(true)}
+              onMouseLeave={() => setProcessHovered(false)}
+              onFocusCapture={() => setProcessFocused(true)}
+              onBlurCapture={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                  setProcessFocused(false)
+                }
+              }}
             >
               {steps.map((step, index) => {
                 const Icon = step.icon
                 return (
-                  <article className="process-item" key={step.title}>
-                    <span className="process-number">PASO {String(index + 1).padStart(2, '0')}</span>
-                    <div className="process-icon">
+                  <motion.article
+                    layout={!shouldReduceMotion}
+                    initial={false}
+                    transition={{
+                      layout: { type: 'spring', stiffness: 105, damping: 25, mass: 1 },
+                      y: { duration: 0.25, ease: 'easeOut' },
+                    }}
+                    whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+                    whileFocus={shouldReduceMotion ? undefined : { y: -5 }}
+                    className="process-item"
+                    data-active={activeProcessStep === index ? 'true' : 'false'}
+                    key={step.title}
+                    tabIndex={0}
+                  >
+                    <motion.span layout className="process-number">
+                      PASO {String(index + 1).padStart(2, '0')}
+                    </motion.span>
+                    <motion.div layout className="process-icon">
                       <Icon size={42} strokeWidth={2} aria-hidden="true" />
-                    </div>
-                    <h3>{step.title}</h3>
-                    <p>{step.description}</p>
-                  </article>
+                    </motion.div>
+                    <motion.h3 layout>{step.title}</motion.h3>
+                    <motion.p layout>{step.description}</motion.p>
+                  </motion.article>
                 )
               })}
             </div>
