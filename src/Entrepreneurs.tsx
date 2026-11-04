@@ -131,6 +131,7 @@ export default function Entrepreneurs() {
         id="entre-main-title"
         compactTitle
         hideDecorations
+        showSwoosh
         title={<><span>Tu marca</span><em>en persona</em></>}
         description="Conecta con nuevos clientes y haz que más personas descubran lo que haces."
         imageFile="para-emprendedores-portada.png"
