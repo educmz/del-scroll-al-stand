@@ -121,13 +121,19 @@ Antes de difundir la feria, confirma la fecha, dirección y condiciones con el e
 
 ## Ferias — estructura 2026
 
-La ruta `#proximas-ferias` sigue esta arquitectura:
+La ruta `#proximas-ferias` comienza con un **banner general de Ferias**
+(sin etiqueta ni iconos decorativos), con una fotografía ambiental, un título
+atemporal y botones para explorar eventos o participar. La publicidad temática
+se muestra en la ficha del evento correspondiente.
+
+Después sigue esta arquitectura:
 **1) Feria Navideña destacada → 2) Próximas ferias → 3) Galería de ferias pasadas**.
 Se eliminó el CTA granate que aparecía debajo de la galería.
 
 ### Feria principal: banner y ficha completa
 
-- Banner de `public/images/feria-navidad-banner.png`, fecha y lugar.
+- Banner de `public/images/feria-navidad-banner.png` **dentro de la ficha destacada**, fecha y lugar.
+- La portada general utiliza `public/images/feria-portada.png`.
 - Cuatro datos: fecha, dirección, horario y condiciones de ingreso, junto con Google Maps.
 - Fotos adicionales editables: la foto referencial `feria-portada.png` y espacios reservados
   para imágenes propias. No se muestran como fotos reales del evento si no lo son.
