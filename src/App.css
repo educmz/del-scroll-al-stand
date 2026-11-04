@@ -845,7 +845,7 @@ button:focus-visible {
    y la altura de todas las tarjetas. El gap permanece fijo. */
 @media (min-width: 1101px) {
   .process-grid {
-    min-height: 360px;
+    min-height: 310px;
     align-items: end;
   }
 
@@ -854,25 +854,25 @@ button:focus-visible {
   }
 
   .process-grid[data-active-step="0"] {
-    grid-template-columns: minmax(0, 1.39fr) minmax(0, .87fr) minmax(0, .87fr) minmax(0, .87fr);
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, .96fr) minmax(0, .96fr) minmax(0, .96fr);
   }
 
   .process-grid[data-active-step="1"] {
-    grid-template-columns: minmax(0, .87fr) minmax(0, 1.39fr) minmax(0, .87fr) minmax(0, .87fr);
+    grid-template-columns: minmax(0, .96fr) minmax(0, 1.12fr) minmax(0, .96fr) minmax(0, .96fr);
   }
 
   .process-grid[data-active-step="2"] {
-    grid-template-columns: minmax(0, .87fr) minmax(0, .87fr) minmax(0, 1.39fr) minmax(0, .87fr);
+    grid-template-columns: minmax(0, .96fr) minmax(0, .96fr) minmax(0, 1.12fr) minmax(0, .96fr);
   }
 
   .process-grid[data-active-step="3"] {
-    grid-template-columns: minmax(0, .87fr) minmax(0, .87fr) minmax(0, .87fr) minmax(0, 1.39fr);
+    grid-template-columns: minmax(0, .96fr) minmax(0, .96fr) minmax(0, .96fr) minmax(0, 1.12fr);
   }
 
   /* Todas las tarjetas tienen la misma base inferior: al aumentar la
      altura, el crecimiento ocurre solo hacia arriba. */
   .process-grid[data-active-step] .process-item[data-active="true"] {
-    height: 360px;
+    height: 310px;
   }
 }
 
