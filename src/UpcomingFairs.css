@@ -1,11 +1,4 @@
 /* Próximas ferias · Mercado de Regalos */
-.site-fairs .topbar,
-.site-fairs .primary-nav { background: #fff0da; }
-.site-fairs .nav-link.is-active { color: #8e1830; font-weight: 700; }
-.site-fairs .nav-link.is-active::after { background: #f3525c; }
-.site-fairs .header-cta,
-.site-fairs .mobile-participate { background: #fa4d54; }
-
 .upcoming-fairs-page {
   color: #171717;
   background: #fff0da;
