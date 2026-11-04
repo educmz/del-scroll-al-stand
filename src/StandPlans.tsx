@@ -256,10 +256,11 @@ export default function StandPlans() {
     <main className="stand-plans-page" id="stand-plans-page">
       <PageHero
         id="plans-main-title"
-        eyebrow="Elige tu espacio"
-        badgeIcon="sparkles"
-        title={<><span>Planes de</span><em>Stand</em></>}
-        description="Elige el plan ideal para tu emprendimiento y lleva tu marca a nuestras ferias."
+        compactTitle
+        hideDecorations
+        showSwoosh
+        title={<><span>Planes y</span><em>precios</em></>}
+        description="Encuentra el espacio ideal para tu marca y elige cómo participar en nuestras ferias."
         imageFile="planes-portada.png"
         imageAlt="Emprendedora en su stand de feria"
         actions={
@@ -274,13 +275,7 @@ export default function StandPlans() {
             </button>
           </>
         }
-      >
-        <ul className="page-hero__highlights">
-          <li>Más visibilidad en ferias con alto flujo.</li>
-          <li>Conecta con nuevos clientes y aliados.</li>
-          <li>Impulsa tus ventas en un entorno real.</li>
-        </ul>
-      </PageHero>
+      />
 
       <section className="plans-catalog" aria-labelledby="plans-catalog-title">
         <Heading
