@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import {
   ArrowLeft, ArrowRight, ArrowUpRight, CalendarDays, Camera,
-  Clock3, Copy, Facebook, Gift, Image as ImageIcon, Info,
-  Instagram, MapPin, Megaphone, MessageCircle, Share2,
-  ShoppingBag, Store, Ticket, Video,
+  Clock3, Copy, Gift, Image as ImageIcon, Info,
+  MapPin, Megaphone, MessageCircle, Share2,
+  ShoppingBag, Store, Ticket,
 } from 'lucide-react'
+import { FaInstagram, FaFacebookF, FaTiktok } from 'react-icons/fa'
 import PageHero from './PageHero'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
@@ -25,7 +26,7 @@ const productCategories = [
 const socialContent = [
   {
     channel: 'Instagram',
-    icon: Instagram,
+    icon: FaInstagram,
     label: 'Post para Instagram',
     description: 'Texto sugerido para el feed y las historias.',
     copy: 'La Navidad se vive mejor apoyando marcas locales. 🎁 Descubre productos únicos en la Feria Navideña 2026 de Del Scroll al Stand. 📍 Parque Próceres de la Independencia, Jesús María. 📅 12 y 13 de diciembre de 2026. ¡Nos vemos ahí! #DelScrollAlStand #FeriaNavideña #EmprendedoresLima',
@@ -33,7 +34,7 @@ const socialContent = [
   },
   {
     channel: 'Facebook',
-    icon: Facebook,
+    icon: FaFacebookF,
     label: 'Invitación para Facebook',
     description: 'Comparte los datos principales con tu comunidad.',
     copy: '¡Una feria para descubrir emprendimientos y encontrar regalos con historia! Ven a la Feria Navideña 2026 de Del Scroll al Stand. Sábado 12 y domingo 13 de diciembre, en el Parque Próceres de la Independencia, Jesús María, Lima. Horarios e ingreso sujetos a confirmación. #CompraLocal',
@@ -41,7 +42,7 @@ const socialContent = [
   },
   {
     channel: 'TikTok',
-    icon: Video,
+    icon: FaTiktok,
     label: 'Idea para video corto',
     description: 'Guion de muestra para una publicación en video.',
     copy: 'Guion sugerido: Empieza mostrando productos navideños y emprendedores. Texto en pantalla: “Del scroll al stand: encuentra el regalo perfecto”. Cierra con: “Feria Navideña 2026 · 12 y 13 de diciembre · Parque Próceres, Jesús María”. Añadir imágenes propias antes de publicar.',
