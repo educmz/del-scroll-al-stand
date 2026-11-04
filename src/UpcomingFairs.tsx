@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {
-  ArrowLeft, ArrowRight, CalendarDays, MapPin, MessageCircle,
+  ArrowLeft, ArrowRight, BookOpen, CalendarDays, ChefHat, House, Leaf,
+  MapPin, MessageCircle, Palette, Shirt, ShoppingBag, Sparkles,
 } from 'lucide-react'
 import PageHero from './PageHero'
 import TitleRays from './TitleRays'
@@ -22,14 +23,14 @@ const gallery = [
 ]
 
 const categories = [
-  { name: 'Gastronomía', emoji: '🥘', tone: 'pink' },
-  { name: 'Artesanía', emoji: '🧶', tone: 'green' },
-  { name: 'Moda y accesorios', emoji: '👜', tone: 'pink' },
-  { name: 'Decoración', emoji: '🏺', tone: 'peach' },
-  { name: 'Papelería', emoji: '✏️', tone: 'peach' },
-  { name: 'Ropa', emoji: '👕', tone: 'pink' },
-  { name: 'Cosmética', emoji: '💄', tone: 'green' },
-  { name: 'Productos sostenibles', emoji: '♻️', tone: 'pink' },
+  { name: 'Gastronomía', icon: ChefHat, tone: 'rose' },
+  { name: 'Artesanía', icon: Palette, tone: 'mint' },
+  { name: 'Moda y accesorios', icon: ShoppingBag, tone: 'gold' },
+  { name: 'Decoración', icon: House, tone: 'rose' },
+  { name: 'Papelería', icon: BookOpen, tone: 'gold' },
+  { name: 'Ropa', icon: Shirt, tone: 'mint' },
+  { name: 'Cosmética', icon: Sparkles, tone: 'rose' },
+  { name: 'Productos sostenibles', icon: Leaf, tone: 'mint' },
 ]
 
 function EventImage({ file, alt, className = '' }: { file: string; alt: string; className?: string }) {
@@ -66,6 +67,28 @@ function WhatsAppButton() {
   )
 }
 
+
+function FairSectionHeading({ eyebrow, title, id, description }: {
+  eyebrow: string
+  title: string
+  id: string
+  description?: string
+}) {
+  return (
+    <header className="fair-section-heading">
+      <div className="title-eyebrow-group">
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
+        <h2 id={id} className="fair-serif-heading title-eyebrow-heading">
+          <TitleRays side="left" />
+          <span>{title}</span>
+          <TitleRays side="right" />
+        </h2>
+      </div>
+      {description && <p className="fair-section-description">{description}</p>}
+    </header>
+  )
+}
+
 function Gallery() {
   const [page, setPage] = useState(0)
   const images = Array.from({ length: 4 }, (_, index) => gallery[(page * 2 + index) % gallery.length])
@@ -73,10 +96,11 @@ function Gallery() {
 
   return (
     <section className="fair-gallery" aria-labelledby="fair-gallery-title">
-      <div className="title-eyebrow-group">
-        <SectionEyebrow>RECUERDOS DE NUESTRAS FERIAS</SectionEyebrow>
-        <h2 id="fair-gallery-title" className="title-eyebrow-heading"><TitleRays side="left" /><span>Galería de ediciones anteriores</span><TitleRays side="right" /></h2>
-      </div>
+      <FairSectionHeading
+        eyebrow="RECUERDOS DE NUESTRAS FERIAS"
+        title="Galería de ediciones anteriores"
+        id="fair-gallery-title"
+      />
       <div className="fair-gallery-frame">
         <button className="fair-gallery-arrow fair-gallery-prev" type="button" aria-label="Ver fotografías anteriores" onClick={() => changePage(-1)}>
           <ArrowLeft size={26} strokeWidth={3} />
@@ -131,39 +155,62 @@ export default function UpcomingFairs() {
       />
 
       <div className="fair-content">
-        <section className="fair-details-grid" aria-labelledby="fair-details-title">
-          <div className="fair-details-left">
-            <div className="title-eyebrow-group">
-              <SectionEyebrow>TODO LO QUE NECESITAS SABER</SectionEyebrow>
-              <h2 id="fair-details-title" className="fair-serif-heading title-eyebrow-heading"><TitleRays side="left" /><span>Detalles del evento</span><TitleRays side="right" /></h2>
-            </div>
+        <section className="fair-details-section" aria-labelledby="fair-details-title">
+          <FairSectionHeading
+            eyebrow="TODO LO QUE NECESITAS SABER"
+            title="Detalles del evento"
+            id="fair-details-title"
+            description="Conoce cuándo nos reuniremos y dónde encontrarás esta edición del Mercado de Regalos."
+          />
+          <div className="fair-details-grid">
             <div className="fair-detail-cards">
               <article className="fair-detail-card">
-                <div className="fair-detail-icon"><CalendarDays size={55} strokeWidth={2.1} aria-hidden="true" /></div>
-                <div><h3>Fecha</h3><p>12 y 13 de diciembre del 2026</p><em>Sábado y Domingo</em></div>
+                <span className="fair-detail-icon fair-detail-icon-date"><CalendarDays size={32} strokeWidth={1.9} aria-hidden="true" /></span>
+                <div className="fair-detail-copy">
+                  <h3>Fecha</h3>
+                  <p>12 y 13 de diciembre de 2026</p>
+                  <span>Sábado y domingo</span>
+                </div>
               </article>
               <article className="fair-detail-card">
-                <div className="fair-detail-icon"><MapPin size={61} fill="currentColor" strokeWidth={1.6} aria-hidden="true" /></div>
-                <div><h3>Ubicación</h3><p>Parque próceres de la Independencia</p><em>Jesús María, Lima</em></div>
+                <span className="fair-detail-icon fair-detail-icon-location"><MapPin size={33} strokeWidth={1.9} aria-hidden="true" /></span>
+                <div className="fair-detail-copy">
+                  <h3>Ubicación</h3>
+                  <p>Parque Próceres de la Independencia</p>
+                  <span>Jesús María, Lima</span>
+                </div>
               </article>
             </div>
-          </div>
-          <div className="fair-map">
-            <iframe title="Mapa del Parque Próceres de la Independencia, Jesús María" src={mapEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-            <a href={mapLink} target="_blank" rel="noopener noreferrer">Abrir ubicación en Google Maps</a>
+            <div className="fair-map">
+              <iframe
+                title="Mapa del Parque Próceres de la Independencia, Jesús María"
+                src={mapEmbed}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <a href={mapLink} target="_blank" rel="noopener noreferrer">
+                <MapPin size={16} aria-hidden="true" />
+                Ver ubicación en Google Maps
+              </a>
+            </div>
           </div>
         </section>
 
-        <section className="fair-location-gallery" aria-label="Ubicación y galería">
+        <section className="fair-location-gallery" aria-label="Lugar y recuerdos de nuestras ferias">
           <div className="fair-location">
-            <div className="title-eyebrow-group">
-              <SectionEyebrow>ENCUÉNTRANOS AQUÍ</SectionEyebrow>
-              <h2 className="fair-serif-heading title-eyebrow-heading"><TitleRays side="left" /><span>Ubicación del evento</span><TitleRays side="right" /></h2>
-            </div>
+            <FairSectionHeading
+              eyebrow="ENCUÉNTRANOS AQUÍ"
+              title="Ubicación del evento"
+              id="fair-location-title"
+            />
             <div className="fair-location-photo-wrap">
-              <EventImage file="parque-proceres.png" alt="Monumento del Parque Próceres de la Independencia" className="fair-location-photo" />
+              <EventImage
+                file="parque-proceres.png"
+                alt="Parque Próceres de la Independencia, sede de la feria"
+                className="fair-location-photo"
+              />
               <a href={mapLink} target="_blank" rel="noopener noreferrer" className="fair-location-tag">
-                <MapPin size={28} fill="#d42b37" color="#d42b37" aria-hidden="true" />
+                <MapPin size={19} strokeWidth={2} aria-hidden="true" />
                 <span>Parque Próceres de la Independencia, Jesús María</span>
               </a>
             </div>
@@ -171,21 +218,20 @@ export default function UpcomingFairs() {
           <Gallery />
         </section>
 
-        <section className="fair-categories-section" aria-label="Categorías participantes">
-          <div className="fair-categories">
-            <div className="title-eyebrow-group">
-              <SectionEyebrow>MARCAS QUE HACEN LA DIFERENCIA</SectionEyebrow>
-              <h2 className="fair-serif-heading title-eyebrow-heading"><TitleRays side="left" /><span>Categorías participantes</span><TitleRays side="right" /></h2>
-            </div>
-            <p>Recibimos emprendimientos de diversos rubros navideños y locales</p>
-            <div className="fair-categories-grid">
-              {categories.map((category) => (
-                <div className={`fair-category fair-category-${category.tone}`} key={category.name}>
-                  <span className="fair-category-emoji" aria-hidden="true">{category.emoji}</span>
-                  <span>{category.name}</span>
-                </div>
-              ))}
-            </div>
+        <section className="fair-categories-section" aria-labelledby="fair-categories-title">
+          <FairSectionHeading
+            eyebrow="MARCAS QUE HACEN LA DIFERENCIA"
+            title="Categorías participantes"
+            id="fair-categories-title"
+            description="Descubre la variedad de emprendimientos que forman parte de nuestras ferias."
+          />
+          <div className="fair-categories-grid">
+            {categories.map(({ name, icon: Icon, tone }) => (
+              <article className={'fair-category fair-category-' + tone} key={name}>
+                <span className="fair-category-icon"><Icon size={29} strokeWidth={1.8} aria-hidden="true" /></span>
+                <h3>{name}</h3>
+              </article>
+            ))}
           </div>
         </section>
       </div>
