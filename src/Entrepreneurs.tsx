@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   ArrowRight, CalendarDays, ChartNoAxesCombined, ClipboardPenLine,
   Image as ImageIcon, MapPin, Megaphone, Play, ShieldCheck,
@@ -97,25 +98,27 @@ function EntrepreneursHeading({
 }
 
 function PromotionalBanner() {
+  const [imageFailed, setImageFailed] = useState(false)
+
   return (
-    <div className="entre-promo-visual">
-      <div className="entre-promo-placeholder" aria-hidden="true">
-        <span className="entre-promo-placeholder-icon">
-          <ImageIcon size={38} strokeWidth={1.6} />
-        </span>
-        <strong>Feria Navideña</strong>
-        <span>Espacio para el banner promocional oficial</span>
-      </div>
-      <img
-        src={`${baseUrl}images/feria-navidad-banner.png`}
-        alt="Banner promocional oficial de la Feria Navideña de Del Scroll al Stand"
-        loading="lazy"
-        decoding="async"
-        onError={(event) => {
-          // Se mostrará la vista provisional hasta que se suba el PNG.
-          event.currentTarget.style.display = 'none'
-        }}
-      />
+    <div className={`entre-promo-visual${imageFailed ? ' entre-promo-visual--missing' : ''}`}>
+      {imageFailed ? (
+        <div className="entre-promo-placeholder" role="status">
+          <span className="entre-promo-placeholder-icon">
+            <ImageIcon size={38} strokeWidth={1.6} aria-hidden="true" />
+          </span>
+          <strong>Feria Navideña</strong>
+          <span>Espacio para el banner promocional oficial</span>
+        </div>
+      ) : (
+        <img
+          src={`${baseUrl}images/feria-navidad-banner.png`}
+          alt="Banner promocional oficial de la Feria Navideña de Del Scroll al Stand"
+          loading="lazy"
+          decoding="async"
+          onError={() => setImageFailed(true)}
+        />
+      )}
     </div>
   )
 }
