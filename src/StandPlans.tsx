@@ -87,17 +87,23 @@ const planTestimonials = [
   },
 ]
 
-function Heading({ children, eyebrow }: { children: string; eyebrow: string }) {
+function Heading({ children, eyebrow, id, description }: {
+  children: string
+  eyebrow: string
+  id?: string
+  description?: string
+}) {
   return (
     <div className="plans-heading-block">
       <div className="title-eyebrow-group">
         <SectionEyebrow>{eyebrow}</SectionEyebrow>
         <div className="plans-section-heading title-eyebrow-heading">
           <TitleRays side="left" />
-          <h2>{children}</h2>
+          <h2 id={id}>{children}</h2>
           <TitleRays side="right" />
         </div>
       </div>
+      {description && <p className="plans-heading-description">{description}</p>}
     </div>
   )
 }
@@ -215,25 +221,25 @@ function ApplicationForm() {
         <h3>Formulario de Postulación</h3>
       </div>
       <label>
-        Nombre del emprendimiento <span aria-hidden="true">*</span>
+        <span className="plans-field-label">Nombre del emprendimiento <b aria-hidden="true">*</b></span>
         <input value={application.business} onChange={(event) => setApplication({ ...application, business: event.target.value })} required maxLength={100} placeholder="Nombre de tu marca" />
       </label>
       <label>
-        Tu nombre completo <span aria-hidden="true">*</span>
+        <span className="plans-field-label">Tu nombre completo <b aria-hidden="true">*</b></span>
         <input value={application.fullName} onChange={(event) => setApplication({ ...application, fullName: event.target.value })} required maxLength={120} placeholder="Nombres y apellidos" autoComplete="name" />
       </label>
       <div className="plans-input-grid">
         <label>
-          WhatsApp <span aria-hidden="true">*</span>
+          <span className="plans-field-label">WhatsApp <b aria-hidden="true">*</b></span>
           <input value={application.whatsapp} onChange={(event) => setApplication({ ...application, whatsapp: event.target.value })} required type="tel" inputMode="tel" pattern="[+0-9 ()-]{7,20}" placeholder="+51 987 654 321" autoComplete="tel" />
         </label>
         <label>
-          Correo electrónico <span aria-hidden="true">*</span>
+          <span className="plans-field-label">Correo electrónico <b aria-hidden="true">*</b></span>
           <input value={application.email} onChange={(event) => setApplication({ ...application, email: event.target.value })} required type="email" placeholder="tuemail@ejemplo.com" autoComplete="email" />
         </label>
       </div>
       <label>
-        Cuéntanos sobre tu emprendimiento <span aria-hidden="true">*</span>
+        <span className="plans-field-label">Cuéntanos sobre tu emprendimiento <b aria-hidden="true">*</b></span>
         <textarea value={application.description} onChange={(event) => setApplication({ ...application, description: event.target.value })} rows={3} maxLength={1000} required placeholder="¿Qué productos o servicios ofreces? ¿Cuál es tu propuesta de valor?" />
       </label>
       <label>
@@ -289,11 +295,15 @@ export default function StandPlans() {
       </PageHero>
 
       <section className="plans-catalog" aria-labelledby="plans-catalog-title">
-        <Heading eyebrow="ELIGE TU ESPACIO IDEAL">Conoce nuestros planes</Heading>
-        <div className="plans-card-grid" id="plans-catalog-title">
+        <Heading
+          eyebrow="ELIGE TU ESPACIO IDEAL"
+          id="plans-catalog-title"
+          description="Tres opciones pensadas para que tu marca crezca y se conecte con nuevos clientes."
+        >Conoce nuestros planes</Heading>
+        <div className="plans-card-grid">
           {plans.map((plan) => (
             <article className={`plans-card plans-card-${plan.id}`} key={plan.id}>
-              {plan.id === 'plus' && <span className="plans-most-popular">★ Más elegido</span>}
+              {plan.id === 'plus' && <span className="plans-most-popular"><BadgeCheck size={15} aria-hidden="true" /> Más elegido</span>}
               <header className="plans-card-header">
                 <span className="plans-card-icon"><Store size={38} strokeWidth={1.9} aria-hidden="true" /></span>
                 <div><h3>{plan.name}</h3><p>{plan.tagline}</p></div>
@@ -354,10 +364,10 @@ export default function StandPlans() {
         </div>
         <div className="plans-services-grid">
           {services.map(({ title, text, icon: Icon, tone }) => (
-            <div className="plans-service" key={title}>
+            <article className="plans-service" key={title}>
               <span className={`plans-service-icon tone-${tone}`}><Icon size={31} strokeWidth={1.8} aria-hidden="true" /></span>
               <div><h3>{title}</h3><p>{text}</p></div>
-            </div>
+            </article>
           ))}
         </div>
       </section>
