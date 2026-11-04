@@ -795,13 +795,14 @@
   .plans-apply-right {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "selection testimonials-heading" "selection testimonials";
     align-items: start;
-    gap: 22px;
+    gap: 14px 22px;
     padding-top: 0;
   }
-  .plans-apply-right > .plans-heading-block { grid-column: 2; grid-row: 1; align-self: start; }
-  .plans-exhibitor-testimonials { grid-column: 2; grid-row: 1 / span 2; margin-top: 105px; }
-  .plans-selection-card { grid-row: 1 / span 2; }
+  .plans-apply-right > .plans-heading-block { grid-area: testimonials-heading; align-self: end; }
+  .plans-exhibitor-testimonials { grid-area: testimonials; margin-top: 0; }
+  .plans-selection-card { grid-area: selection; }
   .plans-final-banner { flex-wrap: wrap; }
   .plans-final-actions { margin-left: auto; }
 }
