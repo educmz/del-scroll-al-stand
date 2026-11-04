@@ -443,31 +443,31 @@ function App() {
                     <p>{step.description}</p>
                     {index < steps.length - 1 && (
                       <span className="process-connector" aria-hidden="true">
-                        <motion.svg className="process-arrow-drawn" viewBox="0 0 112 52" fill="none" aria-hidden="true">
+                        <motion.svg className="process-arrow-drawn" viewBox="0 0 120 48" fill="none" aria-hidden="true">
                           {/* Flecha visible en reposo; el trazo de hover la repasa. */}
                           <path
                             className="process-arrow-outline"
-                            d="M3 37 C14 16 26 12 34 26 C42 41 18 45 22 29 C27 5 48 5 60 22 C73 39 88 35 106 17"
+                            d="M4 30 C17 14 29 10 36 22 C44 36 26 39 27 27 C28 13 44 11 57 24 C72 39 93 33 112 19"
                             stroke="currentColor"
-                            strokeWidth="3.3"
+                            strokeWidth="2.8"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             vectorEffect="non-scaling-stroke"
                           />
                           <path
                             className="process-arrow-outline"
-                            d="M92 12 L107 17 L100 31"
+                            d="M99 15 Q108 17 113 19 Q110 25 107 31"
                             stroke="currentColor"
-                            strokeWidth="3.3"
+                            strokeWidth="2.8"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             vectorEffect="non-scaling-stroke"
                           />
                           <motion.path
                             className="process-arrow-retrace"
-                            d="M3 37 C14 16 26 12 34 26 C42 41 18 45 22 29 C27 5 48 5 60 22 C73 39 88 35 106 17"
+                            d="M4 30 C17 14 29 10 36 22 C44 36 26 39 27 27 C28 13 44 11 57 24 C72 39 93 33 112 19"
                             stroke="currentColor"
-                            strokeWidth="3.3"
+                            strokeWidth="2.8"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             vectorEffect="non-scaling-stroke"
@@ -482,9 +482,9 @@ function App() {
                           />
                           <motion.path
                             className="process-arrow-retrace"
-                            d="M92 12 L107 17 L100 31"
+                            d="M99 15 Q108 17 113 19 Q110 25 107 31"
                             stroke="currentColor"
-                            strokeWidth="3.3"
+                            strokeWidth="2.8"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             vectorEffect="non-scaling-stroke"
