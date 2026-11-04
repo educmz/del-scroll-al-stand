@@ -287,20 +287,20 @@ button:focus-visible {
 
 .hero-photo-frame {
   width: 100%;
-  aspect-ratio: 1.46;
-  min-height: 350px;
-  max-height: 680px;
-  overflow: hidden;
-  border-radius: 36% 51% 37% 29% / 26% 35% 39% 24%;
-  box-shadow: 0 5px 10px rgb(48 20 0 / 17%);
+  max-width: 738px;
+  aspect-ratio: 738 / 547;
+  flex: 0 0 auto;
 }
 
-.hero-photo {
+.hero-photo-svg {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
+  overflow: visible;
+}
+
+.hero-photo-depth {
+  filter: drop-shadow(0 7px 5px rgb(42 30 19 / 36%));
 }
 
 @media (max-width: 1100px) {
@@ -441,9 +441,6 @@ button:focus-visible {
     align-self: center;
   }
 
-  .hero-photo-frame {
-    min-height: 0;
-  }
 }
 
 @media (max-width: 550px) {
@@ -521,7 +518,4 @@ button:focus-visible {
     padding: 12px 14px 38px;
   }
 
-  .hero-photo-frame {
-    aspect-ratio: 1.18;
-  }
 }
