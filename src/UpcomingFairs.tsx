@@ -7,7 +7,7 @@ import PageHero from './PageHero'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import {
-  featuredFair, upcomingFairs, pastEditions, fairApplicationHref, type Fair,
+  featuredFair, upcomingFairs, pastEditions, fairApplicationHref, fairApplicationStatus, type Fair,
 } from './fairCatalog'
 import './UpcomingFairs.css'
 
@@ -91,6 +91,7 @@ function UpcomingEditionCard({ fair }: { fair: Fair }) {
       <FairPhoto file={fair.image} alt={'Imagen promocional de ' + fair.name} className="fair-upcoming-photo" />
       <div className="fair-upcoming-copy">
         <h3>{fair.name}</h3>
+        <span className="fair-card-status">{fairApplicationStatus(fair)}</span>
         <p><CalendarDays size={17} aria-hidden="true" />{fair.dates}</p>
         <p><MapPin size={17} aria-hidden="true" />{fair.venue}, {fair.district}</p>
         <a href={fairApplicationHref(fair)} className="fair-text-link">
@@ -164,6 +165,7 @@ export default function UpcomingFairs() {
           <div className="fair-hero-facts">
             <span><CalendarDays size={17} aria-hidden="true" />{featuredFair.dates}</span>
             <span><MapPin size={17} aria-hidden="true" />{featuredFair.district}</span>
+            <span className="fair-hero-status">{fairApplicationStatus(featuredFair)}</span>
           </div>
         </PageHero>
       </div>
