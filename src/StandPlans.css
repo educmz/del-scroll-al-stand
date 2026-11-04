@@ -346,3 +346,8 @@
   .plans-input-grid { grid-template-columns: 1fr; }
   .plans-service p { font-size: 10px; }
 }
+
+.plans-final-whatsapp:disabled {
+  opacity: .75;
+  cursor: not-allowed;
+}
