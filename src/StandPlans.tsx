@@ -1,8 +1,8 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import {
-  BadgeCheck, CalendarDays, Check, ChevronDown, ChevronRight, ClipboardList,
+  BadgeCheck, Check, ChevronDown, ChevronRight, ClipboardList,
   Megaphone, MessageCircle,
-  Send, ShieldCheck, Sparkles, Store, Table2, UsersRound, Zap,
+  Send, ShieldCheck, Store, Table2, UsersRound, Zap,
 } from 'lucide-react'
 import PageHero from './PageHero'
 import TitleRays from './TitleRays'
@@ -70,23 +70,6 @@ const applicationSteps = [
   { title: 'Confirmación', detail: 'Te contactamos con los siguientes pasos y el plan asignado.', icon: MessageCircle },
 ]
 
-const planTestimonials = [
-  {
-    name: 'Ana P.',
-    handle: '@lunaarte',
-    quote: 'Participar en Del Scroll al Stand fue un gran impulso para mi marca. Vendí más de lo que esperaba y conecté con clientes increíbles.',
-    plan: 'Stand Plus',
-    image: 'testimonio-ana.webp',
-  },
-  {
-    name: 'Mateo R.',
-    handle: '@cafearte',
-    quote: 'La organización es excelente y el ambiente de la feria es muy positivo. Definitivamente volveré a participar.',
-    plan: 'Stand Premium',
-    image: 'testimonio-diego.webp',
-  },
-]
-
 function Heading({ children, eyebrow, id, description }: {
   children: string
   eyebrow: string
@@ -136,26 +119,6 @@ function JumpToForm({ children, className = '', plan }: { children: ReactNode; c
       }}
     >
       {children}
-    </button>
-  )
-}
-
-function WhatsAppReserve() {
-  const contactNumber = (import.meta.env.VITE_APPLICATION_WHATSAPP_NUMBER || '').replace(/\D/g, '')
-
-  return (
-    <button
-      type="button"
-      className="plans-final-whatsapp"
-      disabled={!contactNumber}
-      title={!contactNumber ? 'La reserva por WhatsApp se habilitará al configurar el número de contacto.' : 'Abrir WhatsApp para reservar'}
-      onClick={() => {
-        if (contactNumber) {
-          window.open(`https://wa.me/${contactNumber}?text=${encodeURIComponent('Hola, quiero reservar un stand para la próxima feria de Del Scroll al Stand.')}`, '_blank', 'noopener,noreferrer')
-        }
-      }}
-    >
-      <MessageCircle size={19} aria-hidden="true" /> Reservar por WhatsApp
     </button>
   )
 }
@@ -414,36 +377,9 @@ export default function StandPlans() {
               </ul>
             </div>
           </div>
-          <Heading eyebrow="EXPERIENCIAS QUE INSPIRAN">Lo que dicen nuestros expositores</Heading>
-          <div className="plans-exhibitor-testimonials">
-            {planTestimonials.map((testimonial) => (
-              <article key={testimonial.name} className="plans-exhibitor-testimonial">
-                <StandPhoto file={testimonial.image} alt={`Retrato de ${testimonial.name}`} />
-                <div>
-                  <span className="plans-small-stars" aria-label="Cinco estrellas">★★★★★</span>
-                  <p>“{testimonial.quote}”</p>
-                  <strong>{testimonial.name} · {testimonial.handle}</strong>
-                  <span className="plans-testimonial-tag">{testimonial.plan}</span>
-                </div>
-              </article>
-            ))}
-          </div>
         </aside>
       </section>
 
-      <section className="plans-final-banner" aria-label="Reserva tu stand">
-        <span className="plans-final-store"><Store size={59} strokeWidth={1.5} aria-hidden="true" /></span>
-        <div className="plans-final-copy">
-          <h2>¡Reserva tu stand ahora!</h2>
-          <p>Asegura tu participación en la próxima feria y dale más visibilidad a tu emprendimiento.</p>
-        </div>
-        <div className="plans-final-actions">
-          <WhatsAppReserve />
-          <JumpToForm className="plans-final-form"><CalendarDays size={19} /> Completar formulario</JumpToForm>
-        </div>
-        <Sparkles className="plans-final-sparkles" size={36} aria-hidden="true" />
-      </section>
-      <p className="plans-reference-note">Precios, beneficios y testimonios de muestra según la referencia de diseño. Confirma las condiciones antes de abrir postulaciones.</p>
     </main>
   )
 }
