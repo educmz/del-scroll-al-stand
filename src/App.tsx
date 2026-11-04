@@ -143,10 +143,14 @@ function App() {
   const [activeProcessStep, setActiveProcessStep] = useState(0)
   const [processHovered, setProcessHovered] = useState(false)
   const [processFocused, setProcessFocused] = useState(false)
+  const [hoveredProcessStep, setHoveredProcessStep] = useState<number | null>(null)
   const processPaused = processHovered || processFocused
+  const spotlightStep = processInView && !shouldReduceMotion
+    ? (hoveredProcessStep ?? activeProcessStep)
+    : null
 
-  // Motion anima posición y tamaño juntos; solo cambiamos de paso cuando
-  // la sección es visible y nadie está interactuando con las tarjetas.
+  // El foco avanza entre los cuatro pasos mientras están visibles. La
+  // interacción del usuario detiene el recorrido y toma prioridad.
   useEffect(() => {
     if (!processInView || processPaused || shouldReduceMotion) return
 
@@ -445,41 +449,54 @@ function App() {
             <div
               ref={processGridRef}
               className="process-grid"
-              data-active-step={processInView && !shouldReduceMotion ? activeProcessStep : undefined}
+              data-spotlight-active={spotlightStep !== null ? 'true' : undefined}
               onMouseEnter={() => setProcessHovered(true)}
-              onMouseLeave={() => setProcessHovered(false)}
+              onMouseLeave={() => {
+                setProcessHovered(false)
+                setHoveredProcessStep(null)
+              }}
               onFocusCapture={() => setProcessFocused(true)}
               onBlurCapture={(event) => {
                 if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
                   setProcessFocused(false)
+                  setHoveredProcessStep(null)
                 }
               }}
             >
               {steps.map((step, index) => {
                 const Icon = step.icon
+                const isSpotlight = spotlightStep === index
                 return (
                   <motion.article
-                    layout={!shouldReduceMotion}
                     initial={false}
+                    animate={{
+                      opacity: spotlightStep === null || isSpotlight ? 1 : 0.74,
+                      filter: spotlightStep === null || isSpotlight ? 'saturate(1)' : 'saturate(.78)',
+                    }}
                     transition={{
-                      layout: { type: 'spring', stiffness: 105, damping: 25, mass: 1 },
+                      opacity: { duration: 0.7, ease: 'easeInOut' },
+                      filter: { duration: 0.7, ease: 'easeInOut' },
                       y: { duration: 0.25, ease: 'easeOut' },
                     }}
                     whileHover={shouldReduceMotion ? undefined : { y: -5 }}
                     whileFocus={shouldReduceMotion ? undefined : { y: -5 }}
+                    onMouseEnter={() => setHoveredProcessStep(index)}
+                    onMouseLeave={() => setHoveredProcessStep(null)}
+                    onFocus={() => setHoveredProcessStep(index)}
+                    onBlur={() => setHoveredProcessStep(null)}
                     className="process-item"
-                    data-active={activeProcessStep === index ? 'true' : 'false'}
+                    data-active={isSpotlight ? 'true' : 'false'}
                     key={step.title}
                     tabIndex={0}
                   >
-                    <motion.span layout className="process-number">
+                    <span className="process-number">
                       PASO {String(index + 1).padStart(2, '0')}
-                    </motion.span>
-                    <motion.div layout className="process-icon">
+                    </span>
+                    <div className="process-icon">
                       <Icon size={42} strokeWidth={2} aria-hidden="true" />
-                    </motion.div>
-                    <motion.h3 layout>{step.title}</motion.h3>
-                    <motion.p layout>{step.description}</motion.p>
+                    </div>
+                    <h3>{step.title}</h3>
+                    <p>{step.description}</p>
                   </motion.article>
                 )
               })}
