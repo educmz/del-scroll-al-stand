@@ -9,7 +9,7 @@ import { featuredFair, fairApplicationHref } from './fairCatalog'
 import HomeFAQ from './HomeFAQ'
 import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import { motion, useInView, useReducedMotion, useSpring } from 'motion/react'
+import { motion, useAnimationFrame, useInView, useMotionValue, useReducedMotion, useTransform } from 'motion/react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -146,76 +146,85 @@ const testimonials = [
 ]
 
 /**
- * Cartel del isotipo suspendido del borde superior.
- * Los impulsos suaves y los resortes con poca amortiguación producen un
- * balanceo amortiguado (en profundidad y apenas lateral) sin animar el logo.
+ * Cartel articulado en su borde superior.
+ * Motion pinta cada fotograma de un péndulo amortiguado: gravedad,
+ * velocidad angular, rozamiento e impulsos suaves de viento/cursor.
+ * La imagen y su soporte se mueven juntos, no solo el isotipo.
  */
 function HangingBrand() {
   const shouldReduceMotion = useReducedMotion()
-  const pitch = useSpring(0, { stiffness: 45, damping: 4, mass: 1.4 })
-  const roll = useSpring(0, { stiffness: 42, damping: 6, mass: 1.5 })
-  const pointerOver = useRef(false)
-  const nextGust = useRef(1)
+  const pitch = useMotionValue(0)
+  const roll = useTransform(pitch, (degrees) => degrees * 0.055)
+  const yaw = useTransform(pitch, (degrees) => degrees * -0.07)
+  const signShadow = useTransform(pitch, (degrees) => {
+    const depth = Math.min(Math.abs(degrees) / 24, 1)
+    return `0 ${Math.round(9 + depth * 9)}px ${Math.round(18 + depth * 12)}px rgba(78, 37, 32, ${(0.14 + depth * 0.07).toFixed(3)})`
+  })
+  const pendulum = useRef({
+    angle: -0.4,
+    angularVelocity: 0,
+    lastGust: 0,
+    gustDirection: 1,
+    pointerInside: false,
+  })
 
   useEffect(() => {
-    if (shouldReduceMotion) {
-      pitch.jump(0)
-      roll.jump(0)
-      return
+    const state = pendulum.current
+    state.angle = shouldReduceMotion ? 0 : -0.4
+    state.angularVelocity = 0
+    state.lastGust = 0
+    state.gustDirection = 1
+    pitch.set(state.angle * 180 / Math.PI)
+  }, [shouldReduceMotion, pitch])
+
+  useAnimationFrame((elapsed, delta) => {
+    if (shouldReduceMotion) return
+
+    const state = pendulum.current
+    const dt = Math.min(delta / 1000, 0.032)
+
+    // Una brisa ocasional vuelve a impulsar el cartel; no es un bucle rígido.
+    if (!state.pointerInside && elapsed - state.lastGust > 6800) {
+      state.angularVelocity += state.gustDirection * 0.66
+      state.gustDirection *= -1
+      state.lastGust = elapsed
     }
 
-    let releaseTimer: number | undefined
+    // Péndulo físico: aceleración = -gravedad · sin(ángulo) - fricción.
+    const angularAcceleration = -13.5 * Math.sin(state.angle) - 0.82 * state.angularVelocity
+    state.angularVelocity += angularAcceleration * dt
+    state.angle += state.angularVelocity * dt
+    state.angle = Math.max(-0.47, Math.min(0.47, state.angle))
 
-    const giveImpulse = (force: number) => {
-      if (pointerOver.current) return
-      pitch.set(force)
-      roll.set(force > 0 ? 0.85 : -0.85)
-      window.clearTimeout(releaseTimer)
-      releaseTimer = window.setTimeout(() => {
-        pitch.set(0)
-        roll.set(0)
-      }, 270)
-    }
+    pitch.set(state.angle * 180 / Math.PI)
+  })
 
-    const entranceTimer = window.setTimeout(() => giveImpulse(9), 360)
-    const breezeTimer = window.setInterval(() => {
-      nextGust.current *= -1
-      giveImpulse(nextGust.current * 5.5)
-    }, 5000)
-
-    return () => {
-      window.clearTimeout(entranceTimer)
-      window.clearInterval(breezeTimer)
-      window.clearTimeout(releaseTimer)
-      pitch.jump(0)
-      roll.jump(0)
-    }
-  }, [shouldReduceMotion, pitch, roll])
+  const nudge = () => {
+    if (shouldReduceMotion) return
+    const state = pendulum.current
+    state.angularVelocity += state.angle > 0 ? -1.1 : 1.1
+  }
 
   return (
     <motion.a
       href="#inicio"
       className="brand brand-hanging-sign"
       aria-label="Del Scroll al Stand — Inicio"
-      style={{ rotateX: pitch, rotateZ: roll, transformPerspective: 980 }}
+      style={{
+        rotateX: pitch,
+        rotateY: yaw,
+        rotateZ: roll,
+        transformPerspective: 620,
+        boxShadow: signShadow,
+      }}
       onPointerEnter={() => {
-        if (shouldReduceMotion) return
-        pointerOver.current = true
-        pitch.set(12)
-        roll.set(-1.15)
+        if (!pendulum.current.pointerInside) nudge()
+        pendulum.current.pointerInside = true
       }}
       onPointerLeave={() => {
-        pointerOver.current = false
-        pitch.set(0)
-        roll.set(0)
+        pendulum.current.pointerInside = false
       }}
-      onFocus={() => {
-        if (!shouldReduceMotion) pitch.set(8)
-      }}
-      onBlur={() => {
-        pitch.set(0)
-        roll.set(0)
-      }}
+      onFocus={nudge}
     >
       <img
         src={`${baseUrl}images/logo.png`}
