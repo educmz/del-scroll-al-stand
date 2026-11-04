@@ -29,3 +29,43 @@
     letter-spacing: .07em;
   }
 }
+
+/* La etiqueta se centra sobre el título, nunca sobre todo el contenedor.
+   inline-flex conserva la posición original del bloque a izquierda o derecha. */
+.title-eyebrow-group {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+  vertical-align: top;
+  text-align: center;
+}
+
+.title-eyebrow-group > .section-overline {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 10px;
+  text-align: center;
+}
+
+.title-eyebrow-group > .title-eyebrow-heading {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  min-width: 0;
+  margin-inline: auto;
+}
+
+.title-eyebrow-group > .title-eyebrow-heading > :is(h2, h3) {
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .title-eyebrow-group > .section-overline {
+    margin-bottom: 8px;
+  }
+}
