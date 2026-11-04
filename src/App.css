@@ -848,7 +848,8 @@ button:focus-visible {
 
 @keyframes process-grid-rebalance {
   0%, 100% {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    /* Lista explícita: las cuatro pistas tienen la misma estructura en todos los fotogramas. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
   }
   7%, 17% {
     grid-template-columns: minmax(0, 1.39fr) minmax(0, .87fr) minmax(0, .87fr) minmax(0, .87fr);
