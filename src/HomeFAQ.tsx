@@ -30,10 +30,17 @@ export default function HomeFAQ() {
       {questions.map(({ question, answer }, index) => (
         <details className="home-faq-item" key={question} open={index === 0}>
           <summary>
-            <span>{question}</span>
-            <ChevronDown aria-hidden="true" size={23} strokeWidth={2.3} />
+            <span className="home-faq-number" aria-hidden="true">
+              {String(index + 1).padStart(2, '0')}
+            </span>
+            <span className="home-faq-question">{question}</span>
+            <span className="home-faq-toggle" aria-hidden="true">
+              <ChevronDown size={22} strokeWidth={2.1} />
+            </span>
           </summary>
-          <p>{answer}</p>
+          <div className="home-faq-answer">
+            <p>{answer}</p>
+          </div>
         </details>
       ))}
     </div>
