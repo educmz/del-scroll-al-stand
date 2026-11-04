@@ -429,8 +429,8 @@ function App() {
                     className="process-item"
                     key={step.title}
                     tabIndex={0}
-                    initial={shouldReduceMotion ? 'draw' : 'idle'}
-                    animate={shouldReduceMotion ? 'draw' : 'idle'}
+                    initial="idle"
+                    animate="idle"
                     whileHover={shouldReduceMotion ? undefined : 'draw'}
                     whileFocus={shouldReduceMotion ? undefined : 'draw'}
                   >
@@ -443,7 +443,27 @@ function App() {
                     {index < steps.length - 1 && (
                       <span className="process-connector" aria-hidden="true">
                         <motion.svg className="process-arrow-drawn" viewBox="0 0 112 52" fill="none" aria-hidden="true">
+                          {/* Flecha visible en reposo; el trazo de hover la repasa. */}
+                          <path
+                            className="process-arrow-outline"
+                            d="M3 37 C14 16 26 12 34 26 C42 41 18 45 22 29 C27 5 48 5 60 22 C73 39 88 35 106 17"
+                            stroke="currentColor"
+                            strokeWidth="3.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            vectorEffect="non-scaling-stroke"
+                          />
+                          <path
+                            className="process-arrow-outline"
+                            d="M92 12 L107 17 L100 31"
+                            stroke="currentColor"
+                            strokeWidth="3.3"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            vectorEffect="non-scaling-stroke"
+                          />
                           <motion.path
+                            className="process-arrow-retrace"
                             d="M3 37 C14 16 26 12 34 26 C42 41 18 45 22 29 C27 5 48 5 60 22 C73 39 88 35 106 17"
                             stroke="currentColor"
                             strokeWidth="3.3"
@@ -451,7 +471,7 @@ function App() {
                             strokeLinejoin="round"
                             vectorEffect="non-scaling-stroke"
                             variants={{
-                              idle: { pathLength: 0, opacity: 0 },
+                              idle: { pathLength: 0, opacity: 0, transition: { pathLength: { duration: 0 }, opacity: { duration: 0.18 } } },
                               draw: {
                                 pathLength: 1,
                                 opacity: 1,
@@ -460,6 +480,7 @@ function App() {
                             }}
                           />
                           <motion.path
+                            className="process-arrow-retrace"
                             d="M92 12 L107 17 L100 31"
                             stroke="currentColor"
                             strokeWidth="3.3"
@@ -467,7 +488,7 @@ function App() {
                             strokeLinejoin="round"
                             vectorEffect="non-scaling-stroke"
                             variants={{
-                              idle: { pathLength: 0, opacity: 0 },
+                              idle: { pathLength: 0, opacity: 0, transition: { pathLength: { duration: 0 }, opacity: { duration: 0.18 } } },
                               draw: {
                                 pathLength: 1,
                                 opacity: 1,
