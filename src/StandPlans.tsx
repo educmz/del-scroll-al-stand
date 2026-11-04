@@ -335,18 +335,20 @@ export default function StandPlans() {
         </div>
       </section>
 
-      <section className="plans-application" aria-label="Postulación de expositores">
-        <div className="plans-apply-left">
+      <section className="plans-application" aria-labelledby="plans-apply-title">
+        <header className="plans-apply-heading">
           <div className="title-eyebrow-group">
             <SectionEyebrow>EL PRIMER PASO ES AQUÍ</SectionEyebrow>
             <div className="plans-accent-heading title-eyebrow-heading">
               <TitleRays side="left" />
-              <h2>Postula como expositor</h2>
+              <h2 id="plans-apply-title">Postula como expositor</h2>
               <TitleRays side="right" />
             </div>
           </div>
           <p className="plans-apply-intro">Es muy fácil. Completa el formulario y nuestro equipo revisará tu propuesta.</p>
-          <div className="plans-apply-content">
+        </header>
+        <div className="plans-apply-layout">
+          <div className="plans-apply-info">
             <ol className="plans-apply-steps">
               {applicationSteps.map(({ title, detail, icon: Icon }, index) => (
                 <li key={title}>
@@ -357,27 +359,27 @@ export default function StandPlans() {
                 </li>
               ))}
             </ol>
-            <ApplicationForm />
-          </div>
-        </div>
-        <aside className="plans-apply-right">
-          <div className="plans-selection-card">
-            <BadgeCheck size={44} strokeWidth={1.8} aria-hidden="true" />
-            <div>
-              <div className="title-eyebrow-group">
-                <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
-                <h3>¿Cómo elegimos a los expositores?</h3>
+            <aside className="plans-apply-right">
+              <div className="plans-selection-card">
+                <BadgeCheck size={44} strokeWidth={1.8} aria-hidden="true" />
+                <div>
+                  <div className="title-eyebrow-group">
+                    <SectionEyebrow>SELECCIÓN DE MARCAS</SectionEyebrow>
+                    <h3>¿Cómo elegimos a los expositores?</h3>
+                  </div>
+                  <p>Buscamos emprendimientos auténticos, con productos o servicios de calidad, propuestas de valor claras y alineados con el espíritu de nuestras ferias: diversidad, creatividad, comunidad y experiencia positiva para los visitantes.</p>
+                  <ul>
+                    <li><Check size={15} /> Originalidad y calidad de la propuesta.</li>
+                    <li><Check size={15} /> Alineación con la temática de la feria.</li>
+                    <li><Check size={15} /> Variedad para ofrecer una experiencia diversa.</li>
+                    <li><Check size={15} /> Compromiso y buena disposición para la feria.</li>
+                  </ul>
+                </div>
               </div>
-              <p>Buscamos emprendimientos auténticos, con productos o servicios de calidad, propuestas de valor claras y alineados con el espíritu de nuestras ferias: diversidad, creatividad, comunidad y experiencia positiva para los visitantes.</p>
-              <ul>
-                <li><Check size={15} /> Originalidad y calidad de la propuesta.</li>
-                <li><Check size={15} /> Alineación con la temática de la feria.</li>
-                <li><Check size={15} /> Variedad para ofrecer una experiencia diversa.</li>
-                <li><Check size={15} /> Compromiso y buena disposición para la feria.</li>
-              </ul>
-            </div>
+            </aside>
           </div>
-        </aside>
+          <ApplicationForm />
+        </div>
       </section>
 
     </main>
