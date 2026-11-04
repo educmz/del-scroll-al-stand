@@ -228,16 +228,25 @@
 
 /* Misión y visión: tarjetas relacionadas, con matices coral y verde. */
 .about-direction {
-  padding: clamp(68px, 7vw, 98px) clamp(24px, 4vw, 70px);
+  padding: clamp(40px, 4.2vw, 60px) clamp(24px, 4vw, 70px);
   background: var(--about-cream);
+}
+
+.about-direction .about-content-section-heading {
+  margin-bottom: 24px;
+}
+
+.about-direction .about-content-section-heading > p {
+  margin-top: 11px;
+  line-height: 1.55;
 }
 
 .about-direction-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: stretch;
-  gap: clamp(18px, 2.4vw, 31px);
-  width: min(100%, 1170px);
+  gap: clamp(17px, 2vw, 25px);
+  width: min(100%, 1060px);
   margin: 0 auto;
 }
 
@@ -249,8 +258,8 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
-  min-height: 317px;
-  padding: clamp(27px, 3.1vw, 43px);
+  min-height: 255px;
+  padding: clamp(23px, 2.3vw, 32px);
   overflow: hidden;
   border: 1px solid #f0d8d0;
   border-radius: 29px;
@@ -275,22 +284,22 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 23px;
+  margin-bottom: 15px;
 }
 
 .about-direction-icon {
   display: grid;
   place-items: center;
-  width: 74px;
-  height: 74px;
-  border-radius: 21px;
+  width: 62px;
+  height: 62px;
+  border-radius: 19px;
   background: var(--about-card-soft);
   color: var(--about-card-dark);
 }
 
 .about-direction-counter {
   color: #d0bdb5;
-  font: 600 30px/1 'Fredoka', sans-serif;
+  font: 600 27px/1 'Fredoka', sans-serif;
   letter-spacing: -.035em;
 }
 
@@ -300,7 +309,7 @@
 }
 
 .about-direction-card h3 {
-  margin: 2px 0 11px;
+  margin: 2px 0 8px;
   color: #38262f;
   font: 700 clamp(24px, 2.3vw, 31px)/1.25 var(--font-card-title);
   letter-spacing: -.018em;
@@ -308,9 +317,9 @@
 
 .about-direction-card p {
   max-width: 480px;
-  margin: 0 0 30px;
+  margin: 0 0 12px;
   color: #67545c;
-  font: 400 clamp(14px, 1.08vw, 16px)/1.75 'Poppins', sans-serif;
+  font: 400 clamp(14px, 1.08vw, 16px)/1.6 'Poppins', sans-serif;
 }
 
 .about-direction-accent {
@@ -558,9 +567,9 @@
   .about-story-highlights { justify-content: center; }
   .about-story-visual { width: min(100%, 540px); margin-inline: auto; }
 
-  .about-direction { padding: 69px 22px 79px; }
+  .about-direction { padding: 43px 22px 51px; }
   .about-direction-grid { grid-template-columns: 1fr; max-width: 580px; }
-  .about-direction-card { min-height: 0; padding: 29px 28px 38px; }
+  .about-direction-card { min-height: 0; padding: 24px 26px 28px; }
 
   .about-values-section { padding: 75px 22px 81px; }
 
@@ -604,9 +613,10 @@
   .about-story-photo-note { right: -4px; padding: 9px 12px; }
   .about-story-photo-note span:last-child { font-size: 10px; }
 
-  .about-direction { padding-inline: 17px; }
-  .about-direction-card { padding: 25px 23px 34px; border-radius: 23px; }
-  .about-direction-icon { width: 62px; height: 62px; border-radius: 18px; }
+  .about-direction { padding: 38px 17px 44px; }
+  .about-direction .about-content-section-heading { margin-bottom: 20px; }
+  .about-direction-card { padding: 22px 23px 25px; border-radius: 23px; }
+  .about-direction-icon { width: 58px; height: 58px; border-radius: 18px; }
 
   .about-values-section { padding-inline: 17px; }
   .about-values-cards { grid-template-columns: 1fr; gap: 15px; }
