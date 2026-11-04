@@ -1,8 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import AboutUs from './AboutUs'
+import TitleRays from './TitleRays'
+import SectionEyebrow from './SectionEyebrow'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
-import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
+import UpcomingFairs from './UpcomingFairs'
+import HomeFAQ from './HomeFAQ'
+import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
+import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
+import { motion, useInView, useReducedMotion } from 'motion/react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -12,7 +18,6 @@ const navigation = [
   { label: 'Próximas ferias', href: '#proximas-ferias' },
   { label: 'Para emprendedores', href: '#emprendedores' },
   { label: 'Planes de stand', href: '#planes' },
-  { label: 'Galería', href: '#sobre-nosotros-galeria' },
   { label: 'Sobre nosotros', href: '#sobre-nosotros' },
 ]
 
@@ -85,16 +90,15 @@ const steps = [
   },
 ]
 
-function SectionHeading({ children }: { children: string }) {
+function SectionHeading({ children, eyebrow }: { children: string; eyebrow: string }) {
   return (
-    <div className="info-section-heading">
-      <svg className="heading-rays heading-rays-left" viewBox="0 0 58 58" aria-hidden="true">
-        <path d="M47 5 53 23M24 15 40 32M10 43 32 45" />
-      </svg>
-      <h2>{children}</h2>
-      <svg className="heading-rays heading-rays-right" viewBox="0 0 58 58" aria-hidden="true">
-        <path d="M47 5 53 23M24 15 40 32M10 43 32 45" />
-      </svg>
+    <div className="section-heading-stack">
+      <SectionEyebrow>{eyebrow}</SectionEyebrow>
+      <div className="info-section-heading">
+        <TitleRays side="left" />
+        <h2>{children}</h2>
+        <TitleRays side="right" />
+      </div>
     </div>
   )
 }
@@ -122,44 +126,110 @@ const testimonials = [
     category: 'Moda',
     image: 'testimonio-lucia.webp',
   },
+  {
+    name: 'Mariana',
+    handle: 'Emprendedora creativa',
+    quote: 'Fue emocionante ver cómo las personas se acercaban a conocer mi marca. Me llevé nuevas ideas, contactos y muchas ganas de seguir creciendo',
+    category: 'Accesorios y regalos',
+    image: 'testimonio-mariana.webp',
+  },
+  {
+    name: 'Rodrigo',
+    handle: 'Emprendedor local',
+    quote: 'Me sorprendió la buena energía entre emprendedores y el interés del público. Además de vender, pude conectar con personas que valoran lo que hago',
+    category: 'Productos artesanales',
+    image: 'testimonio-rodrigo.webp',
+  },
 ]
 
-function MarketStandIllustration() {
-  return (
-    <svg
-      className="market-stand-illustration"
-      viewBox="0 0 220 210"
-      aria-hidden="true"
-    >
-      <g transform="rotate(-8 112 105)">
-        <path d="M28 45 172 45 185 69 39 69Z" fill="#ffbd00" />
-        <path d="M41 69 178 69 170 197 53 197Z" fill="#c32854" />
-        <path d="M57 75 69 75 80 194 64 194Z" fill="#f64b65" />
-        <path d="M95 75 109 75 121 194 103 194Z" fill="#f64b65" />
-        <path d="M136 75 148 75 162 194 145 194Z" fill="#f64b65" />
-        <path d="M30 45 165 24 188 55 40 70Z" fill="#ffc900" />
-        <path d="M38 69 187 53 186 70 39 85Z" fill="#efa100" />
-        <path d="M38 85Q49 99 59 84Q69 99 80 82Q92 98 103 80Q114 95 126 77Q137 93 149 75Q162 89 174 71L186 70" fill="#ab2e5b"/>
-        <path d="M35 163 184 147 186 166 39 183Z" fill="#ffba00" />
-        <rect x="116" y="101" width="23" height="37" rx="2" fill="#bd2953" stroke="#ffbf00" strokeWidth="5"/>
-        <path d="M121 107H134M121 114H134M121 122H134" stroke="#ffbf00" strokeWidth="3"/>
-        <path d="M55 52l17-2-12 5M89 48l17-2-12 5M128 43l17-2-12 5" stroke="#f39b00" strokeWidth="4" strokeLinecap="round"/>
-      </g>
-      <g fill="#a62c57">
-        <rect x="193" y="163" width="9" height="35" rx="2" />
-        <rect x="176" y="162" width="37" height="8" rx="4" transform="rotate(-10 194 166)"/>
-        <path d="M187 170 182 207M203 170 209 207" stroke="#a62c57" strokeWidth="5" />
-      </g>
-    </svg>
-  )
-}
-
 function App() {
+  const shouldReduceMotion = useReducedMotion()
   const [menuOpen, setMenuOpen] = useState(false)
+  // Cada mitad del bucle debe superar el ancho de la pantalla para evitar huecos.
+  const [testimonialRepeatCount, setTestimonialRepeatCount] = useState(
+    () => Math.max(2, Math.ceil(window.innerWidth / 900) + 1),
+  )
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
+  const [navPill, setNavPill] = useState<{ left: number; top: number; width: number; height: number } | null>(null)
+  const navRef = useRef<HTMLElement | null>(null)
+  const processGridRef = useRef<HTMLDivElement | null>(null)
+  const processInView = useInView(processGridRef, { amount: 0.15 })
+  const [activeProcessStep, setActiveProcessStep] = useState(0)
+  const [processHovered, setProcessHovered] = useState(false)
+  const [processFocused, setProcessFocused] = useState(false)
+  const [hoveredProcessStep, setHoveredProcessStep] = useState<number | null>(null)
+  const processPaused = processHovered || processFocused
+  const illuminatedStep = processInView && !shouldReduceMotion
+    ? (hoveredProcessStep ?? activeProcessStep)
+    : null
+
+  // La iluminación recorre los cuatro pasos visibles, con prioridad para
+  // la tarjeta señalada. Se detiene mientras el usuario interactúa.
+  useEffect(() => {
+    if (!processInView || processPaused || shouldReduceMotion) return
+
+    const cycle = window.setInterval(() => {
+      setActiveProcessStep((current) => (current + 1) % steps.length)
+    }, 3000)
+
+    return () => window.clearInterval(cycle)
+  }, [processInView, processPaused, shouldReduceMotion])
+
+  useEffect(() => {
+    const updateTestimonialRepeats = () => {
+      setTestimonialRepeatCount(Math.max(2, Math.ceil(window.innerWidth / 900) + 1))
+    }
+    window.addEventListener('resize', updateTestimonialRepeats)
+    return () => window.removeEventListener('resize', updateTestimonialRepeats)
+  }, [])
   const isAbout = currentHash.startsWith('#sobre-nosotros')
   const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
   const isEntrepreneurs = currentHash === '#emprendedores'
+  const isFairs = currentHash === '#proximas-ferias'
+  const activeHref = isAbout ? '#sobre-nosotros' : isPlans ? '#planes' : isEntrepreneurs ? '#emprendedores' : isFairs ? '#proximas-ferias' : '#inicio'
+
+  // La píldora sigue únicamente a la sección seleccionada, no al hover.
+  useLayoutEffect(() => {
+    const nav = navRef.current
+    if (!nav) return
+
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('.nav-link'))
+    const updatePill = () => {
+      const link = links.find((item) => item.getAttribute('href') === activeHref)
+      if (!link || link.offsetWidth === 0 || link.offsetHeight === 0) {
+        setNavPill(null)
+        return
+      }
+
+      const next = {
+        left: link.offsetLeft,
+        top: link.offsetTop,
+        width: link.offsetWidth,
+        height: link.offsetHeight,
+      }
+      setNavPill((previous) =>
+        previous &&
+        previous.left === next.left &&
+        previous.top === next.top &&
+        previous.width === next.width &&
+        previous.height === next.height
+          ? previous
+          : next,
+      )
+    }
+
+    updatePill()
+    window.addEventListener('resize', updatePill)
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updatePill) : null
+    if (observer) {
+      observer.observe(nav)
+      links.forEach((link) => observer.observe(link))
+    }
+    return () => {
+      window.removeEventListener('resize', updatePill)
+      observer?.disconnect()
+    }
+  }, [activeHref, menuOpen])
 
   useEffect(() => {
     const onHashChange = () => {
@@ -175,13 +245,17 @@ function App() {
       window.requestAnimationFrame(() => {
         document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'auto', block: 'start' })
       })
-    } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs) {
+    } else if (currentHash === '#preguntas-frecuentes' || currentHash === '#proximas-ferias-preguntas') {
+      window.requestAnimationFrame(() => {
+        document.getElementById('preguntas-frecuentes')?.scrollIntoView({ behavior: 'auto', block: 'start' })
+      })
+    } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs || isFairs) {
       window.scrollTo(0, 0)
     }
-  }, [currentHash, isPlans, isEntrepreneurs])
+  }, [currentHash, isPlans, isEntrepreneurs, isFairs])
 
   return (
-    <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : isEntrepreneurs ? 'site-entrepreneurs' : ''}`}>
+    <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : isEntrepreneurs ? 'site-entrepreneurs' : isFairs ? 'site-fairs' : ''}`}>
       <header className="topbar">
         <div className="topbar-content">
           <a href="#inicio" className="brand" aria-label="Del Scroll al Stand — Inicio">
@@ -194,15 +268,28 @@ function App() {
           </a>
 
           <nav
+            ref={navRef}
             id="mobile-navigation"
             className={`primary-nav ${menuOpen ? 'is-open' : ''}`}
             aria-label="Navegación principal"
           >
-            {navigation.filter((item) => isAbout || isPlans || isEntrepreneurs || item.label !== 'Galería').map((item) => (
+            {navPill && (
+              <span
+                className="nav-pill"
+                aria-hidden="true"
+                style={{
+                  width: navPill.width,
+                  height: navPill.height,
+                  transform: `translate3d(${navPill.left}px, ${navPill.top}px, 0)`,
+                }}
+              />
+            )}
+            {navigation.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : isPlans ? item.href === '#planes' : isEntrepreneurs ? item.href === '#emprendedores' : item.href === '#inicio') ? 'is-active' : ''}`}
+                className={`nav-link ${item.href === activeHref ? 'is-active' : ''}`}
+                aria-current={item.href === activeHref ? 'page' : undefined}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
@@ -210,7 +297,7 @@ function App() {
             ))}
             <a
               className="mobile-participate"
-              href={isPlans ? '#planes' : isEntrepreneurs ? '#planes-postular' : '#participar'}
+              href={isPlans ? '#planes' : isEntrepreneurs || isFairs ? '#planes-postular' : '#participar'}
               onClick={(event) => {
                 setMenuOpen(false)
                 if (isPlans) {
@@ -220,13 +307,13 @@ function App() {
               }}
             >
               <CalendarDays aria-hidden="true" size={19} />
-              Quiero participar!
+              Quiero participar
             </a>
           </nav>
 
           <a
             className="header-cta"
-            href={isPlans ? '#planes' : isEntrepreneurs ? '#planes-postular' : '#participar'}
+            href={isPlans ? '#planes' : isEntrepreneurs || isFairs ? '#planes-postular' : '#participar'}
             onClick={(event) => {
               if (isPlans) {
                 event.preventDefault()
@@ -235,7 +322,7 @@ function App() {
             }}
           >
             <CalendarDays aria-hidden="true" size={20} />
-            Quiero participar!
+            Quiero participar
           </a>
 
           <button
@@ -257,6 +344,8 @@ function App() {
         <StandPlans />
       ) : isEntrepreneurs ? (
         <Entrepreneurs />
+      ) : isFairs ? (
+        <UpcomingFairs />
       ) : (
       <main>
         <section className="hero" aria-labelledby="hero-title">
@@ -276,25 +365,27 @@ function App() {
                 </h1>
               </div>
 
-              <p className="hero-slogan">
-                Tu negocio sale del chat y entra
-                <span>al mundo real</span>
-              </p>
+              <div className="hero-message">
+                <h2 className="hero-slogan">
+                  Tu negocio sale del chat
+                  <span className="hero-slogan-second">y entra al <em>mundo real</em></span>
+                </h2>
 
-              <p className="hero-description">
-                Conectamos marcas locales y emprendedores con ferias
-                temáticas y mercados temporales llenos de personas,
-                experiencias y ventas reales
-              </p>
+                <p className="hero-description">
+                  Conectamos tu marca con personas reales a través de ferias temáticas
+                  llenas de encuentros, experiencias y nuevas oportunidades de venta.
+                </p>
 
-              <div className="hero-actions">
-                <a className="btn btn-primary" href="#participar">
-                  Participar en una feria
-                </a>
-                <a className="btn btn-secondary" href="#sobre-nosotros">
-                  <CirclePlay aria-hidden="true" size={21} strokeWidth={2.5} />
-                  Conoce el proyecto
-                </a>
+                <div className="hero-actions">
+                  <a className="btn btn-primary" href="#participar">
+                    Participar en una feria
+                    <ArrowUpRight aria-hidden="true" size={20} strokeWidth={2.4} />
+                  </a>
+                  <a className="btn btn-secondary" href="#sobre-nosotros">
+                    <CirclePlay aria-hidden="true" size={21} strokeWidth={2.1} />
+                    Conoce el proyecto
+                  </a>
+                </div>
               </div>
             </div>
 
@@ -331,7 +422,12 @@ function App() {
         </section>
 
         <section className="benefits-and-process" aria-label="Beneficios y participación">
-          <SectionHeading>¿Por qué participar con nosotros?</SectionHeading>
+          <div className="benefits-heading">
+            <SectionHeading eyebrow="TU MARCA MERECE MÁS">¿Por qué participar con nosotros?</SectionHeading>
+            <p className="section-intro">
+              Mucho más que un espacio para vender: nuevas conexiones, experiencias y oportunidades para crecer.
+            </p>
+          </div>
 
           <div className="benefits-grid" id="emprendedores">
             {benefits.map((benefit) => {
@@ -340,9 +436,9 @@ function App() {
                 <article className="benefit-item" key={benefit.title}>
                   <div className={'benefit-icon benefit-icon-' + benefit.tone}>
                     <Icon
-                      size={50}
-                      strokeWidth={benefit.tone === 'mint' ? 3 : 2}
-                      fill={benefit.tone === 'pink' ? '#ff6870' : 'none'}
+                      size={40}
+                      strokeWidth={benefit.tone === 'mint' ? 2.6 : 2}
+                      fill={benefit.tone === 'pink' ? '#f36a7a' : 'none'}
                       stroke={benefit.tone === 'pink' ? 'none' : 'currentColor'}
                       aria-hidden="true"
                     />
@@ -357,21 +453,65 @@ function App() {
           </div>
 
           <div className="process-heading" id="planes">
-            <SectionHeading>¿Cómo funciona?</SectionHeading>
+            <SectionHeading eyebrow="ASÍ DE FÁCIL ES EMPEZAR">¿Cómo funciona?</SectionHeading>
+            <p className="section-intro">
+              Te acompañamos desde el primer paso hasta el momento de encontrarte con tus clientes.
+            </p>
           </div>
 
           <div className="process-background" id="participar">
-            <div className="process-grid">
-              {steps.map((step) => {
+            <div
+              ref={processGridRef}
+              className="process-grid"
+              data-illumination-active={illuminatedStep !== null ? 'true' : undefined}
+              onMouseEnter={() => setProcessHovered(true)}
+              onMouseLeave={() => {
+                setProcessHovered(false)
+                setHoveredProcessStep(null)
+              }}
+              onFocusCapture={() => setProcessFocused(true)}
+              onBlurCapture={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+                  setProcessFocused(false)
+                  setHoveredProcessStep(null)
+                }
+              }}
+            >
+              {steps.map((step, index) => {
                 const Icon = step.icon
+                const isIlluminated = illuminatedStep === index
                 return (
-                  <article className="process-item" key={step.title}>
-                    <div className="process-icon">
-                      <Icon size={55} strokeWidth={2.2} aria-hidden="true" />
-                    </div>
+                  <motion.article
+                    initial={false}
+                    transition={{ y: { duration: 0.25, ease: 'easeOut' } }}
+                    whileHover={shouldReduceMotion ? undefined : { y: -5 }}
+                    whileFocus={shouldReduceMotion ? undefined : { y: -5 }}
+                    onMouseEnter={() => setHoveredProcessStep(index)}
+                    onMouseLeave={() => setHoveredProcessStep(null)}
+                    onFocus={() => setHoveredProcessStep(index)}
+                    onBlur={() => setHoveredProcessStep(null)}
+                    className="process-item"
+                    data-active={isIlluminated ? 'true' : 'false'}
+                    key={step.title}
+                    tabIndex={0}
+                  >
+                    <span className="process-number">
+                      PASO {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <motion.div
+                      className="process-icon"
+                      initial={false}
+                      animate={shouldReduceMotion ? undefined : {
+                        scale: isIlluminated ? 1.1 : 1,
+                        y: isIlluminated ? -3 : 0,
+                      }}
+                      transition={{ type: 'spring', stiffness: 180, damping: 19 }}
+                    >
+                      <Icon size={42} strokeWidth={2} aria-hidden="true" />
+                    </motion.div>
                     <h3>{step.title}</h3>
                     <p>{step.description}</p>
-                  </article>
+                  </motion.article>
                 )
               })}
             </div>
@@ -379,42 +519,80 @@ function App() {
         </section>
 
         <section className="testimonials-section" id="testimonios" aria-label="Testimonios de emprendedores">
-          <SectionHeading>Lo que dicen nuestros emprendedores</SectionHeading>
-          <div className="testimonials-grid">
-            {testimonials.map((testimonial) => (
-              <article className="testimonial-card" key={testimonial.name}>
-                <img
-                  className="testimonial-photo"
-                  src={`${baseUrl}images/${testimonial.image}`}
-                  alt={`Retrato de ${testimonial.name}`}
-                  width="134"
-                  height="134"
-                  loading="lazy"
-                />
-                <div className="testimonial-body">
-                  <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-                  <blockquote>“{testimonial.quote}”</blockquote>
-                  <p className="testimonial-author">{testimonial.name} <span>{testimonial.handle}</span></p>
-                  <span className="testimonial-category">{testimonial.category}</span>
+          <div className="testimonials-heading">
+            <SectionHeading eyebrow="HISTORIAS QUE INSPIRAN">Lo que dicen nuestros emprendedores</SectionHeading>
+            <p className="testimonials-subtitle">Historias que nos inspiran a seguir creciendo juntos. <span className="testimonials-disclaimer">Testimonios ilustrativos.</span></p>
+          </div>
+          <div
+            className="testimonials-marquee"
+            aria-label="Comentarios de emprendedores. El desplazamiento se pausa al pasar el cursor por encima."
+          >
+            <div
+              className="testimonials-track"
+              style={{ animationDuration: `${testimonialRepeatCount * 70}s` }}
+            >
+              {[0, 1].map((copyIndex) => (
+                <div className="testimonials-set" key={copyIndex} aria-hidden={copyIndex === 1 ? true : undefined}>
+                  {Array.from({ length: testimonialRepeatCount }, (_, repeatIndex) =>
+                    testimonials.map((testimonial) => (
+                    <article
+                      className="testimonial-card"
+                      key={`${repeatIndex}-${testimonial.name}`}
+                      aria-hidden={copyIndex > 0 || repeatIndex > 0 ? true : undefined}
+                      tabIndex={copyIndex === 0 && repeatIndex === 0 ? 0 : -1}
+                    >
+                      <div className="testimonial-card-top">
+                        <div className="testimonial-person">
+                          <img
+                            className="testimonial-photo"
+                            src={`${baseUrl}images/${testimonial.image}`}
+                            alt={copyIndex === 0 && repeatIndex === 0 ? `Retrato de ${testimonial.name}` : ''}
+                            width="78"
+                            height="78"
+                            loading="lazy"
+                          />
+                          <div className="testimonial-identity">
+                            <p className="testimonial-author">{testimonial.name}</p>
+                            {testimonial.handle && (
+                              <span className="testimonial-handle">{testimonial.handle}</span>
+                            )}
+                          </div>
+                        </div>
+                        <Quote className="testimonial-quote-icon" aria-hidden="true" size={30} strokeWidth={1.6} />
+                      </div>
+                      <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+                      <blockquote>“{testimonial.quote}”</blockquote>
+                      <div className="testimonial-card-bottom">
+                        <span className="testimonial-category">{testimonial.category}</span>
+                      </div>
+                    </article>
+                    )),
+                  )}
                 </div>
-              </article>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
+        <section className="home-faq" id="preguntas-frecuentes" aria-label="Preguntas frecuentes">
+          <div className="home-faq-heading">
+            <SectionHeading eyebrow="RESOLVEMOS TUS DUDAS">Preguntas frecuentes</SectionHeading>
+            <p className="home-faq-intro">Encuentra aquí las respuestas antes de vivir tu próxima feria con nosotros.</p>
+          </div>
+          <HomeFAQ />
+        </section>
+
         <section className="join-banner" aria-labelledby="join-title">
-          <MarketStandIllustration />
           <div className="join-copy">
+            <span className="join-kicker">EL PRÓXIMO PASO DE TU MARCA</span>
             <h2 id="join-title">¿Listo para llevar tu marca del scroll al stand?</h2>
             <p>Sé parte de nuestras próximas ferias y conecta con más personas en el mundo real.</p>
           </div>
           <a className="join-cta" href="#participar">
-            <Store aria-hidden="true" size={26} strokeWidth={1.8} />
-            Quiero participar ahora
+            <Store aria-hidden="true" size={25} strokeWidth={1.9} />
+            <span>Quiero participar ahora</span>
+            <ArrowUpRight className="join-cta-arrow" aria-hidden="true" size={19} strokeWidth={2.2} />
           </a>
-          <svg className="join-rays" viewBox="0 0 58 58" aria-hidden="true">
-            <path d="M5 24 31 17M13 38 38 47M31 9 48 4" />
-          </svg>
         </section>
       </main>
       )}
@@ -437,40 +615,29 @@ function App() {
           <nav className="footer-column" aria-label="Enlaces">
             <h3>Enlaces</h3>
             <a href="#inicio">Inicio</a>
-            <span>Próximas ferias</span>
+            <a href="#proximas-ferias">Próximas ferias</a>
+            <a href="#preguntas-frecuentes">Preguntas frecuentes</a>
             <a href="#planes">Planes de stand</a>
           </nav>
 
-          <nav className="footer-column footer-for-entrepreneurs" aria-label="Para emprendedores">
-            <h3>Para emprendedores</h3>
-            <a href="#planes-postular">Cómo participar</a>
-            <span>Preguntas frecuentes</span>
-            <span>Términos y condiciones</span>
-          </nav>
+          <div className="footer-column footer-contact" aria-label="Contacto">
+            <h3>Contacto</h3>
+            <span>+51 000 000 000</span>
+            <span>hola@stand.example</span>
+           </div>
 
           <nav className="footer-column" aria-label="Sobre nosotros">
             <h3>Sobre nosotros</h3>
             <a href="#sobre-nosotros">Nuestra historia</a>
-            <span>Contacto</span>
           </nav>
 
           <div className="footer-socials">
             <h3>Síguenos</h3>
-            <div className="social-icons" aria-label="Redes sociales, pendientes de configurar">
-              <span className="social-icon" title="Instagram">
-                <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
-                  <rect x="3" y="3" width="18" height="18" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                </svg>
-              </span>
-              <span className="social-icon" title="Facebook">
-                <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true">
-                  <path d="M14.6 22v-8.2h2.8l.4-3.2h-3.2V8.5c0-1 .3-1.6 1.7-1.6H18V4.1a22 22 0 0 0-2.5-.1c-3.2 0-5.2 2-5.2 5.4v1.2H7.5v3.2h2.8V22Z" />
-                </svg>
-              </span>
-              <span className="social-icon" title="TikTok"><Music2 size={30} strokeWidth={3} /></span>
-              <span className="social-icon" title="WhatsApp"><MessageCircle size={30} strokeWidth={2.5} /></span>
+            <div className="social-icons" aria-label="Redes sociales (enlaces pendientes de configurar)">
+              <span className="social-icon" role="img" aria-label="Instagram"><FaInstagram size={29} aria-hidden="true" /></span>
+              <span className="social-icon" role="img" aria-label="Facebook"><FaFacebookF size={27} aria-hidden="true" /></span>
+              <span className="social-icon" role="img" aria-label="TikTok"><FaTiktok size={27} aria-hidden="true" /></span>
+              <span className="social-icon" role="img" aria-label="WhatsApp"><FaWhatsapp size={29} aria-hidden="true" /></span>
             </div>
           </div>
         </div>

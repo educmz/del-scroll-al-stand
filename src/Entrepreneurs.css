@@ -1,20 +1,4 @@
 /* Vista Para emprendedores — tema navideño */
-.site-entrepreneurs .topbar,
-.site-entrepreneurs .primary-nav {
-  background: #fffdfa;
-}
-.site-entrepreneurs .header-cta,
-.site-entrepreneurs .mobile-participate {
-  background: linear-gradient(115deg, #db1b39, #a70528);
-}
-.site-entrepreneurs .nav-link.is-active {
-  color: #9e082b;
-  font-weight: 700;
-}
-.site-entrepreneurs .nav-link.is-active::after {
-  background: #cb0e36;
-}
-
 .entre-page {
   color: #17192b;
   background: #fffaf2;
@@ -207,8 +191,7 @@
   font: 700 clamp(30px, 3.6vw, 49px)/1.1 'Fredoka',sans-serif;
   color: #920b2a;
 }
-.entre-section-heading .entre-rays:first-child { transform: scale(.76); }
-.entre-section-heading .entre-rays:last-child { transform: scaleX(-1) scale(.76); }
+.entre-section-heading .title-rays { color: #ffba00; }
 .entre-offering-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 11px; }
 .entre-offering {
   background: #fff0df;
@@ -374,7 +357,7 @@
   .entre-offerings { padding: 30px 13px 21px; }
   .entre-section-heading { gap: 5px; margin-bottom: 15px; }
   .entre-section-heading h2 { font-size: clamp(23px,6vw,38px); }
-  .entre-section-heading .entre-rays { flex-basis: 25px; width: 25px; transform: scale(.58); }
+  .entre-section-heading .title-rays { flex-basis: 25px; width: 25px; height: 47px; }
   .entre-offering-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
   .entre-offering { min-height: 173px; padding: 15px 11px; }
   .entre-offering:last-child { grid-column: 1 / -1; min-height: 155px; }
@@ -404,4 +387,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .entre-button, .entre-event-cta { transition: none; }
+}
+
+/* El subtítulo acompaña al encabezado, sin decoraciones propias. */
+.entre-offerings > .section-overline {
+  width: 100%;
+  text-align: center;
+  color: #a33548;
 }

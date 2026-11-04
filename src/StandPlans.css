@@ -1,11 +1,4 @@
 /* Planes de Stand — diseño de ferias */
-.site-plans .topbar,
-.site-plans .primary-nav { background: #fffdfa; }
-.site-plans .header-cta,
-.site-plans .mobile-participate { background: linear-gradient(105deg, #dd193b, #a60429); }
-.site-plans .nav-link.is-active { color: #8c0d24; font-weight: 700; }
-.site-plans .nav-link.is-active::after { background: #d7153a; }
-
 .stand-plans-page {
   --plans-navy: #17213f;
   --plans-coral: #f44c5c;
@@ -99,8 +92,7 @@
   margin: 0; font: 700 clamp(23px, 2.4vw, 34px)/1.1 'Fredoka',sans-serif;
   color: #142041;
 }
-.plans-heading-rays { color: #ffba00; font-size: 34px; line-height: .8; transform: rotate(-19deg); }
-.plans-heading-rays:last-child { transform: scaleX(-1) rotate(-19deg); }
+.plans-section-heading .title-rays { color: #ffba00; }
 .plans-card-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 13px; }
 .plans-card {
   min-width: 0; position: relative; padding: 12px 13px 13px;
@@ -233,7 +225,7 @@
 .plans-selection-card li svg { color: #159968; flex: 0 0 15px; }
 .plans-apply-right .plans-section-heading { margin: 14px 0 8px; }
 .plans-apply-right .plans-section-heading h2 { font-size: clamp(17px, 1.55vw, 21px); }
-.plans-apply-right .plans-heading-rays { font-size: 24px; }
+.plans-apply-right .title-rays { width: 25px; height: 49px; flex-basis: 25px; }
 .plans-exhibitor-testimonials { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
 .plans-exhibitor-testimonial { padding: 12px 10px; display: flex; gap: 7px; border-radius: 18px; border: 1px solid #eae5da; background: #fff; }
 .plans-exhibitor-testimonial > img { flex: 0 0 55px; width: 55px; height: 55px; border-radius: 50%; object-fit: cover; }
@@ -350,4 +342,74 @@
 .plans-final-whatsapp:disabled {
   opacity: .75;
   cursor: not-allowed;
+}
+
+/* Rayos laterales también en los encabezados compactos. */
+.plans-accent-heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  min-width: 0;
+  margin: 0 0 9px;
+}
+.plans-accent-heading .title-rays {
+  color: #ffba00;
+  width: 25px;
+  height: 49px;
+  flex-basis: 25px;
+  transform: none;
+}
+.plans-accent-heading .title-rays-right {
+  transform: scaleX(-1);
+}
+.plans-accent-heading h2 {
+  min-width: 0;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .plans-accent-heading { gap: 4px; }
+  .plans-accent-heading .title-rays {
+    width: 22px;
+    height: 42px;
+    flex-basis: 22px;
+    transform: none;
+  }
+  .plans-accent-heading .title-rays-right {
+    transform: scaleX(-1);
+  }
+}
+
+/* Subtítulos solo tipográficos, agrupados arriba de cada título. */
+.plans-heading-block .section-overline {
+  margin-inline: auto;
+  text-align: center;
+}
+.plans-heading-block .plans-section-heading {
+  margin-bottom: 17px;
+}
+.plans-apply-right .plans-section-heading {
+  margin-top: 0;
+}
+.plans-compare-intro .section-overline,
+.plans-services-heading-block .section-overline,
+.plans-apply-left > .section-overline {
+  color: #9c4050;
+}
+.plans-services-heading-block {
+  min-width: 0;
+}
+.plans-application-form > .section-overline {
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: .04em;
+}
+.plans-selection-card .section-overline {
+  color: #855524;
+  font-size: 11px;
+  letter-spacing: .055em;
+}
+@media (max-width: 600px) {
+  .plans-heading-block .section-overline { margin-bottom: 7px; }
 }
