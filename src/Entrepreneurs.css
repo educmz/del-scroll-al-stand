@@ -1,7 +1,8 @@
 /* Para emprendedores: misma línea editorial que Sobre nosotros.
    El banner principal lo controla el componente PageHero compartido. */
 .entre-page {
-  --entre-cream: #fff0da;
+  /* Mismo fondo crema de Home, compartido mediante --cream. */
+  --entre-cream: var(--cream);
   --entre-ink: #37252f;
   --entre-muted: #745e65;
   overflow: hidden;
@@ -10,6 +11,12 @@
   font-family: 'Poppins', sans-serif;
 }
 .entre-page * { box-sizing: border-box; }
+
+/* El banner superior comparte fondo con toda la página, sin alterar
+   los otros tres banners que reutilizan PageHero. */
+.entre-page .page-hero {
+  background: var(--entre-cream);
+}
 
 /* Subtítulos centrados en relación con el ancho de cada título. */
 .entre-section-intro {
@@ -138,7 +145,7 @@
 .entre-offerings-section {
   padding: clamp(56px, 5.7vw, 82px) clamp(20px, 4vw, 68px)
            clamp(65px, 6.5vw, 92px);
-  background: #fff7eb;
+  background: var(--entre-cream);
 }
 .entre-offerings-content { width: min(100%, 1180px); margin: 0 auto; }
 .entre-offering-grid {
