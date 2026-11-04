@@ -119,58 +119,71 @@ ni envía datos por sí solo; para WhatsApp sigue la configuración del apartado
 
 Antes de difundir la feria, confirma la fecha, dirección y condiciones con el equipo organizador.
 
-## Ferias
+## Ferias — estructura 2026
 
-La ruta `#proximas-ferias` es la **agenda de ferias**. Presenta la Feria Navideña
-2026 como edición destacada, incluye fecha y ubicación, mapa, información para
-visitantes, categorías previstas, próximas ediciones y acceso a la postulación.
+La ruta `#proximas-ferias` sigue esta arquitectura:
+**1) Feria Navideña destacada → 2) Próximas ferias → 3) Galería de ferias pasadas**.
+Se eliminó el CTA granate que aparecía debajo de la galería.
 
-La información de ferias se mantiene en **`src/fairCatalog.ts`**:
+### Feria principal: banner y ficha completa
 
-- `featuredFair`: próxima feria destacada. Fecha y lugar configurados:
-  **12 y 13 de diciembre de 2026, Parque Próceres de la Independencia, Jesús María**.
-- `upcomingFairs`: agregar solo ferias futuras con datos confirmados. Mientras esté vacío,
-  la web muestra que no hay nuevas fechas anunciadas, sin inventar eventos.
-- `pastEditions`: registrar ediciones realizadas con fotografías auténticas en
-  `public/images/`. La **galería de ferias pasadas siempre es visible**;
-  mientras esté vacía muestra un mosaico de espacios reservados claramente identificados,
-  sin simular fotografías reales. Una vez cargadas, permite ampliarlas y navegar entre ellas.
-- `applicationsOpen`: establecer `true` o `false` cuando se confirme el estado
-  de la convocatoria. Sin valor, se muestra «Convocatoria por confirmar».
-- `schedule` y `access`: completar al conocer horario y condiciones de ingreso.
-  Hasta entonces, la web informa que están pendientes.
+- Banner de `public/images/feria-navidad-banner.png`, fecha y lugar.
+- Cuatro datos: fecha, dirección, horario y condiciones de ingreso, junto con Google Maps.
+- Fotos adicionales editables: la foto referencial `feria-portada.png` y espacios reservados
+  para imágenes propias. No se muestran como fotos reales del evento si no lo son.
+- Marcas invitadas, identificadas individualmente cuando estén confirmadas. Mientras no
+  haya nombres reales hay cuatro espacios claramente marcados «Por anunciar».
+- Rubros de emprendimientos previstos.
+- Tres propuestas de publicación para Instagram, Facebook y TikTok con botón **Copiar contenido**,
+  y un botón **Compartir feria** con alternativa de copiar enlace.
 
-La portada de Feria Navideña usa el recurso **`public/images/feria-navidad-banner.png`**
-disponible en el repositorio, y su respaldo visual es `feria-portada.png`.
-Las fotografías de ferias pasadas no se sustituyen por fotos ilustrativas:
-solo se publican cuando se registran ediciones verificadas.
+El catálogo vive en `src/fairCatalog.ts`. Puedes editar `featuredFair` para ajustar
+horarios, ingreso, galería adicional, marcas invitadas o nuevos datos. **Los horarios
+«11:00 a. m. a 9:00 p. m.» y «Ingreso libre» son ejemplos inventados a solicitud
+del diseño y se muestran explícitamente como «Propuesta · por confirmar».**
+No publicar esos datos como oficiales sin verificar.
 
-Para llenar la galería, guarda tus fotografías verificadas en `public/images/`
-y añade sus rutas, nombre y fecha a `pastEditions` en `src/fairCatalog.ts`.
-Ejemplo de una edición real (sustituye los campos con datos auténticos):
+### Próximas ferias
+
+Agregar ferias reales a `upcomingFairs` (mismo catálogo). No se inventan fechas:
+mientras el arreglo esté vacío, se muestra «Nuevas fechas por anunciar».
+
+### Galería de ferias pasadas — una tarjeta por edición
+
+Agregar ediciones reales a `pastEditions` en `src/fairCatalog.ts`. La cuadrícula se
+extiende automáticamente con **todas** las ediciones; no se limita a cinco fotografías
+ni existe un máximo fijo. Cada tarjeta navega a `#feria/<id>`, una ficha específica
+con historia, fecha, ubicación y galería propia, y enlaces para volver al catálogo.
+
+Mientras `pastEditions` no tenga datos, se muestran tres **tarjetas de demostración**
+marcadas «Ejemplo de diseño» y un aviso prominente que explica que no son eventos
+realizados. Estas tarjetas también abren fichas demostrativas. Cuando agregues una
+primera edición real, las fichas de muestra dejan de mostrarse automáticamente.
+
+Ejemplo de entrada real (completar con información y fotografías verificadas):
 
 ```ts
 {
-  id: 'edicion-real',
-  name: 'Nombre de la edición',
-  dates: 'Fecha de realización',
-  photos: [{ file: 'feria-galeria-1.png', alt: 'Descripción de la foto' }],
+  id: 'mi-feria-real',
+  name: 'Nombre real de la feria',
+  dates: 'Fecha oficial',
+  venue: 'Lugar real',
+  district: 'Distrito y ciudad',
+  description: 'Resumen de la edición',
+  cover: 'portada-mi-feria.png',
+  photos: [
+    { file: 'galeria-mi-feria-01.png', alt: 'Descripción de la fotografía' },
+  ],
 }
 ```
 
+Las imágenes se guardan en `public/images/`. No se deben atribuir fotografías
+referenciales ni contenido ficticio a ediciones realizadas.
 
-El visitante puede revisar los detalles y abrir Google Maps. Los emprendedores
-pueden pulsar «Quiero ser expositor» o «Solicitar participación». Esos enlaces
-abren `#planes-postular` con el parámetro `?feria=...`, que preselecciona la feria
-y la incluye en el mensaje del formulario. Si el número de WhatsApp no está
-configurado, el formulario advierte expresamente que **no se ha enviado**.
-
-Las preguntas frecuentes siguen en Inicio (`#preguntas-frecuentes`), también
-accesibles desde el enlace heredado `#proximas-ferias-preguntas`.
-
-**Antes de publicar:** confirmar fechas, horario, ingreso y estado de la
-convocatoria con la organización; no presentar categorías previstas como
-marcas confirmadas.
+La postulación a una feria sigue dirigiendo a `#planes-postular` con el parámetro
+`?feria=...`. El formulario incluye la feria seleccionada en el mensaje. Si no
+está configurado `VITE_APPLICATION_WHATSAPP_NUMBER`, no se afirma que se envió
+una postulación. Las preguntas frecuentes generales siguen en Inicio.
 
 ## Banners compartidos de las cuatro páginas internas
 
