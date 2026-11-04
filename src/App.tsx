@@ -5,6 +5,7 @@ import SectionEyebrow from './SectionEyebrow'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
+import { featuredFair, fairApplicationHref } from './fairCatalog'
 import HomeFAQ from './HomeFAQ'
 import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
@@ -269,8 +270,11 @@ function App() {
   const isAbout = currentHash.startsWith('#sobre-nosotros')
   const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
   const isEntrepreneurs = currentHash === '#emprendedores'
-  const isFairs = currentHash === '#proximas-ferias'
+  const fairSectionHashes = ['#feria-destacada', '#feria-detalles', '#que-encontraras', '#proximas-ediciones', '#ferias-anteriores']
+  const isFairAnchor = fairSectionHashes.includes(currentHash)
+  const isFairs = currentHash === '#proximas-ferias' || isFairAnchor
   const activeHref = isAbout ? '#sobre-nosotros' : isPlans ? '#planes' : isEntrepreneurs ? '#emprendedores' : isFairs ? '#proximas-ferias' : '#inicio'
+  const participateHref = isPlans ? '#planes' : isFairs ? fairApplicationHref(featuredFair) : isEntrepreneurs ? '#planes-postular' : '#participar'
 
   // La píldora sigue únicamente a la sección seleccionada, no al hover.
   useLayoutEffect(() => {
@@ -329,6 +333,10 @@ function App() {
       window.requestAnimationFrame(() => {
         document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'auto', block: 'start' })
       })
+    } else if (isFairAnchor) {
+      window.requestAnimationFrame(() => {
+        document.getElementById(currentHash.slice(1))?.scrollIntoView({ behavior: 'auto', block: 'start' })
+      })
     } else if (currentHash === '#preguntas-frecuentes' || currentHash === '#proximas-ferias-preguntas') {
       window.requestAnimationFrame(() => {
         document.getElementById('preguntas-frecuentes')?.scrollIntoView({ behavior: 'auto', block: 'start' })
@@ -336,7 +344,7 @@ function App() {
     } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs || isFairs) {
       window.scrollTo(0, 0)
     }
-  }, [currentHash, isPlans, isEntrepreneurs, isFairs])
+  }, [currentHash, isPlans, isEntrepreneurs, isFairs, isFairAnchor])
 
   return (
     <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : isEntrepreneurs ? 'site-entrepreneurs' : isFairs ? 'site-fairs' : ''}`}>
@@ -374,7 +382,7 @@ function App() {
             ))}
             <a
               className="mobile-participate"
-              href={isPlans ? '#planes' : isEntrepreneurs || isFairs ? '#planes-postular' : '#participar'}
+              href={participateHref}
               onClick={(event) => {
                 setMenuOpen(false)
                 if (isPlans) {
@@ -390,7 +398,7 @@ function App() {
 
           <a
             className="header-cta"
-            href={isPlans ? '#planes' : isEntrepreneurs || isFairs ? '#planes-postular' : '#participar'}
+            href={participateHref}
             onClick={(event) => {
               if (isPlans) {
                 event.preventDefault()
@@ -692,9 +700,9 @@ function App() {
           <nav className="footer-column" aria-label="Enlaces">
             <h3>Enlaces</h3>
             <a href="#inicio">Inicio</a>
-            <a href="#proximas-ferias">Próximas ferias</a>
+            <a href="#proximas-ferias">Ferias</a>
             <a href="#preguntas-frecuentes">Preguntas frecuentes</a>
-            <a href="#planes">Planes de stand</a>
+            <a href="#planes">Planes y precios</a>
           </nav>
 
           <div className="footer-column footer-contact" aria-label="Contacto">
