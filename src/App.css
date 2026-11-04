@@ -664,24 +664,21 @@ button:focus-visible {
 /* Las cuatro tarjetas quedan directamente sobre el fondo crema del sitio. */
 .process-background {
   position: relative;
-  /* Se extiende más allá del ancho de las tarjetas de beneficios. */
-  width: min(calc(100vw - 40px), 1760px);
-  left: 50%;
-  margin: 46px 0 0;
+  width: 100%;
+  margin: 46px auto 0;
   padding: 0;
   background: transparent;
   border: 0;
   border-radius: 0;
   box-shadow: none;
   overflow: visible;
-  transform: translateX(-50%);
 }
 
 .process-grid {
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 36px;
+  gap: 56px;
 }
 
 .process-item {
@@ -705,46 +702,43 @@ button:focus-visible {
   box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
 }
 
-/* Flecha sin fondo, con reflejo que atraviesa su trazo sin moverla. */
+/* Flecha extendida: el reflejo se dispara únicamente al señalar su tarjeta de origen. */
 .process-connector {
   position: absolute;
   z-index: 5;
   top: 50%;
-  right: -34px;
+  right: -60px;
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 64px;
+  height: 24px;
   color: #bd6171;
   transform: translateY(-50%);
   pointer-events: none;
 }
 
-.process-arrow-base {
+.process-arrow-base,
+.process-arrow-shine {
   display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
 }
 
 .process-arrow-shine {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  inset: 0;
   color: #fff1c9;
+  opacity: 0;
   filter: drop-shadow(0 0 3px rgba(255, 222, 156, .95));
-  transform: translate(-50%, -50%);
   -webkit-mask-image: linear-gradient(90deg, transparent 35%, #000 50%, transparent 65%);
   mask-image: linear-gradient(90deg, transparent 35%, #000 50%, transparent 65%);
   -webkit-mask-size: 300% 100%;
   mask-size: 300% 100%;
-  /* En reposo no se ve el reflejo: solo se activa sobre la tarjeta relacionada. */
-  opacity: 0;
 }
 
-/* El brillo recorre la flecha entre la tarjeta enfocada y la siguiente.
-   También se activa al señalar la tarjeta a la que llega esa flecha. */
-.process-item:hover .process-arrow-shine,
-.process-item:has(+ .process-item:hover) .process-arrow-shine,
-.process-item:focus-within .process-arrow-shine,
-.process-item:has(+ .process-item:focus-within) .process-arrow-shine {
+.process-item:hover > .process-connector .process-arrow-shine,
+.process-item:focus-within > .process-connector .process-arrow-shine {
   animation: process-arrow-shimmer 1.15s ease-in-out both;
 }
 
@@ -804,7 +798,7 @@ button:focus-visible {
 }
 
 .process-item p {
-  max-width: 300px;
+  max-width: 235px;
   margin: 0 auto;
   color: #59605a;
   font-family: 'Poppins', sans-serif;
@@ -892,14 +886,12 @@ button:focus-visible {
 
   .process-background {
     width: 100%;
-    left: auto;
     margin: 34px auto 0;
     padding: 0;
-    transform: none;
   }
 
   .process-grid {
-    gap: 43px;
+    gap: 68px;
   }
 
   .process-item {
@@ -919,10 +911,10 @@ button:focus-visible {
     display: grid;
     top: auto;
     right: auto;
-    bottom: -40px;
+    bottom: -46px;
     left: 50%;
-    width: 32px;
-    height: 32px;
+    width: 64px;
+    height: 24px;
     transform: translateX(-50%) rotate(90deg);
   }
 
@@ -977,10 +969,8 @@ button:focus-visible {
   }
 
   .process-arrow-shine,
-  .process-item:hover .process-arrow-shine,
-  .process-item:has(+ .process-item:hover) .process-arrow-shine,
-  .process-item:focus-within .process-arrow-shine,
-  .process-item:has(+ .process-item:focus-within) .process-arrow-shine {
+  .process-item:hover > .process-connector .process-arrow-shine,
+  .process-item:focus-within > .process-connector .process-arrow-shine {
     animation: none;
     display: none;
   }
