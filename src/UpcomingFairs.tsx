@@ -119,11 +119,12 @@ function PreviousEditions() {
           <article className="fair-history-card" key={edition.id}>
             <div className="fair-history-photos">
               {edition.photos.map((photo) => (
-                <FairPhoto
-                  file={photo.file}
+                <img
+                  src={baseUrl + 'images/' + photo.file}
                   alt={photo.alt}
                   key={photo.file}
                   className="fair-history-photo"
+                  loading="lazy"
                 />
               ))}
             </div>
