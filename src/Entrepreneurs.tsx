@@ -5,6 +5,7 @@ import {
   ChartColumnIncreasing, Star, Store, UsersRound,
 } from 'lucide-react'
 import PageHero from './PageHero'
+import { featuredFair, fairApplicationHref } from './fairCatalog'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './Entrepreneurs.css'
@@ -210,7 +211,7 @@ export default function Entrepreneurs() {
               <p><MapPin size={21} strokeWidth={2} aria-hidden="true" /><span>Parque Próceres de la Independencia, Jesús María, Lima</span></p>
             </div>
             <div className="entre-event-actions">
-              <a href="#planes-postular" className="entre-event-cta">
+              <a href={fairApplicationHref(featuredFair)} className="entre-event-cta">
                 Postula tu marca <ArrowRight size={19} aria-hidden="true" />
               </a>
               <a href="#proximas-ferias" className="entre-event-link">
