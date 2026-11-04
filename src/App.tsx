@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import AboutUs from './AboutUs'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
@@ -157,16 +157,64 @@ function MarketStandIllustration() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
+  const [hoveredNavHref, setHoveredNavHref] = useState<string | null>(null)
+  const [navPill, setNavPill] = useState<{ left: number; top: number; width: number; height: number } | null>(null)
+  const navRef = useRef<HTMLElement | null>(null)
   const isAbout = currentHash.startsWith('#sobre-nosotros')
   const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
   const isEntrepreneurs = currentHash === '#emprendedores'
   const isFairs = currentHash === '#proximas-ferias' || currentHash === '#proximas-ferias-preguntas'
   const activeHref = isAbout ? '#sobre-nosotros' : isPlans ? '#planes' : isEntrepreneurs ? '#emprendedores' : isFairs ? '#proximas-ferias' : '#inicio'
 
+  // Una sola píldora se desplaza entre los enlaces; al salir vuelve a la sección activa.
+  useLayoutEffect(() => {
+    const nav = navRef.current
+    if (!nav) return
+
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('.nav-link'))
+    const updatePill = () => {
+      const targetHref = hoveredNavHref ?? activeHref
+      const link = links.find((item) => item.getAttribute('href') === targetHref)
+      if (!link || link.offsetWidth === 0 || link.offsetHeight === 0) {
+        setNavPill(null)
+        return
+      }
+
+      const next = {
+        left: link.offsetLeft,
+        top: link.offsetTop,
+        width: link.offsetWidth,
+        height: link.offsetHeight,
+      }
+      setNavPill((previous) =>
+        previous &&
+        previous.left === next.left &&
+        previous.top === next.top &&
+        previous.width === next.width &&
+        previous.height === next.height
+          ? previous
+          : next,
+      )
+    }
+
+    updatePill()
+    window.addEventListener('resize', updatePill)
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updatePill) : null
+    if (observer) {
+      observer.observe(nav)
+      links.forEach((link) => observer.observe(link))
+    }
+    return () => {
+      window.removeEventListener('resize', updatePill)
+      observer?.disconnect()
+    }
+  }, [activeHref, hoveredNavHref, menuOpen])
+
   useEffect(() => {
     const onHashChange = () => {
       setCurrentHash(window.location.hash)
       setMenuOpen(false)
+      setHoveredNavHref(null)
     }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
@@ -200,16 +248,34 @@ function App() {
           </a>
 
           <nav
+            ref={navRef}
             id="mobile-navigation"
             className={`primary-nav ${menuOpen ? 'is-open' : ''}`}
             aria-label="Navegación principal"
+            onMouseLeave={() => setHoveredNavHref(null)}
+            onBlur={(event) => {
+              if (!event.currentTarget.contains(event.relatedTarget)) setHoveredNavHref(null)
+            }}
           >
+            {navPill && (
+              <span
+                className="nav-pill"
+                aria-hidden="true"
+                style={{
+                  width: navPill.width,
+                  height: navPill.height,
+                  transform: `translate3d(${navPill.left}px, ${navPill.top}px, 0)`,
+                }}
+              />
+            )}
             {navigation.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 className={`nav-link ${item.href === activeHref ? 'is-active' : ''}`}
                 aria-current={item.href === activeHref ? 'page' : undefined}
+                onMouseEnter={() => setHoveredNavHref(item.href)}
+                onFocus={() => setHoveredNavHref(item.href)}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
