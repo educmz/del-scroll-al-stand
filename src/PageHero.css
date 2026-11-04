@@ -258,7 +258,8 @@
 @media (max-width: 980px) {
   .page-hero {
     grid-template-columns: minmax(0, 43%) minmax(0, 57%);
-    min-height: 590px;
+    /* Más margen en tablet para el banner de Planes, que incorpora tres beneficios. */
+    min-height: 650px;
   }
 
   .page-hero__copy {
