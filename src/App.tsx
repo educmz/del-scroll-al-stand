@@ -146,22 +146,19 @@ const testimonials = [
 ]
 
 /**
- * Cartel articulado en su borde superior.
- * Motion pinta cada fotograma de un péndulo amortiguado: gravedad,
- * velocidad angular, rozamiento e impulsos suaves de viento/cursor.
- * La imagen y su soporte se mueven juntos, no solo el isotipo.
+ * Cartel suspendido de una bisagra fija. La cubierta superior queda
+ * inmóvil; solamente oscila el panel con un péndulo amortiguado.
+ * Los ángulos son pequeños para que no aparezca su cara posterior.
  */
 function HangingBrand() {
   const shouldReduceMotion = useReducedMotion()
   const pitch = useMotionValue(0)
-  const roll = useTransform(pitch, (degrees) => degrees * 0.055)
-  const yaw = useTransform(pitch, (degrees) => degrees * -0.07)
   const signShadow = useTransform(pitch, (degrees) => {
-    const depth = Math.min(Math.abs(degrees) / 24, 1)
-    return `0 ${Math.round(9 + depth * 9)}px ${Math.round(18 + depth * 12)}px rgba(78, 37, 32, ${(0.14 + depth * 0.07).toFixed(3)})`
+    const depth = Math.min(Math.abs(degrees) / 14, 1)
+    return `0 ${Math.round(9 + depth * 6)}px ${Math.round(18 + depth * 8)}px rgba(78, 37, 32, ${(0.14 + depth * 0.045).toFixed(3)})`
   })
   const pendulum = useRef({
-    angle: -0.4,
+    angle: -0.19,
     angularVelocity: 0,
     lastGust: 0,
     gustDirection: 1,
@@ -170,7 +167,7 @@ function HangingBrand() {
 
   useEffect(() => {
     const state = pendulum.current
-    state.angle = shouldReduceMotion ? 0 : -0.4
+    state.angle = shouldReduceMotion ? 0 : -0.19
     state.angularVelocity = 0
     state.lastGust = 0
     state.gustDirection = 1
@@ -183,18 +180,23 @@ function HangingBrand() {
     const state = pendulum.current
     const dt = Math.min(delta / 1000, 0.032)
 
-    // Una brisa ocasional vuelve a impulsar el cartel; no es un bucle rígido.
     if (!state.pointerInside && elapsed - state.lastGust > 6800) {
-      state.angularVelocity += state.gustDirection * 0.66
+      state.angularVelocity += state.gustDirection * 0.5
       state.gustDirection *= -1
       state.lastGust = elapsed
     }
 
-    // Péndulo físico: aceleración = -gravedad · sin(ángulo) - fricción.
-    const angularAcceleration = -13.5 * Math.sin(state.angle) - 0.82 * state.angularVelocity
+    // Gravedad y fricción: el letrero oscila desde el eje superior.
+    const angularAcceleration = -13.5 * Math.sin(state.angle) - 1.05 * state.angularVelocity
     state.angularVelocity += angularAcceleration * dt
     state.angle += state.angularVelocity * dt
-    state.angle = Math.max(-0.47, Math.min(0.47, state.angle))
+
+    // Tope físico suave: evita inclinaciones que descubran la parte trasera.
+    const maxAngle = 0.23
+    if (Math.abs(state.angle) > maxAngle) {
+      state.angle = Math.sign(state.angle) * maxAngle
+      state.angularVelocity *= -0.16
+    }
 
     pitch.set(state.angle * 180 / Math.PI)
   })
@@ -202,37 +204,33 @@ function HangingBrand() {
   const nudge = () => {
     if (shouldReduceMotion) return
     const state = pendulum.current
-    state.angularVelocity += state.angle > 0 ? -1.1 : 1.1
+    state.angularVelocity += state.angle > 0 ? -0.8 : 0.8
   }
 
   return (
-    <motion.a
-      href="#inicio"
-      className="brand brand-hanging-sign"
-      aria-label="Del Scroll al Stand — Inicio"
-      style={{
-        rotateX: pitch,
-        rotateY: yaw,
-        rotateZ: roll,
-        transformPerspective: 620,
-        boxShadow: signShadow,
-      }}
-      onPointerEnter={() => {
-        if (!pendulum.current.pointerInside) nudge()
-        pendulum.current.pointerInside = true
-      }}
-      onPointerLeave={() => {
-        pendulum.current.pointerInside = false
-      }}
-      onFocus={nudge}
-    >
-      <img
-        src={`${baseUrl}images/logo.png`}
-        alt="Del Scroll al Stand"
-        className="brand-logo"
-        onError={(event) => { event.currentTarget.style.visibility = 'hidden' }}
-      />
-    </motion.a>
+    <div className="brand-hanger">
+      <motion.a
+        href="#inicio"
+        className="brand brand-hanging-sign"
+        aria-label="Del Scroll al Stand — Inicio"
+        style={{ rotateX: pitch, boxShadow: signShadow }}
+        onPointerEnter={() => {
+          if (!pendulum.current.pointerInside) nudge()
+          pendulum.current.pointerInside = true
+        }}
+        onPointerLeave={() => {
+          pendulum.current.pointerInside = false
+        }}
+        onFocus={nudge}
+      >
+        <img
+          src={`${baseUrl}images/logo.png`}
+          alt="Del Scroll al Stand"
+          className="brand-logo"
+          onError={(event) => { event.currentTarget.style.visibility = 'hidden' }}
+        />
+      </motion.a>
+    </div>
   )
 }
 
