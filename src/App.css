@@ -286,13 +286,13 @@ button:focus-visible {
 
 .hero-copy {
   min-width: 0;
-  padding: clamp(42px, 5vw, 74px) 14px clamp(42px, 5vw, 74px) clamp(34px, 5.5vw, 84px);
-  text-align: left;
+  padding: clamp(42px, 5vw, 74px) clamp(24px, 3.6vw, 52px);
+  text-align: center;
 }
 
 .headline-art {
   width: min(100%, 500px);
-  margin: 0 0 28px;
+  margin: 0 auto 28px;
 }
 
 .hero-title {
@@ -307,17 +307,20 @@ button:focus-visible {
 }
 
 .hero-message {
+  width: 100%;
   max-width: 610px;
+  margin-inline: auto;
 }
 
 .hero-slogan {
-  max-width: 610px;
-  margin: 0 0 18px;
-  padding: 0;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto 21px;
+  padding: 17px clamp(20px, 2.2vw, 32px);
   color: #331b27;
-  background: none;
-  border: 0;
-  border-radius: 0;
+  background: #f8d4d6;
+  border: 1px solid rgba(200, 105, 118, .12);
+  border-radius: 24px;
   font-family: 'Fredoka', sans-serif;
   font-size: clamp(25px, 2.35vw, 34px);
   font-weight: 600;
@@ -356,7 +359,7 @@ button:focus-visible {
 
 .hero-description {
   max-width: 525px;
-  margin: 0 0 30px;
+  margin: 0 auto 30px;
   color: #665058;
   font-family: 'Poppins', sans-serif;
   font-size: clamp(15px, 1.17vw, 17px);
@@ -469,8 +472,7 @@ button:focus-visible {
   }
 
   .hero-copy {
-    padding-left: clamp(27px, 4vw, 50px);
-    padding-right: 16px;
+    padding-inline: clamp(24px, 3vw, 36px);
   }
 
   .hero-slogan {
@@ -549,7 +551,9 @@ button:focus-visible {
   }
 
   .hero-slogan {
-    margin-bottom: 17px;
+    margin-bottom: 20px;
+    padding: 14px 17px;
+    border-radius: 19px;
     font-size: clamp(23px, 6vw, 28px);
     line-height: 1.18;
     letter-spacing: -.022em;
