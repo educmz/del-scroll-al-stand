@@ -5,7 +5,6 @@ import {
 import PageHero from './PageHero'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
-import { PlansApplicationSection } from './StandPlans'
 import './UpcomingFairs.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -125,13 +124,7 @@ export default function UpcomingFairs() {
         imageAlt="Feria navideña con puestos y visitantes"
         actions={
           <>
-            <button
-              type="button"
-              className="page-hero__button page-hero__button--primary"
-              onClick={() => document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            >
-              Postular a esta feria
-            </button>
+            <a className="page-hero__button page-hero__button--primary" href="#planes-postular">Postular a esta feria</a>
             <WhatsAppButton />
           </>
         }
@@ -196,7 +189,6 @@ export default function UpcomingFairs() {
           </div>
         </section>
       </div>
-      <PlansApplicationSection />
     </main>
   )
 }
