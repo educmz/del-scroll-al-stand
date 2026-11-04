@@ -126,9 +126,21 @@ const testimonials = [
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  // Cada mitad del bucle debe superar el ancho de la pantalla para evitar huecos.
+  const [testimonialRepeatCount, setTestimonialRepeatCount] = useState(
+    () => Math.max(2, Math.ceil(window.innerWidth / 900) + 1),
+  )
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
   const [navPill, setNavPill] = useState<{ left: number; top: number; width: number; height: number } | null>(null)
   const navRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    const updateTestimonialRepeats = () => {
+      setTestimonialRepeatCount(Math.max(2, Math.ceil(window.innerWidth / 900) + 1))
+    }
+    window.addEventListener('resize', updateTestimonialRepeats)
+    return () => window.removeEventListener('resize', updateTestimonialRepeats)
+  }, [])
   const isAbout = currentHash.startsWith('#sobre-nosotros')
   const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
   const isEntrepreneurs = currentHash === '#emprendedores'
@@ -423,25 +435,26 @@ function App() {
             className="testimonials-marquee"
             aria-label="Comentarios de emprendedores. El desplazamiento se pausa al pasar el cursor por encima."
           >
-            <div className="testimonials-track">
+            <div
+              className="testimonials-track"
+              style={{ animationDuration: `${testimonialRepeatCount * 42}s` }}
+            >
               {[0, 1].map((copyIndex) => (
-                <div
-                  className="testimonials-set"
-                  key={copyIndex}
-                  aria-hidden={copyIndex === 1 ? true : undefined}
-                >
-                  {testimonials.map((testimonial) => (
+                <div className="testimonials-set" key={copyIndex} aria-hidden={copyIndex === 1 ? true : undefined}>
+                  {Array.from({ length: testimonialRepeatCount }, (_, repeatIndex) =>
+                    testimonials.map((testimonial) => (
                     <article
                       className="testimonial-card"
-                      key={testimonial.name}
-                      tabIndex={copyIndex === 0 ? 0 : -1}
+                      key={`${repeatIndex}-${testimonial.name}`}
+                      aria-hidden={copyIndex > 0 || repeatIndex > 0 ? true : undefined}
+                      tabIndex={copyIndex === 0 && repeatIndex === 0 ? 0 : -1}
                     >
                       <div className="testimonial-card-top">
                         <div className="testimonial-person">
                           <img
                             className="testimonial-photo"
                             src={`${baseUrl}images/${testimonial.image}`}
-                            alt={copyIndex === 0 ? `Retrato de ${testimonial.name}` : ''}
+                            alt={copyIndex === 0 && repeatIndex === 0 ? `Retrato de ${testimonial.name}` : ''}
                             width="78"
                             height="78"
                             loading="lazy"
@@ -459,7 +472,8 @@ function App() {
                         <span className="testimonial-category">{testimonial.category}</span>
                       </div>
                     </article>
-                  ))}
+                    )),
+                  )}
                 </div>
               ))}
             </div>
