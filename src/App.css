@@ -745,7 +745,7 @@ button:focus-visible {
   position: relative;
   width: min(100% - 64px, 1300px);
   margin: 0 auto;
-  padding: 0 150px;
+  padding: 0;
   text-align: center;
 }
 .testimonials-heading .info-section-heading h2 {
@@ -764,34 +764,6 @@ button:focus-visible {
   font-size: 14px;
   line-height: 1.55;
 }
-.testimonials-motion-toggle {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-width: 109px;
-  min-height: 39px;
-  padding: 8px 15px;
-  border: 1px solid #e8bfb3;
-  border-radius: 999px;
-  background: #fffaf4;
-  box-shadow: 0 4px 12px rgba(101, 57, 50, .06);
-  color: #8c3046;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  transform: translateY(-50%);
-  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-}
-.testimonials-motion-toggle:hover {
-  background: #fff0e8;
-  border-color: #d78f90;
-  box-shadow: 0 6px 16px rgba(101, 57, 50, .11);
-}
 .testimonials-marquee {
   width: 100%;
   margin: 10px auto 0;
@@ -808,8 +780,7 @@ button:focus-visible {
   will-change: transform;
 }
 .testimonials-marquee:hover .testimonials-track,
-.testimonials-marquee:focus-within .testimonials-track,
-.testimonials-marquee.is-paused .testimonials-track {
+.testimonials-marquee:focus-within .testimonials-track {
   animation-play-state: paused;
 }
 .testimonials-set {
@@ -939,16 +910,6 @@ button:focus-visible {
   font-weight: 600;
   line-height: 1.25;
 }
-.testimonials-hint {
-  margin: 0 auto;
-  padding: 0 20px;
-  color: #987876;
-  font-family: 'Poppins', sans-serif;
-  font-size: 12px;
-  line-height: 1.5;
-  text-align: center;
-}
-
 /* CTA final: banda coral amplia, con jerarquía, aire y detalles sutiles. */
 .join-banner {
   position: relative;
@@ -1380,7 +1341,6 @@ button:focus-visible {
 /* Adaptación del carrusel: lectura cómoda sin reducir demasiado las tarjetas. */
 @media (max-width: 960px) {
   .testimonials-heading {
-    padding-inline: 112px;
     width: min(100% - 36px, 1300px);
   }
   .testimonial-card {
@@ -1405,11 +1365,6 @@ button:focus-visible {
     font-size: 12px;
     padding-inline: 8px;
   }
-  .testimonials-motion-toggle {
-    position: static;
-    margin-top: 16px;
-    transform: none;
-  }
   .testimonials-set {
     gap: 16px;
     padding-right: 16px;
@@ -1427,9 +1382,6 @@ button:focus-visible {
   .testimonial-card:hover,
   .testimonial-card:focus-visible {
     transform: translateY(-3px) scale(1.025);
-  }
-  .testimonials-hint {
-    font-size: 11px;
   }
 }
 @media (max-width: 390px) {
@@ -1464,11 +1416,5 @@ button:focus-visible {
   .testimonial-card:hover,
   .testimonial-card:focus-visible {
     transform: none;
-  }
-  .testimonials-motion-toggle {
-    display: none;
-  }
-  .testimonials-hint {
-    display: none;
   }
 }
