@@ -99,15 +99,24 @@
   color: #ab344c;
 }
 
-.home-faq-item summary:hover .home-faq-toggle {
+/* El botón cerrado se ilumina suavemente sin perder contraste. */
+.home-faq-item:not([open]) summary:hover .home-faq-toggle {
   background: #ffe9e6;
   border-color: #e4a39f;
+  color: #982e46;
 }
 
+/* Abierto: conservar el fondo sólido para que el chevrón blanco se vea siempre. */
 .home-faq-item[open] .home-faq-toggle {
   background: #ef6470;
   border-color: #ef6470;
-  color: white;
+  color: #fff;
+}
+
+.home-faq-item[open] summary:hover .home-faq-toggle {
+  background: #d84e62;
+  border-color: #d84e62;
+  color: #fff;
 }
 
 .home-faq-item[open] .home-faq-toggle svg {
