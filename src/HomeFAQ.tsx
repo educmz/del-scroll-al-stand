@@ -30,27 +30,45 @@ export default function HomeFAQ() {
 
   return (
     <div className="home-faq-list">
-      {questions.map(({ question, answer }, index) => (
-        <details className="home-faq-item" key={question} open={openIndex === index}>
-          <summary
-            onClick={(event) => {
-              event.preventDefault()
-              setOpenIndex((current) => current === index ? null : index)
-            }}
-          >
-            <span className="home-faq-number" aria-hidden="true">
-              {String(index + 1).padStart(2, '0')}
-            </span>
-            <span className="home-faq-question">{question}</span>
-            <span className="home-faq-toggle" aria-hidden="true">
-              <ChevronDown size={22} strokeWidth={2.1} />
-            </span>
-          </summary>
-          <div className="home-faq-answer">
-            <p>{answer}</p>
+      {questions.map(({ question, answer }, index) => {
+        const isOpen = openIndex === index
+        const questionId = `home-faq-question-${index}`
+        const answerId = `home-faq-answer-${index}`
+
+        return (
+          <div className="home-faq-item" key={question} data-open={isOpen}>
+            <button
+              type="button"
+              className="home-faq-trigger"
+              id={questionId}
+              aria-expanded={isOpen}
+              aria-controls={answerId}
+              onClick={() => setOpenIndex((current) => current === index ? null : index)}
+            >
+              <span className="home-faq-number" aria-hidden="true">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <span className="home-faq-question">{question}</span>
+              <span className="home-faq-toggle" aria-hidden="true">
+                <ChevronDown size={22} strokeWidth={2.1} />
+              </span>
+            </button>
+            <div className="home-faq-answer-shell">
+              <div className="home-faq-answer-clip">
+                <div
+                  className="home-faq-answer"
+                  id={answerId}
+                  role="region"
+                  aria-labelledby={questionId}
+                  aria-hidden={!isOpen}
+                >
+                  <p>{answer}</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </details>
-      ))}
+        )
+      })}
     </div>
   )
 }

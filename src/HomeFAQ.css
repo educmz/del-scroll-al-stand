@@ -47,7 +47,14 @@
   background: transparent;
 }
 
-.home-faq-item summary {
+.home-faq-trigger {
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
   display: grid;
   grid-template-columns: 52px minmax(0, 1fr) 48px;
   align-items: center;
@@ -56,10 +63,6 @@
   padding: 18px 8px 18px 4px;
   list-style: none;
   cursor: pointer;
-}
-
-.home-faq-item summary::-webkit-details-marker {
-  display: none;
 }
 
 .home-faq-number {
@@ -94,46 +97,68 @@
   transition: transform 240ms ease;
 }
 
-.home-faq-item summary:hover .home-faq-question,
-.home-faq-item[open] .home-faq-question {
+.home-faq-trigger:hover .home-faq-question,
+.home-faq-item[data-open="true"] .home-faq-question {
   color: #ab344c;
 }
 
 /* El botón cerrado se ilumina suavemente sin perder contraste. */
-.home-faq-item:not([open]) summary:hover .home-faq-toggle {
+.home-faq-item[data-open="false"] .home-faq-trigger:hover .home-faq-toggle {
   background: #ffe9e6;
   border-color: #e4a39f;
   color: #982e46;
 }
 
 /* Abierto: conservar el fondo sólido para que el chevrón blanco se vea siempre. */
-.home-faq-item[open] .home-faq-toggle {
+.home-faq-item[data-open="true"] .home-faq-toggle {
   background: #ef6470;
   border-color: #ef6470;
   color: #fff;
 }
 
-.home-faq-item[open] summary:hover .home-faq-toggle {
+.home-faq-item[data-open="true"] .home-faq-trigger:hover .home-faq-toggle {
   background: #d84e62;
   border-color: #d84e62;
   color: #fff;
 }
 
-.home-faq-item[open] .home-faq-toggle svg {
+.home-faq-item[data-open="true"] .home-faq-toggle svg {
   transform: rotate(180deg);
 }
 
-.home-faq-item summary:focus-visible {
+.home-faq-trigger:focus-visible {
   outline: 3px solid #bd4a61;
   outline-offset: -3px;
   border-radius: 10px;
+}
+
+.home-faq-answer-shell {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 440ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.home-faq-item[data-open="true"] .home-faq-answer-shell {
+  grid-template-rows: 1fr;
+}
+
+.home-faq-answer-clip {
+  min-height: 0;
+  overflow: hidden;
 }
 
 .home-faq-answer {
   margin: -2px 69px 27px 79px;
   padding: 0 0 0 20px;
   border-left: 3px solid #eea89f;
-  animation: faq-reveal 240ms ease-out both;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 250ms ease, transform 380ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.home-faq-item[data-open="true"] .home-faq-answer {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .home-faq-answer p {
@@ -141,11 +166,6 @@
   margin: 0;
   color: #65515a;
   font: 400 clamp(13px, 1.05vw, 15px)/1.75 'Poppins', sans-serif;
-}
-
-@keyframes faq-reveal {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 700px) {
@@ -160,7 +180,7 @@
     font-size: clamp(25px, 5.5vw, 35px);
   }
 
-  .home-faq-item summary {
+  .home-faq-trigger {
     grid-template-columns: 32px minmax(0, 1fr) 38px;
     column-gap: 10px;
     min-height: 78px;
@@ -188,7 +208,7 @@
 @media (max-width: 390px) {
   .home-faq { width: calc(100% - 28px); }
 
-  .home-faq-item summary {
+  .home-faq-trigger {
     grid-template-columns: 27px minmax(0, 1fr) 34px;
     column-gap: 7px;
   }
@@ -204,6 +224,7 @@
 @media (prefers-reduced-motion: reduce) {
   .home-faq-question,
   .home-faq-toggle,
-  .home-faq-toggle svg { transition: none; }
-  .home-faq-answer { animation: none; }
+  .home-faq-toggle svg,
+  .home-faq-answer,
+  .home-faq-answer-shell { transition: none; }
 }
