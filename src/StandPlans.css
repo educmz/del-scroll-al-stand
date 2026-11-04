@@ -393,7 +393,7 @@
 }
 .plans-compare-intro .section-overline,
 .plans-services-heading-block .section-overline,
-.plans-apply-left > .section-overline {
+.plans-apply-left .title-eyebrow-group > .section-overline {
   color: #9c4050;
 }
 .plans-services-heading-block {
@@ -412,4 +412,10 @@
 }
 @media (max-width: 600px) {
   .plans-heading-block .section-overline { margin-bottom: 7px; }
+}
+
+/* Subtítulo centrado sobre el título, sin modificar la posición del bloque. */
+.plans-heading-block,
+.plans-services-heading-block {
+  text-align: center;
 }
