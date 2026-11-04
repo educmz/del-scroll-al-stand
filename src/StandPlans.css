@@ -1,11 +1,4 @@
 /* Planes de Stand — diseño de ferias */
-.site-plans .topbar,
-.site-plans .primary-nav { background: #fffdfa; }
-.site-plans .header-cta,
-.site-plans .mobile-participate { background: linear-gradient(105deg, #dd193b, #a60429); }
-.site-plans .nav-link.is-active { color: #8c0d24; font-weight: 700; }
-.site-plans .nav-link.is-active::after { background: #d7153a; }
-
 .stand-plans-page {
   --plans-navy: #17213f;
   --plans-coral: #f44c5c;
