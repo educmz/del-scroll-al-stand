@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import {
   ArrowLeft, ArrowRight, CalendarDays, MapPin, MessageCircle,
-  Gift, Snowflake, Sparkles,
 } from 'lucide-react'
+import PageHero from './PageHero'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './UpcomingFairs.css'
@@ -52,7 +52,7 @@ function WhatsAppButton() {
   const message = 'Hola, quisiera información sobre la Feria Navideña del 12 y 13 de diciembre de 2026 de Del Scroll al Stand.'
   return (
     <a
-      className={`fair-whatsapp-btn ${phone ? '' : 'is-unavailable'}`}
+      className={`fair-whatsapp-btn page-hero__button page-hero__button--secondary ${phone ? '' : 'is-unavailable'}`}
       href={phone ? `https://wa.me/${phone}?text=${encodeURIComponent(message)}` : undefined}
       target={phone ? '_blank' : undefined}
       rel={phone ? 'noopener noreferrer' : undefined}
@@ -112,46 +112,20 @@ function Gallery() {
 export default function UpcomingFairs() {
   return (
     <main className="upcoming-fairs-page" id="upcoming-fairs-page">
-      <section className="fair-hero" aria-labelledby="fair-main-title">
-        <div className="fair-hero-copy">
-          <span className="fair-market-label"><Gift size={19} aria-hidden="true" /> Mercado de Regalos</span>
-          <div className="fair-name-wrap">
-            <Sparkles className="fair-name-sparkle fair-name-sparkle-left" size={33} aria-hidden="true" />
-            <h1 id="fair-main-title"><span>Feria</span><strong>Navideña</strong></h1>
-            <Snowflake className="fair-name-snowflake" size={30} aria-hidden="true" />
-            <Sparkles className="fair-name-sparkle fair-name-sparkle-right" size={32} aria-hidden="true" />
-          </div>
-          <p className="fair-hero-message">
-            ¡Encuentra el <strong>regalo perfecto</strong> hecho a mano,
-            vive la <strong>magia de la Navidad</strong> y apoya a tus talentos locales!
-          </p>
-          <div className="fair-hero-actions">
-            <a className="fair-postulate-btn" href="#planes-postular">Postular a esta feria</a>
+      <PageHero
+        id="fair-main-title"
+        eyebrow="Próximas ferias"
+        title={<><span>Feria</span><em>Navideña</em></>}
+        description={<>¡Encuentra el <strong>regalo perfecto</strong> hecho a mano, vive la magia de la Navidad y apoya a tus talentos locales!</>}
+        imageFile="feria-navidad-portada.png"
+        imageAlt="Feria navideña con puestos y visitantes"
+        actions={
+          <>
+            <a className="page-hero__button page-hero__button--primary" href="#planes-postular">Postular a esta feria</a>
             <WhatsAppButton />
-          </div>
-        </div>
-        <div className="fair-hero-media">
-          <svg className="fair-hero-blob" viewBox="0 0 660 510" role="img" aria-label="Feria navideña con puestos decorados y emprendedoras">
-            <defs>
-              <clipPath id="fair-photo-mask">
-                <path d="M128 48C175 0 218 12 255 35C304 67 326 85 379 67C432 53 467 45 507 71C542 95 548 145 578 162C610 180 642 164 653 192C668 227 627 276 593 288C560 302 559 315 582 348C598 377 583 416 549 427C501 442 451 400 415 405C367 414 332 456 287 472C230 494 159 486 124 455C79 421 82 375 91 325C102 270 80 230 45 187C3 135 53 81 128 48Z"/>
-              </clipPath>
-            </defs>
-            <image
-              href={`${baseUrl}images/feria-navidad-portada.png`}
-              x="0"
-              y="0"
-              width="660"
-              height="510"
-              preserveAspectRatio="xMidYMid slice"
-              clipPath="url(#fair-photo-mask)"
-              onError={(event) => {
-                event.currentTarget.setAttribute('href', `${baseUrl}images/feria-portada.png`)
-              }}
-            />
-          </svg>
-        </div>
-      </section>
+          </>
+        }
+      />
 
       <div className="fair-content">
         <section className="fair-details-grid" aria-labelledby="fair-details-title">

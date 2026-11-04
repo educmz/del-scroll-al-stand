@@ -3,11 +3,10 @@ import {
   MapPin, Megaphone, Play, ShieldCheck, Snowflake,
   ChartColumnIncreasing, Star, Store, UsersRound, Sparkles,
 } from 'lucide-react'
+import PageHero from './PageHero'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './Entrepreneurs.css'
-
-const baseUrl = import.meta.env.BASE_URL
 
 const benefits = [
   {
@@ -60,14 +59,6 @@ const offerings = [
   },
 ]
 
-function CelebrationLines() {
-  return (
-    <span className="entre-rays" aria-hidden="true">
-      <i /><i /><i />
-    </span>
-  )
-}
-
 function ChristmasTree() {
   return (
     <svg viewBox="0 0 210 252" className="entre-tree-art" aria-hidden="true">
@@ -118,33 +109,20 @@ function StringLights({ className = '' }: {className?: string}) {
 export default function Entrepreneurs() {
   return (
     <main className="entre-page" id="entrepreneurs-page">
-      <section className="entre-hero" aria-labelledby="entre-main-title">
-        <div className="entre-hero-content">
-          <div className="entre-hero-title">
-            <div className="entre-brand-title">
-              <CelebrationLines />
-              <h1 id="entre-main-title">Para <Store className="entre-title-stand" size={74} aria-hidden="true" /><span>Emprendedores</span></h1>
-              <CelebrationLines />
-            </div>
-            <p>Impulsa tu emprendimiento en ferias temáticas que conectan tu marca con más personas.</p>
-            <div className="entre-hero-actions">
-              <a href="#planes-postular" className="entre-button entre-button-yellow"><ClipboardPenLine size={23} aria-hidden="true"/> Postula tu Marca</a>
-              <a href="#planes" className="entre-button entre-button-outline"><Play size={23} aria-hidden="true"/> Conoce los Planes</a>
-            </div>
-            <Snowflake className="entre-hero-snowflake" size={28} aria-hidden="true"/>
-          </div>
-          <div className="entre-hero-visual">
-            <img
-              src={`${baseUrl}images/para-emprendedores-portada.png`}
-              alt="Emprendedora atendiendo a una visitante en un stand de feria navideña"
-              onError={(event) => {
-                event.currentTarget.onerror = null
-                event.currentTarget.src = `${baseUrl}images/feria-portada.png`
-              }}
-            />
-          </div>
-        </div>
-      </section>
+      <PageHero
+        id="entre-main-title"
+        eyebrow="Para emprendedores"
+        title={<><span>Para</span><em>Emprendedores</em></>}
+        description="Impulsa tu emprendimiento en ferias temáticas que conectan tu marca con más personas."
+        imageFile="para-emprendedores-portada.png"
+        imageAlt="Emprendedora atendiendo a una visitante en su stand"
+        actions={
+          <>
+            <a href="#planes-postular" className="page-hero__button page-hero__button--primary"><ClipboardPenLine size={19} aria-hidden="true" /> Postula tu marca</a>
+            <a href="#planes" className="page-hero__button page-hero__button--secondary"><Play size={19} aria-hidden="true" /> Conoce los planes</a>
+          </>
+        }
+      />
 
       <section className="entre-benefits" aria-label="Beneficios para emprendedores">
         {benefits.map(({ title, description, icon: Icon }) => (

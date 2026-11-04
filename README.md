@@ -135,3 +135,25 @@ Los controles del carrusel de Próximas ferias y las preguntas frecuentes en Ini
 El botón `Postular a esta feria` abre el formulario en Planes de stand
 (`#planes-postular`). El botón de WhatsApp se habilita al configurar
 la variable `APPLICATION_WHATSAPP_NUMBER` descrita anteriormente.
+
+## Banners compartidos de las cuatro páginas internas
+
+Las páginas **Próximas ferias**, **Para emprendedores**, **Planes de stand** y
+**Sobre nosotros** utilizan `src/PageHero.tsx` y `src/PageHero.css`. El diseño
+es el mismo en las cuatro: **40 % para texto y botones, 60 % para fotografía**
+en escritorio, y texto sobre imagen en pantallas pequeñas.
+
+Para cambiar las fotos, sube los archivos a `public/images/`:
+
+| Página | Nombre de imagen |
+| --- | --- |
+| Próximas ferias | `feria-navidad-portada.png` |
+| Para emprendedores | `para-emprendedores-portada.png` |
+| Planes de stand | `planes-portada.png` |
+| Sobre nosotros | `sobre-nosotros-portada.png` |
+
+**Recomendación:** usar imágenes horizontales de al menos 1400 × 900 px con el
+sujeto principal cerca del centro para evitar recortes. Se muestran usando
+`object-fit: cover`. Mientras falte alguna fotografía, el componente utiliza
+`public/images/feria-portada.png` como respaldo. No hace falta modificar el
+código cuando subas los cuatro archivos con esos nombres.

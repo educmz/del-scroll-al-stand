@@ -1,4 +1,5 @@
 import { Flag, Gem, Handshake, Mountain, ShieldCheck, ShoppingBag, Target, UsersRound } from 'lucide-react'
+import PageHero from './PageHero'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './AboutUs.css'
@@ -11,14 +12,6 @@ const values = [
   { label: 'Confianza y seguridad', Icon: ShieldCheck, tone: 'mint' },
   { label: 'Calidad en la experiencia', Icon: Gem, tone: 'rose' },
 ]
-
-function Rays({ className = '' }: { className?: string }) {
-  return (
-    <svg className={`about-rays ${className}`} viewBox="0 0 70 75" aria-hidden="true">
-      <path d="M46 6 56 24M17 22 34 38M8 57 30 56" />
-    </svg>
-  )
-}
 
 function FairStandArt() {
   return (
@@ -63,32 +56,20 @@ function FairStandArt() {
 export default function AboutUs() {
   return (
     <main className="about-page" id="about-page">
-      <section className="about-hero" aria-labelledby="about-main-title">
-        <div className="about-hero-copy">
-          <span className="about-label">Sobre Nosotros</span>
-          <div className="about-hero-headline">
-            <Rays className="about-hero-rays-left" />
-            <h1 id="about-main-title">
-              Del Scroll
-              <span>al <em>Stand</em></span>
-            </h1>
-            <Rays className="about-hero-rays-right" />
-          </div>
-          <p>Conectamos el mundo digital de los emprendedores con ferias reales llenas de oportunidades.</p>
-          <span className="about-brushline" aria-hidden="true" />
-        </div>
-        <div className="about-hero-photo">
-          <img
-            src={`${baseUrl}images/sobre-nosotros-portada.png`}
-            alt="Feria con emprendedores, stands y visitantes"
-            loading="eager"
-            onError={(event) => {
-              event.currentTarget.onerror = null
-              event.currentTarget.src = `${baseUrl}images/feria-portada.png`
-            }}
-          />
-        </div>
-      </section>
+      <PageHero
+        id="about-main-title"
+        eyebrow="Sobre nosotros"
+        title={<><span>Del Scroll</span><em>al Stand</em></>}
+        description="Conectamos el mundo digital de los emprendedores con ferias reales llenas de oportunidades."
+        imageFile="sobre-nosotros-portada.png"
+        imageAlt="Feria con emprendedores, stands y visitantes"
+        actions={
+          <>
+            <a className="page-hero__button page-hero__button--primary" href="#proximas-ferias">Conoce las ferias</a>
+            <a className="page-hero__button page-hero__button--secondary" href="#planes">Ver planes de stand</a>
+          </>
+        }
+      />
 
       <section className="about-intro" aria-labelledby="about-intro-title">
         <div className="about-intro-illustration">
