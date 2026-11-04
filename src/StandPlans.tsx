@@ -167,7 +167,7 @@ function ApplicationForm() {
     return () => window.removeEventListener('stand-plan-choice', onPlanChoice)
   }, [])
 
-  const choosePlan = (plan: PlanId) => {
+  const choosePlan = (plan: PlanId | '') => {
     setSelectedPlan(plan)
     setFeedback('')
   }
