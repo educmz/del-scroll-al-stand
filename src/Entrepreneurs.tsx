@@ -1,7 +1,7 @@
 import {
   ArrowRight, CalendarDays, ChartNoAxesCombined, ClipboardPenLine,
-  Heart, MapPin, Megaphone, Play, ShieldCheck, Snowflake,
-  SquareChartGantt, Star, Store, UsersRound, Gift, Sparkles,
+  MapPin, Megaphone, Play, ShieldCheck, Snowflake,
+  ChartColumnIncreasing, Star, Store, UsersRound, Sparkles,
 } from 'lucide-react'
 import './Entrepreneurs.css'
 
@@ -54,7 +54,7 @@ const offerings = [
   {
     title: 'Reporte de resultados',
     description: 'Información de asistencia, feedback y oportunidades de mejora.',
-    icon: SquareChartGantt,
+    icon: ChartColumnIncreasing,
   },
 ]
 
@@ -96,7 +96,7 @@ function ChristmasStall() {
       <path d="M47 76 73 40 90 76v27q-18 25-43-4ZM107 76V18l23 24v34 27q-12 25-23 0ZM148 76l27-20 12 20v23q-16 24-39 0Z" fill="#fff5e0"/>
       <path d="M35 103v105M178 103v105M33 198h150" stroke="#fff1d6" strokeWidth="8"/>
       <path d="M37 144Q105 173 176 144" fill="none" stroke="#2d623c" strokeWidth="5"/>
-      {[[49,153],[81,160],[112,163],[145,156],[171,148]].map(([x,y],i)=><g key={i}><circle cx={x} cy={y} r="6.5" fill={i%2===0?"#ffd12f":"#ff6869"}/><circle cx={x-2} cy={y-2} r="2" fill="white"/></g>)}
+      {[[49,153],[81,160],[112,163],[145,156],[171,148]].map(([x,y],i)=><g key={i}><circle cx={x} cy={y} r="6.5" fill={i%2===0?"#ffd12f":"#ff6869"}/><circle cx={Number(x)-2} cy={Number(y)-2} r="2" fill="white"/></g>)}
       <g transform="translate(34 188)"><rect x="0" y="10" width="50" height="49" fill="#fcf0d9"/><path d="M20 10v49" stroke="#ff5b62" strokeWidth="10"/><rect x="-3" y="6" width="57" height="13" rx="2" fill="#ff606c"/></g>
       <g transform="translate(139 194)"><rect x="0" y="9" width="50" height="41" fill="#f65059"/><path d="M23 9v41" stroke="#ffcd38" strokeWidth="8"/><rect x="-3" y="4" width="56" height="13" rx="2" fill="#ffd13a"/></g>
       <g transform="translate(104 181)"><circle r="22" fill="none" stroke="#2f8d54" strokeWidth="12"/><circle cx="-13" cy="-12" r="4.5" fill="#ffcd37"/><circle cx="17" cy="6" r="5" fill="#fd5663"/><path d="M-4-23Q-19-40-26-22Q-20-9-4-23Zm4 0Q19-42 26-23Q21-9 0-23Z" fill="#ff5c65"/></g>

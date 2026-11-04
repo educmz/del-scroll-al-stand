@@ -173,7 +173,7 @@ function App() {
   useEffect(() => {
     if (currentHash === '#planes-postular') {
       window.requestAnimationFrame(() => {
-        document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'instant', block: 'start' })
+        document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'auto', block: 'start' })
       })
     } else if (currentHash === '#sobre-nosotros' || isPlans || isEntrepreneurs) {
       window.scrollTo(0, 0)
