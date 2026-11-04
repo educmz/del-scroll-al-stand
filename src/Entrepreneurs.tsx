@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
-  ArrowRight, CalendarDays, ChartNoAxesCombined, ClipboardPenLine,
-  Image as ImageIcon, MapPin, Megaphone, Play, ShieldCheck,
+  ArrowRight, CalendarDays, ChartNoAxesCombined,
+  Image as ImageIcon, MapPin, Megaphone, ShieldCheck,
   ChartColumnIncreasing, Star, Store, UsersRound,
 } from 'lucide-react'
 import PageHero from './PageHero'
@@ -129,9 +129,8 @@ export default function Entrepreneurs() {
     <main className="entre-page" id="entrepreneurs-page">
       <PageHero
         id="entre-main-title"
-        eyebrow="Para emprendedores"
-        badgeIcon="store"
         compactTitle
+        hideDecorations
         title={<><span>Tu marca</span><em>en persona</em></>}
         description="Conecta con nuevos clientes y haz que más personas descubran lo que haces."
         imageFile="para-emprendedores-portada.png"
@@ -139,10 +138,10 @@ export default function Entrepreneurs() {
         actions={
           <>
             <a href="#planes-postular" className="page-hero__button page-hero__button--primary">
-              <ClipboardPenLine size={19} aria-hidden="true" /> Postula tu marca
+              Postula tu marca
             </a>
             <a href="#planes" className="page-hero__button page-hero__button--secondary">
-              <Play size={19} aria-hidden="true" /> Ver planes
+              Ver planes
             </a>
           </>
         }
