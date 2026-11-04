@@ -13,7 +13,6 @@ const navigation = [
   { label: 'Próximas ferias', href: '#proximas-ferias' },
   { label: 'Para emprendedores', href: '#emprendedores' },
   { label: 'Planes de stand', href: '#planes' },
-  { label: 'Galería', href: '#sobre-nosotros-galeria' },
   { label: 'Sobre nosotros', href: '#sobre-nosotros' },
 ]
 
@@ -162,6 +161,7 @@ function App() {
   const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand' || currentHash === '#planes-postular'
   const isEntrepreneurs = currentHash === '#emprendedores'
   const isFairs = currentHash === '#proximas-ferias' || currentHash === '#proximas-ferias-preguntas'
+  const activeHref = isAbout ? '#sobre-nosotros' : isPlans ? '#planes' : isEntrepreneurs ? '#emprendedores' : isFairs ? '#proximas-ferias' : '#inicio'
 
   useEffect(() => {
     const onHashChange = () => {
@@ -204,11 +204,12 @@ function App() {
             className={`primary-nav ${menuOpen ? 'is-open' : ''}`}
             aria-label="Navegación principal"
           >
-            {navigation.filter((item) => isAbout || isPlans || isEntrepreneurs || isFairs || item.label !== 'Galería').map((item) => (
+            {navigation.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : isPlans ? item.href === '#planes' : isEntrepreneurs ? item.href === '#emprendedores' : isFairs ? item.href === '#proximas-ferias' : item.href === '#inicio') ? 'is-active' : ''}`}
+                className={`nav-link ${item.href === activeHref ? 'is-active' : ''}`}
+                aria-current={item.href === activeHref ? 'page' : undefined}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
@@ -226,7 +227,7 @@ function App() {
               }}
             >
               <CalendarDays aria-hidden="true" size={19} />
-              Quiero participar!
+              Quiero participar
             </a>
           </nav>
 
@@ -241,7 +242,7 @@ function App() {
             }}
           >
             <CalendarDays aria-hidden="true" size={20} />
-            Quiero participar!
+            Quiero participar
           </a>
 
           <button
