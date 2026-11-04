@@ -93,11 +93,13 @@ const steps = [
 function SectionHeading({ children, eyebrow }: { children: string; eyebrow: string }) {
   return (
     <div className="section-heading-stack">
-      <SectionEyebrow>{eyebrow}</SectionEyebrow>
-      <div className="info-section-heading">
-        <TitleRays side="left" />
-        <h2>{children}</h2>
-        <TitleRays side="right" />
+      <div className="title-eyebrow-group">
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
+        <div className="info-section-heading title-eyebrow-heading">
+          <TitleRays side="left" />
+          <h2>{children}</h2>
+          <TitleRays side="right" />
+        </div>
       </div>
     </div>
   )
