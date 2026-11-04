@@ -380,7 +380,13 @@ function App() {
         </section>
 
         <section className="benefits-and-process" aria-label="Beneficios y participación">
-          <SectionHeading>¿Por qué participar con nosotros?</SectionHeading>
+          <div className="benefits-heading">
+            <span className="section-eyebrow">TU MARCA MERECE MÁS</span>
+            <SectionHeading>¿Por qué participar con nosotros?</SectionHeading>
+            <p className="section-intro">
+              Mucho más que un espacio para vender: nuevas conexiones, experiencias y oportunidades para crecer.
+            </p>
+          </div>
 
           <div className="benefits-grid" id="emprendedores">
             {benefits.map((benefit) => {
@@ -389,9 +395,9 @@ function App() {
                 <article className="benefit-item" key={benefit.title}>
                   <div className={'benefit-icon benefit-icon-' + benefit.tone}>
                     <Icon
-                      size={50}
-                      strokeWidth={benefit.tone === 'mint' ? 3 : 2}
-                      fill={benefit.tone === 'pink' ? '#ff6870' : 'none'}
+                      size={40}
+                      strokeWidth={benefit.tone === 'mint' ? 2.6 : 2}
+                      fill={benefit.tone === 'pink' ? '#f36a7a' : 'none'}
                       stroke={benefit.tone === 'pink' ? 'none' : 'currentColor'}
                       aria-hidden="true"
                     />
@@ -406,17 +412,22 @@ function App() {
           </div>
 
           <div className="process-heading" id="planes">
+            <span className="section-eyebrow section-eyebrow-mint">ASÍ DE FÁCIL ES EMPEZAR</span>
             <SectionHeading>¿Cómo funciona?</SectionHeading>
+            <p className="section-intro">
+              Te acompañamos desde el primer paso hasta el momento de encontrarte con tus clientes.
+            </p>
           </div>
 
           <div className="process-background" id="participar">
             <div className="process-grid">
-              {steps.map((step) => {
+              {steps.map((step, index) => {
                 const Icon = step.icon
                 return (
                   <article className="process-item" key={step.title}>
+                    <span className="process-number">PASO {String(index + 1).padStart(2, '0')}</span>
                     <div className="process-icon">
-                      <Icon size={55} strokeWidth={2.2} aria-hidden="true" />
+                      <Icon size={42} strokeWidth={2} aria-hidden="true" />
                     </div>
                     <h3>{step.title}</h3>
                     <p>{step.description}</p>
