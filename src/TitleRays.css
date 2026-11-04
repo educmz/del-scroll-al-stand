@@ -1,10 +1,10 @@
-/* Decoración compartida: a la altura del centro óptico del título. */
+/* Rayos laterales: enmarcan las esquinas superiores del título. */
 .title-rays {
   display: block;
-  width: clamp(30px, 3.8vw, 50px);
-  height: clamp(35px, 4.5vw, 56px);
-  flex: 0 0 clamp(30px, 3.8vw, 50px);
-  align-self: center;
+  width: clamp(34px, 4vw, 56px);
+  height: clamp(38px, 4.6vw, 62px);
+  flex: 0 0 clamp(34px, 4vw, 56px);
+  align-self: flex-start;
   overflow: visible;
   fill: none;
   color: #ffc782;
@@ -13,22 +13,23 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   pointer-events: none;
-  transform: translateY(-6px);
+  transform: translateY(-14px);
 }
 
 .title-rays-right {
-  transform: scaleX(-1) translateY(-6px);
+  transform: scaleX(-1) translateY(-14px);
 }
 
 @media (max-width: 600px) {
   .title-rays {
-    width: 27px;
+    width: 28px;
     height: 34px;
-    flex-basis: 27px;
-    stroke-width: 9;
-    transform: translateY(-3px);
+    flex-basis: 28px;
+    stroke-width: 8;
+    transform: translateY(-8px);
   }
+
   .title-rays-right {
-    transform: scaleX(-1) translateY(-3px);
+    transform: scaleX(-1) translateY(-8px);
   }
 }

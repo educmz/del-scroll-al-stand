@@ -485,9 +485,9 @@ button:focus-visible {
 
 .info-section-heading {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   text-align: center;
 }
 
@@ -527,9 +527,10 @@ button:focus-visible {
 .benefits-heading .info-section-heading h2,
 .process-heading .info-section-heading h2 {
   color: #34202a;
-  font-size: clamp(30px, 2.8vw, 42px);
+  font-size: clamp(34px, 3.2vw, 50px);
   font-weight: 700;
   letter-spacing: -.025em;
+  line-height: 1.06;
   text-wrap: balance;
 }
 
@@ -837,7 +838,7 @@ button:focus-visible {
 
   .benefits-heading .info-section-heading h2,
   .process-heading .info-section-heading h2 {
-    font-size: clamp(27px, 5.1vw, 34px);
+    font-size: clamp(30px, 5.5vw, 38px);
   }
 
   .section-intro {
@@ -919,7 +920,7 @@ button:focus-visible {
   }
 
   .info-section-heading {
-    gap: 2px;
+    gap: 6px;
   }
 
   .heading-rays {
@@ -951,7 +952,8 @@ button:focus-visible {
 
   .benefits-heading .info-section-heading h2,
   .process-heading .info-section-heading h2 {
-    font-size: 25px;
+    font-size: 28px;
+    line-height: 1.08;
   }
 }
 

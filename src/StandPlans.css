@@ -358,10 +358,10 @@
   width: 25px;
   height: 33px;
   flex-basis: 25px;
-  transform: translateY(-4px);
+  transform: translateY(-11px);
 }
 .plans-accent-heading .title-rays-right {
-  transform: scaleX(-1) translateY(-4px);
+  transform: scaleX(-1) translateY(-11px);
 }
 .plans-accent-heading h2 {
   min-width: 0;
@@ -373,10 +373,10 @@
     width: 22px;
     height: 29px;
     flex-basis: 22px;
-    transform: translateY(-3px);
+    transform: translateY(-7px);
   }
   .plans-accent-heading .title-rays-right {
-    transform: scaleX(-1) translateY(-3px);
+    transform: scaleX(-1) translateY(-7px);
   }
 }
 
