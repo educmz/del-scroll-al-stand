@@ -126,6 +126,20 @@ const testimonials = [
     category: 'Moda',
     image: 'testimonio-lucia.webp',
   },
+  {
+    name: 'Mariana',
+    handle: null,
+    quote: null,
+    category: 'Historia en preparación',
+    image: 'testimonio-mariana.webp',
+  },
+  {
+    name: 'Rodrigo',
+    handle: null,
+    quote: null,
+    category: 'Historia en preparación',
+    image: 'testimonio-rodrigo.webp',
+  },
 ]
 
 function App() {
@@ -515,14 +529,14 @@ function App() {
           >
             <div
               className="testimonials-track"
-              style={{ animationDuration: `${testimonialRepeatCount * 42}s` }}
+              style={{ animationDuration: `${testimonialRepeatCount * 70}s` }}
             >
               {[0, 1].map((copyIndex) => (
                 <div className="testimonials-set" key={copyIndex} aria-hidden={copyIndex === 1 ? true : undefined}>
                   {Array.from({ length: testimonialRepeatCount }, (_, repeatIndex) =>
                     testimonials.map((testimonial) => (
                     <article
-                      className="testimonial-card"
+                      className={`testimonial-card${testimonial.quote ? '' : ' testimonial-card-pending'}`}
                       key={`${repeatIndex}-${testimonial.name}`}
                       aria-hidden={copyIndex > 0 || repeatIndex > 0 ? true : undefined}
                       tabIndex={copyIndex === 0 && repeatIndex === 0 ? 0 : -1}
@@ -539,13 +553,23 @@ function App() {
                           />
                           <div className="testimonial-identity">
                             <p className="testimonial-author">{testimonial.name}</p>
-                            <span className="testimonial-handle">{testimonial.handle}</span>
+                            {testimonial.handle && (
+                              <span className="testimonial-handle">{testimonial.handle}</span>
+                            )}
                           </div>
                         </div>
-                        <Quote className="testimonial-quote-icon" aria-hidden="true" size={30} strokeWidth={1.6} />
+                        {testimonial.quote && (
+                          <Quote className="testimonial-quote-icon" aria-hidden="true" size={30} strokeWidth={1.6} />
+                        )}
                       </div>
-                      <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
-                      <blockquote>“{testimonial.quote}”</blockquote>
+                      {testimonial.quote ? (
+                        <>
+                          <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+                          <blockquote>“{testimonial.quote}”</blockquote>
+                        </>
+                      ) : (
+                        <p className="testimonial-pending-note">Pronto compartiremos su experiencia en la feria.</p>
+                      )}
                       <div className="testimonial-card-bottom">
                         <span className="testimonial-category">{testimonial.category}</span>
                       </div>
