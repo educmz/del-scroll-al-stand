@@ -8,7 +8,7 @@ import UpcomingFairs from './UpcomingFairs'
 import HomeFAQ from './HomeFAQ'
 import { ArrowUpRight, CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Quote, Store, UsersRound, X } from 'lucide-react'
 import { FaFacebookF, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import { motion, useInView, useReducedMotion } from 'motion/react'
+import { motion, useInView, useReducedMotion, useSpring } from 'motion/react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -144,6 +144,88 @@ const testimonials = [
   },
 ]
 
+/**
+ * Cartel del isotipo suspendido del borde superior.
+ * Los impulsos suaves y los resortes con poca amortiguación producen un
+ * balanceo amortiguado (en profundidad y apenas lateral) sin animar el logo.
+ */
+function HangingBrand() {
+  const shouldReduceMotion = useReducedMotion()
+  const pitch = useSpring(0, { stiffness: 45, damping: 4, mass: 1.4 })
+  const roll = useSpring(0, { stiffness: 42, damping: 6, mass: 1.5 })
+  const pointerOver = useRef(false)
+  const nextGust = useRef(1)
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      pitch.jump(0)
+      roll.jump(0)
+      return
+    }
+
+    let releaseTimer: number | undefined
+
+    const giveImpulse = (force: number) => {
+      if (pointerOver.current) return
+      pitch.set(force)
+      roll.set(force > 0 ? 0.85 : -0.85)
+      window.clearTimeout(releaseTimer)
+      releaseTimer = window.setTimeout(() => {
+        pitch.set(0)
+        roll.set(0)
+      }, 270)
+    }
+
+    const entranceTimer = window.setTimeout(() => giveImpulse(9), 360)
+    const breezeTimer = window.setInterval(() => {
+      nextGust.current *= -1
+      giveImpulse(nextGust.current * 5.5)
+    }, 5000)
+
+    return () => {
+      window.clearTimeout(entranceTimer)
+      window.clearInterval(breezeTimer)
+      window.clearTimeout(releaseTimer)
+      pitch.jump(0)
+      roll.jump(0)
+    }
+  }, [shouldReduceMotion, pitch, roll])
+
+  return (
+    <motion.a
+      href="#inicio"
+      className="brand brand-hanging-sign"
+      aria-label="Del Scroll al Stand — Inicio"
+      style={{ rotateX: pitch, rotateZ: roll, transformPerspective: 980 }}
+      onPointerEnter={() => {
+        if (shouldReduceMotion) return
+        pointerOver.current = true
+        pitch.set(12)
+        roll.set(-1.15)
+      }}
+      onPointerLeave={() => {
+        pointerOver.current = false
+        pitch.set(0)
+        roll.set(0)
+      }}
+      onFocus={() => {
+        if (!shouldReduceMotion) pitch.set(8)
+      }}
+      onBlur={() => {
+        pitch.set(0)
+        roll.set(0)
+      }}
+    >
+      <img
+        src={`${baseUrl}images/logo.png`}
+        alt="Del Scroll al Stand"
+        className="brand-logo"
+        onError={(event) => { event.currentTarget.style.visibility = 'hidden' }}
+      />
+    </motion.a>
+  )
+}
+
 function App() {
   const shouldReduceMotion = useReducedMotion()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -260,14 +342,7 @@ function App() {
     <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : isEntrepreneurs ? 'site-entrepreneurs' : isFairs ? 'site-fairs' : ''}`}>
       <header className="topbar">
         <div className="topbar-content">
-          <a href="#inicio" className="brand" aria-label="Del Scroll al Stand — Inicio">
-            <img
-              src={`${baseUrl}images/logo.png`}
-              alt="Del Scroll al Stand"
-              className="brand-logo"
-              onError={(event) => { event.currentTarget.style.visibility = 'hidden' }}
-            />
-          </a>
+          <HangingBrand />
 
           <nav
             ref={navRef}

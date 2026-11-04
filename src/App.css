@@ -90,6 +90,17 @@ button:focus-visible {
   border-radius: 0 0 25px 25px;
   box-shadow: 0 9px 18px rgba(78, 37, 32, .14);
 }
+/* Eje de suspensión en el borde superior: el cartel pivota en 3D.
+   La profundidad la controla Motion con un resorte amortiguado. */
+.brand-hanging-sign {
+  transform-origin: 50% 0%;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+.brand-hanging-sign .brand-logo {
+  transform: translateZ(1px);
+}
 .brand-logo {
   display: block;
   width: 100%;
@@ -221,6 +232,13 @@ button:focus-visible {
     font-size: 14px;
   }
 }
+@media (prefers-reduced-motion: reduce) {
+  .brand-hanging-sign {
+    will-change: auto;
+    transform: none !important;
+  }
+}
+
 @media (max-width: 850px) {
   .topbar,
   .topbar-content { min-height: 80px; }
