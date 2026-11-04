@@ -494,12 +494,12 @@
 }
 
 .about-purpose-heading h2 {
-  color: #fffdf8;
+  color: #fff;
   font-size: clamp(31px, 3.15vw, 46px);
 }
 
 .about-purpose-heading h2 span {
-  color: #ffc575;
+  color: inherit;
 }
 
 .about-purpose-body > p {
