@@ -1,20 +1,4 @@
 /* Vista Para emprendedores — tema navideño */
-.site-entrepreneurs .topbar,
-.site-entrepreneurs .primary-nav {
-  background: #fffdfa;
-}
-.site-entrepreneurs .header-cta,
-.site-entrepreneurs .mobile-participate {
-  background: linear-gradient(115deg, #db1b39, #a70528);
-}
-.site-entrepreneurs .nav-link.is-active {
-  color: #9e082b;
-  font-weight: 700;
-}
-.site-entrepreneurs .nav-link.is-active::after {
-  background: #cb0e36;
-}
-
 .entre-page {
   color: #17192b;
   background: #fffaf2;
