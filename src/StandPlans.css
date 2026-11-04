@@ -289,16 +289,37 @@
 .plans-table td {
   text-align: center;
 }
+.plans-cell-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  min-height: 24px;
+  margin-inline: auto;
+  text-align: center;
+}
 .plans-yes {
   color: #338768;
   font-weight: 700;
 }
 .plans-yes svg {
+  display: block;
+  flex: 0 0 18px;
   width: 18px;
   height: 18px;
-  vertical-align: middle;
+  margin-inline: auto;
 }
-.plans-yes span { margin-left: 5px; color: #4f3a45; font-size: 12px; font-weight: 500; }
+.plans-yes .plans-cell-note {
+  display: block;
+  margin: 0;
+  color: #4f3a45;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+}
 .plans-no { color: #a69298; font-size: 20px; }
 
 /* Servicios: cuatro tarjetas como las de Inicio y Emprendedores. */
@@ -406,7 +427,7 @@
 .plans-apply-layout {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
+  align-items: stretch;
   gap: clamp(22px, 3.5vw, 54px);
   width: min(100%, 1140px);
   margin: 0 auto;
@@ -415,6 +436,7 @@
   display: grid;
   align-content: start;
   gap: clamp(20px, 2.4vw, 30px);
+  height: 100%;
   min-width: 0;
 }
 .plans-apply-steps {
@@ -427,21 +449,30 @@
 }
 .plans-apply-steps li {
   position: relative;
-  display: grid;
-  grid-template-columns: 55px minmax(0, 1fr);
-  align-items: start;
-  gap: 13px;
-  min-height: 120px;
-  padding: 18px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 150px;
+  padding: 22px 34px;
   border: 1px solid #efdcd3;
   border-radius: 23px;
   background: #fffaf7;
+  text-align: center;
+}
+.plans-apply-steps li > div {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
 }
 .plans-step-icon {
   display: grid;
+  flex: 0 0 53px;
   place-items: center;
   width: 53px;
   height: 53px;
+  margin-inline: auto;
   border-radius: 17px;
   background: #ffe1e6;
   color: #aa465a;
@@ -468,21 +499,27 @@
   font: 700 12px/1 var(--font-section-label);
 }
 .plans-apply-steps h3 {
-  margin: 3px 0 8px;
+  margin: 0 0 6px;
   color: #3c2832;
   font: 700 13px/1.4 var(--font-card-title);
+  text-align: center;
 }
 .plans-apply-steps p {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 390px;
   color: #715f68;
   font: 400 12px/1.6 var(--font-body);
+  text-align: center;
 }
 .plans-step-arrow { display: none; }
 
 /* Formulario accesible, sin modificar lógica de postulación. */
 .plans-application-form {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
+  align-self: stretch;
+  height: 100%;
   min-width: 0;
   scroll-margin-top: 105px;
   padding: clamp(21px, 2.1vw, 30px);
@@ -574,7 +611,7 @@
   gap: 9px;
   width: 100%;
   min-height: 49px;
-  margin-top: 3px;
+  margin-top: auto;
   padding: 10px 19px;
   border: 0;
   border-radius: 999px;
@@ -663,11 +700,12 @@
   .plans-card-photo { height: 235px; }
   .plans-services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .plans-apply-layout { grid-template-columns: 1fr; max-width: 660px; gap: 31px; }
-  .plans-apply-info { width: 100%; }
+  .plans-apply-info { width: 100%; height: auto; }
   .plans-apply-steps { grid-template-columns: 1fr; }
-  .plans-apply-steps li { grid-template-columns: 55px minmax(0, 1fr); min-height: 0; }
+  .plans-apply-steps li { min-height: 142px; }
   .plans-step-number { top: 13px; right: 14px; }
-  .plans-application-form { max-width: 660px; width: 100%; margin: 0 auto; }
+  .plans-application-form { max-width: 660px; width: 100%; height: auto; margin: 0 auto; }
+  .plans-submit { margin-top: 3px; }
   .plans-selection-card { width: 100%; }
 }
 @media (max-width: 640px) {
@@ -694,7 +732,7 @@
   .plans-service-icon { flex-basis: 58px; width: 58px; height: 58px; }
   .plans-application { padding-bottom: 73px; }
   .plans-apply-steps { gap: 11px; }
-  .plans-apply-steps li { grid-template-columns: 52px minmax(0, 1fr); align-items: center; min-height: 0; }
+  .plans-apply-steps li { min-height: 135px; padding: 20px 32px; }
   .plans-application-form { padding: 23px 18px; }
   .plans-input-grid { grid-template-columns: 1fr; }
   .plans-selection-card { padding-inline: 19px; }
