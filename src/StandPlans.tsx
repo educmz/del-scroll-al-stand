@@ -5,6 +5,7 @@ import {
   Send, ShieldCheck, Store, Table2, UsersRound, Zap,
 } from 'lucide-react'
 import PageHero from './PageHero'
+import { featuredFair, upcomingFairs, getFairById } from './fairCatalog'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './StandPlans.css'
@@ -125,6 +126,10 @@ function JumpToForm({ children, className = '', plan }: { children: ReactNode; c
 
 function ApplicationForm() {
   const [selectedPlan, setSelectedPlan] = useState<PlanId | ''>('')
+  const [selectedFairId, setSelectedFairId] = useState(() => {
+    const requestedId = new URLSearchParams(window.location.search).get('feria')
+    return getFairById(requestedId)?.id || ''
+  })
   const [feedback, setFeedback] = useState('')
   const [application, setApplication] = useState({
     business: '',
@@ -152,8 +157,10 @@ function ApplicationForm() {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const planName = plans.find((plan) => plan.id === selectedPlan)?.name || 'Por definir'
+    const selectedFair = getFairById(selectedFairId)
     const message = [
       'Hola, quiero postular a Del Scroll al Stand.',
+      'Feria de interés: ' + (selectedFair?.name || 'Por definir'),
       `Emprendimiento: ${application.business}`,
       `Nombre: ${application.fullName}`,
       `WhatsApp: ${application.whatsapp}`,
@@ -183,6 +190,24 @@ function ApplicationForm() {
         <SectionEyebrow>CUÉNTANOS SOBRE TU MARCA</SectionEyebrow>
         <h3>Formulario de Postulación</h3>
       </div>
+      <label>
+        Feria de interés
+        <span className="plans-select-wrap">
+          <select
+            value={selectedFairId}
+            onChange={(event) => {
+              setSelectedFairId(event.target.value)
+              setFeedback('')
+            }}
+          >
+            <option value="">Aún no lo sé</option>
+            {[featuredFair, ...upcomingFairs].map((fair) => (
+              <option key={fair.id} value={fair.id}>{fair.name}</option>
+            ))}
+          </select>
+          <ChevronDown size={17} aria-hidden="true" />
+        </span>
+      </label>
       <label>
         <span className="plans-field-label">Nombre del emprendimiento <b aria-hidden="true">*</b></span>
         <input value={application.business} onChange={(event) => setApplication({ ...application, business: event.target.value })} required maxLength={100} placeholder="Nombre de tu marca" />
