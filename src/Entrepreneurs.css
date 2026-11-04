@@ -390,8 +390,17 @@
 }
 
 /* El subtítulo acompaña al encabezado, sin decoraciones propias. */
-.entre-offerings > .section-overline {
+.entre-offerings > .title-eyebrow-group > .section-overline {
   width: 100%;
   text-align: center;
   color: #a33548;
+}
+
+/* El conjunto se mantiene centrado como antes, pero la etiqueta toma
+   como referencia el ancho del propio título. */
+.entre-offerings > .title-eyebrow-group {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
 }
