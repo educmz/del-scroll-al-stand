@@ -157,7 +157,6 @@ function MarketStandIllustration() {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
-  const [hoveredNavHref, setHoveredNavHref] = useState<string | null>(null)
   const [navPill, setNavPill] = useState<{ left: number; top: number; width: number; height: number } | null>(null)
   const navRef = useRef<HTMLElement | null>(null)
   const isAbout = currentHash.startsWith('#sobre-nosotros')
@@ -166,15 +165,14 @@ function App() {
   const isFairs = currentHash === '#proximas-ferias' || currentHash === '#proximas-ferias-preguntas'
   const activeHref = isAbout ? '#sobre-nosotros' : isPlans ? '#planes' : isEntrepreneurs ? '#emprendedores' : isFairs ? '#proximas-ferias' : '#inicio'
 
-  // Una sola píldora se desplaza entre los enlaces; al salir vuelve a la sección activa.
+  // La píldora sigue únicamente a la sección seleccionada, no al hover.
   useLayoutEffect(() => {
     const nav = navRef.current
     if (!nav) return
 
     const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('.nav-link'))
     const updatePill = () => {
-      const targetHref = hoveredNavHref ?? activeHref
-      const link = links.find((item) => item.getAttribute('href') === targetHref)
+      const link = links.find((item) => item.getAttribute('href') === activeHref)
       if (!link || link.offsetWidth === 0 || link.offsetHeight === 0) {
         setNavPill(null)
         return
@@ -208,13 +206,12 @@ function App() {
       window.removeEventListener('resize', updatePill)
       observer?.disconnect()
     }
-  }, [activeHref, hoveredNavHref, menuOpen])
+  }, [activeHref, menuOpen])
 
   useEffect(() => {
     const onHashChange = () => {
       setCurrentHash(window.location.hash)
       setMenuOpen(false)
-      setHoveredNavHref(null)
     }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
@@ -252,10 +249,6 @@ function App() {
             id="mobile-navigation"
             className={`primary-nav ${menuOpen ? 'is-open' : ''}`}
             aria-label="Navegación principal"
-            onMouseLeave={() => setHoveredNavHref(null)}
-            onBlur={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget)) setHoveredNavHref(null)
-            }}
           >
             {navPill && (
               <span
@@ -274,8 +267,6 @@ function App() {
                 href={item.href}
                 className={`nav-link ${item.href === activeHref ? 'is-active' : ''}`}
                 aria-current={item.href === activeHref ? 'page' : undefined}
-                onMouseEnter={() => setHoveredNavHref(item.href)}
-                onFocus={() => setHoveredNavHref(item.href)}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
