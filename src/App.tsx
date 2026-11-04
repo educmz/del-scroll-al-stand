@@ -64,7 +64,7 @@ const benefits = [
     title: 'Comunidad emprendedora',
     description: 'Forma parte de una red de marcas locales que se apoyan y crecen juntas',
     icon: Heart,
-    tone: 'pink',
+    tone: 'lavender',
   },
 ]
 
@@ -531,8 +531,8 @@ function App() {
                     <Icon
                       size={40}
                       strokeWidth={benefit.tone === 'mint' ? 2.6 : 2}
-                      fill={benefit.tone === 'pink' ? '#f36a7a' : 'none'}
-                      stroke={benefit.tone === 'pink' ? 'none' : 'currentColor'}
+                      fill={benefit.tone === 'lavender' ? '#8b63cc' : 'none'}
+                      stroke={benefit.tone === 'lavender' ? 'none' : 'currentColor'}
                       aria-hidden="true"
                     />
                   </div>
