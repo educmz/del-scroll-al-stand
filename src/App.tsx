@@ -145,12 +145,12 @@ function App() {
   const [processFocused, setProcessFocused] = useState(false)
   const [hoveredProcessStep, setHoveredProcessStep] = useState<number | null>(null)
   const processPaused = processHovered || processFocused
-  const spotlightStep = processInView && !shouldReduceMotion
+  const illuminatedStep = processInView && !shouldReduceMotion
     ? (hoveredProcessStep ?? activeProcessStep)
     : null
 
-  // El foco avanza entre los cuatro pasos mientras están visibles. La
-  // interacción del usuario detiene el recorrido y toma prioridad.
+  // La iluminación recorre los cuatro pasos visibles, con prioridad para
+  // la tarjeta señalada. Se detiene mientras el usuario interactúa.
   useEffect(() => {
     if (!processInView || processPaused || shouldReduceMotion) return
 
@@ -464,7 +464,7 @@ function App() {
             <div
               ref={processGridRef}
               className="process-grid"
-              data-spotlight-active={spotlightStep !== null ? 'true' : undefined}
+              data-illumination-active={illuminatedStep !== null ? 'true' : undefined}
               onMouseEnter={() => setProcessHovered(true)}
               onMouseLeave={() => {
                 setProcessHovered(false)
@@ -480,19 +480,11 @@ function App() {
             >
               {steps.map((step, index) => {
                 const Icon = step.icon
-                const isSpotlight = spotlightStep === index
+                const isIlluminated = illuminatedStep === index
                 return (
                   <motion.article
                     initial={false}
-                    animate={{
-                      opacity: spotlightStep === null || isSpotlight ? 1 : 0.74,
-                      filter: spotlightStep === null || isSpotlight ? 'saturate(1)' : 'saturate(.78)',
-                    }}
-                    transition={{
-                      opacity: { duration: 0.7, ease: 'easeInOut' },
-                      filter: { duration: 0.7, ease: 'easeInOut' },
-                      y: { duration: 0.25, ease: 'easeOut' },
-                    }}
+                    transition={{ y: { duration: 0.25, ease: 'easeOut' } }}
                     whileHover={shouldReduceMotion ? undefined : { y: -5 }}
                     whileFocus={shouldReduceMotion ? undefined : { y: -5 }}
                     onMouseEnter={() => setHoveredProcessStep(index)}
@@ -500,16 +492,24 @@ function App() {
                     onFocus={() => setHoveredProcessStep(index)}
                     onBlur={() => setHoveredProcessStep(null)}
                     className="process-item"
-                    data-active={isSpotlight ? 'true' : 'false'}
+                    data-active={isIlluminated ? 'true' : 'false'}
                     key={step.title}
                     tabIndex={0}
                   >
                     <span className="process-number">
                       PASO {String(index + 1).padStart(2, '0')}
                     </span>
-                    <div className="process-icon">
+                    <motion.div
+                      className="process-icon"
+                      initial={false}
+                      animate={shouldReduceMotion ? undefined : {
+                        scale: isIlluminated ? 1.1 : 1,
+                        y: isIlluminated ? -3 : 0,
+                      }}
+                      transition={{ type: 'spring', stiffness: 180, damping: 19 }}
+                    >
                       <Icon size={42} strokeWidth={2} aria-hidden="true" />
-                    </div>
+                    </motion.div>
                     <h3>{step.title}</h3>
                     <p>{step.description}</p>
                   </motion.article>
