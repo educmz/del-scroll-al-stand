@@ -423,7 +423,7 @@ export default function UpcomingFairs({ selectedEditionId = null }: { selectedEd
           compactTitle
           hideDecorations
           showSwoosh
-          title={<><span>Vive nuestras</span><em>ferias</em></>}
+          title={<><span>Vive</span><em>nuestras fiestas</em></>}
           description="Descubre marcas locales, nuevas experiencias y los próximos encuentros de nuestra comunidad."
           imageFile="feria-portada.png"
           imageAlt="Ambiente de una feria de emprendimientos con stands y visitantes"
