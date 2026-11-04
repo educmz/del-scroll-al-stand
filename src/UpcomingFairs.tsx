@@ -114,7 +114,8 @@ export default function UpcomingFairs() {
     <main className="upcoming-fairs-page" id="upcoming-fairs-page">
       <PageHero
         id="fair-main-title"
-        eyebrow="Próximas ferias"
+        eyebrow="Mercado de Regalos"
+        badgeIcon="gift"
         title={<><span>Feria</span><em>Navideña</em></>}
         description={<>¡Encuentra el <strong>regalo perfecto</strong> hecho a mano, vive la magia de la Navidad y apoya a tus talentos locales!</>}
         imageFile="feria-navidad-portada.png"
