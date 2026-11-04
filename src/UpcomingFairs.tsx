@@ -422,14 +422,14 @@ export default function UpcomingFairs({ selectedEditionId = null }: { selectedEd
           id="fair-main-title"
           compactTitle
           hideDecorations
-          title={<><span>Ferias que</span><em>conectan</em><em className="fair-general-hero-last-line">marcas y personas</em></>}
-          description="Descubre espacios llenos de creatividad, talento local y experiencias únicas. Conoce nuestras próximas ferias, encuentra nuevas marcas y sé parte de una comunidad que sigue creciendo."
+          title={<><span>Vive nuestras</span><em>ferias</em></>}
+          description="Descubre marcas locales, nuevas experiencias y los próximos encuentros de nuestra comunidad."
           imageFile="feria-portada.png"
           imageAlt="Ambiente de una feria de emprendimientos con stands y visitantes"
           actions={
             <>
               <a className="page-hero__button page-hero__button--primary" href="#feria-detalles">
-                Explorar próximas ferias
+                Ver próxima feria
               </a>
               <a className="page-hero__button page-hero__button--secondary" href="#planes-postular">
                 Quiero participar
