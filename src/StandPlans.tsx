@@ -1,9 +1,10 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import {
   BadgeCheck, CalendarDays, Check, ChevronDown, ChevronRight, ClipboardList,
-  Flag, Megaphone, MessageCircle,
+  Megaphone, MessageCircle,
   Send, ShieldCheck, Sparkles, Store, Table2, UsersRound, Zap,
 } from 'lucide-react'
+import PageHero from './PageHero'
 import TitleRays from './TitleRays'
 import SectionEyebrow from './SectionEyebrow'
 import './StandPlans.css'
@@ -255,20 +256,32 @@ function ApplicationForm() {
 export default function StandPlans() {
   return (
     <main className="stand-plans-page" id="stand-plans-page">
-      <section className="plans-hero" aria-labelledby="plans-main-title">
-        <div className="plans-hero-text">
-          <h1 id="plans-main-title"><span>Planes de</span> <em>Stand</em></h1>
-          <p className="plans-hero-ribbon">Elige el plan ideal para tu emprendimiento<br />y lleva tu marca a nuestras ferias.</p>
-          <div className="plans-hero-points">
-            <div><span className="plans-point-icon tone-yellow"><Store size={27} /></span><p><strong>Más visibilidad</strong> en ferias con alto flujo.</p></div>
-            <div><span className="plans-point-icon tone-yellow"><UsersRound size={27} /></span><p><strong>Conecta</strong> con nuevos clientes y aliados.</p></div>
-            <div><span className="plans-point-icon tone-pink"><Flag size={27} /></span><p><strong>Impulsa tus ventas</strong> en un entorno real.</p></div>
-          </div>
-        </div>
-        <div className="plans-hero-media">
-          <StandPhoto file="planes-portada.png" alt="Emprendedora en su stand de feria" className="plans-hero-image" />
-        </div>
-      </section>
+      <PageHero
+        id="plans-main-title"
+        eyebrow="Planes de stand"
+        title={<><span>Planes de</span><em>Stand</em></>}
+        description="Elige el plan ideal para tu emprendimiento y lleva tu marca a nuestras ferias."
+        imageFile="planes-portada.png"
+        imageAlt="Emprendedora en su stand de feria"
+        actions={
+          <>
+            <JumpToForm className="page-hero__button page-hero__button--primary">Postula tu marca</JumpToForm>
+            <button
+              type="button"
+              className="page-hero__button page-hero__button--secondary"
+              onClick={() => document.getElementById('plans-comparison-title')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            >
+              Comparar planes
+            </button>
+          </>
+        }
+      >
+        <ul className="page-hero__highlights">
+          <li>Más visibilidad en ferias con alto flujo.</li>
+          <li>Conecta con nuevos clientes y aliados.</li>
+          <li>Impulsa tus ventas en un entorno real.</li>
+        </ul>
+      </PageHero>
 
       <section className="plans-catalog" aria-labelledby="plans-catalog-title">
         <Heading eyebrow="ELIGE TU ESPACIO IDEAL">Conoce nuestros planes</Heading>
