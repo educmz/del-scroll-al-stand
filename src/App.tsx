@@ -331,7 +331,6 @@ function App() {
               </div>
 
               <div className="hero-message">
-                <span className="hero-eyebrow">DEL SCROLL A LAS CONEXIONES REALES</span>
                 <h2 className="hero-slogan">
                   Tu negocio sale del chat
                   <span className="hero-slogan-second">y entra al <em>mundo real</em></span>

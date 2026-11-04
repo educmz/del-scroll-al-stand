@@ -291,8 +291,8 @@ button:focus-visible {
 }
 
 .headline-art {
-  width: min(100%, 455px);
-  margin: 0 0 24px;
+  width: min(100%, 500px);
+  margin: 0 0 28px;
 }
 
 .hero-title {
@@ -310,31 +310,19 @@ button:focus-visible {
   max-width: 610px;
 }
 
-.hero-eyebrow {
-  display: block;
-  width: fit-content;
-  margin: 0 0 15px;
-  color: #a63651;
-  font-family: 'Fredoka', sans-serif;
-  font-size: clamp(11px, .92vw, 13px);
-  font-weight: 600;
-  letter-spacing: .10em;
-  line-height: 1.45;
-}
-
 .hero-slogan {
   max-width: 610px;
-  margin: 0 0 21px;
+  margin: 0 0 18px;
   padding: 0;
   color: #331b27;
   background: none;
   border: 0;
   border-radius: 0;
   font-family: 'Fredoka', sans-serif;
-  font-size: clamp(36px, 3.65vw, 56px);
-  font-weight: 700;
-  line-height: 1.035;
-  letter-spacing: -.045em;
+  font-size: clamp(25px, 2.35vw, 34px);
+  font-weight: 600;
+  line-height: 1.17;
+  letter-spacing: -.025em;
   text-wrap: balance;
   transform: none;
 }
@@ -380,7 +368,7 @@ button:focus-visible {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 12px;
 }
@@ -486,7 +474,7 @@ button:focus-visible {
   }
 
   .hero-slogan {
-    font-size: clamp(35px, 3.9vw, 47px);
+    font-size: clamp(24px, 2.85vw, 31px);
   }
 
   .hero-actions {
@@ -529,13 +517,9 @@ button:focus-visible {
     margin-inline: auto;
   }
 
-  .hero-eyebrow {
-    margin-inline: auto;
-  }
-
   .hero-slogan {
     margin-inline: auto;
-    font-size: clamp(35px, 5.4vw, 48px);
+    font-size: clamp(26px, 4.2vw, 32px);
   }
 
   .hero-description {
@@ -564,17 +548,11 @@ button:focus-visible {
     margin-bottom: 25px;
   }
 
-  .hero-eyebrow {
-    margin-bottom: 12px;
-    font-size: 11px;
-    letter-spacing: .085em;
-  }
-
   .hero-slogan {
     margin-bottom: 17px;
-    font-size: clamp(32px, 7.8vw, 40px);
-    line-height: 1.07;
-    letter-spacing: -.035em;
+    font-size: clamp(23px, 6vw, 28px);
+    line-height: 1.18;
+    letter-spacing: -.022em;
   }
 
   .hero-description {
