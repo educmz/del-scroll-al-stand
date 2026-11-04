@@ -427,3 +427,22 @@
   .fair-quick-nav a { transition: none; }
   .fair-quick-nav a:hover { transform: none; }
 }
+
+/* Estado de convocatoria informado de manera explícita y no engañosa. */
+.fair-hero-facts .fair-hero-status {
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 244, 225, .5);
+  border-radius: 999px;
+  color: #fff4e6;
+  background: rgba(105, 21, 47, .28);
+  font-size: 11px;
+}
+.fair-card-status {
+  display: inline-block;
+  margin-bottom: 9px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #fff0df;
+  color: #8e4c44;
+  font: 600 11px/1.4 var(--font-body, 'Poppins', sans-serif);
+}
