@@ -256,6 +256,16 @@ button:focus-visible {
     padding: 13px 17px;
     font-size: 14px;
   }
+  .nav-link::after {
+    left: 17px;
+    transform: scaleX(.1);
+    transform-origin: left;
+  }
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after,
+  .nav-link.is-active::after {
+    transform: scaleX(1);
+  }
 }
 @media (max-width: 850px) {
   .topbar,
