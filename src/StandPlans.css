@@ -399,7 +399,7 @@
 .plans-services-heading-block {
   min-width: 0;
 }
-.plans-application-form > .section-overline {
+.plans-application-form > .plans-application-heading > .section-overline {
   width: 100%;
   text-align: center;
   font-size: 10px;
@@ -415,7 +415,15 @@
 }
 
 /* Subtítulo centrado sobre el título, sin modificar la posición del bloque. */
-.plans-heading-block,
-.plans-services-heading-block {
+.plans-heading-block {
   text-align: center;
+}
+
+/* El formulario mantiene su encabezado centrado; el texto de selección
+   conserva la alineación original de su tarjeta. */
+.plans-application-form > .plans-application-heading {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
 }
