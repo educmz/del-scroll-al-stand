@@ -162,8 +162,12 @@ function App() {
                 <h1 id="hero-title" className="hero-title">
                   <img
                     className="hero-title-image"
-                    src={`${baseUrl}images/titulo-portada.svg`}
+                    src={`${baseUrl}images/titulo-portada.png`}
                     alt="Del Scroll al Stand"
+                    onError={(event) => {
+                      event.currentTarget.onerror = null
+                      event.currentTarget.src = `${baseUrl}images/titulo-portada.svg`
+                    }}
                   />
                 </h1>
               </div>
