@@ -804,7 +804,7 @@ button:focus-visible {
 }
 
 .process-item p {
-  max-width: 235px;
+  max-width: 300px;
   margin: 0 auto;
   color: #59605a;
   font-family: 'Poppins', sans-serif;
