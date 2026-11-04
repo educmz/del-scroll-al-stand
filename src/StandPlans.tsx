@@ -304,7 +304,14 @@ export default function StandPlans() {
                   <th scope="row">{row.feature}</th>
                   {row.values.map((value, index) => (
                     <td key={index} className={value === '—' ? 'plans-no' : 'plans-yes'}>
-                      {value.startsWith('✓') ? <><Check size={17} strokeWidth={3} aria-hidden="true" />{value.slice(1).trim() && <span>{value.slice(1).trim()}</span>}</> : value}
+                      <span className="plans-cell-content">
+                        {value.startsWith('✓') ? (
+                          <>
+                            <Check size={18} strokeWidth={3} aria-hidden="true" />
+                            {value.slice(1).trim() && <span className="plans-cell-note">{value.slice(1).trim()}</span>}
+                          </>
+                        ) : value}
+                      </span>
                     </td>
                   ))}
                 </tr>
