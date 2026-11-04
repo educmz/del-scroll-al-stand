@@ -819,6 +819,17 @@ button:focus-visible {
    una columna crece y las otras tres se estrechan de verdad, sin alterar
    el gap ni cambiar el ancho total de la sección. */
 @media (min-width: 1101px) {
+  .process-grid {
+    /* Reservamos la altura máxima para que el resto de la página no salte.
+       Las tarjetas se apoyan en la misma línea inferior. */
+    min-height: 360px;
+    align-items: end;
+  }
+
+  .process-item {
+    height: 290px;
+  }
+
   .process-grid.is-animating {
     animation: process-grid-rebalance 12s cubic-bezier(.45, 0, .55, 1) infinite;
   }
@@ -843,8 +854,8 @@ button:focus-visible {
   }
 }
 
-/* La tarjeta activa también crece hacia arriba, nunca hacia abajo.
-   scaleY no modifica el reparto horizontal: eso lo controla la cuadrícula. */
+/* La tarjeta activa aumenta su ALTURA real hacia arriba, apoyada en su
+   borde inferior. Se sincroniza con el ancho de columna y no estira el texto. */
 .process-grid.is-animating .process-item {
   animation: process-card-rise 12s cubic-bezier(.45, 0, .55, 1) infinite;
 }
@@ -855,8 +866,8 @@ button:focus-visible {
 .process-grid.is-animating .process-item:nth-child(4) { animation-delay: -3s; }
 
 @keyframes process-card-rise {
-  0%, 22%, 100% { scale: 1 1; }
-  7%, 17% { scale: 1 1.065; }
+  0%, 22%, 100% { height: 290px; }
+  7%, 17% { height: 360px; }
 }
 
 /* Congelamos tanto el ancho de las columnas como la altura de las tarjetas
