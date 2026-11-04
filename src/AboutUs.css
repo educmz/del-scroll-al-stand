@@ -2,12 +2,12 @@
   --about-ink: #200d1a;
   --about-maroon: #9f0025;
   --about-gold: #ffcc44;
-  background: #fff9f0;
+  background: var(--cream);
 }
 
 .about-page {
   overflow: hidden;
-  background: #fff9f0;
+  background: var(--cream);
   color: #21121d;
 }
 

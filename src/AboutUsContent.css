@@ -229,9 +229,7 @@
 /* Misión y visión: tarjetas relacionadas, con matices coral y verde. */
 .about-direction {
   padding: clamp(68px, 7vw, 98px) clamp(24px, 4vw, 70px);
-  background: #fff8ef;
-  border-top: 1px solid rgba(219, 172, 150, .28);
-  border-bottom: 1px solid rgba(219, 172, 150, .28);
+  background: var(--about-cream);
 }
 
 .about-direction-grid {
