@@ -279,7 +279,8 @@ function App() {
   const isEntrepreneurs = currentHash === '#emprendedores'
   const fairSectionHashes = ['#feria-destacada', '#feria-detalles', '#que-encontraras', '#proximas-ediciones', '#ferias-anteriores']
   const isFairAnchor = fairSectionHashes.includes(currentHash)
-  const isFairs = currentHash === '#proximas-ferias' || isFairAnchor
+  const isPastFairDetail = currentHash.startsWith('#feria/')
+  const isFairs = currentHash === '#proximas-ferias' || isFairAnchor || isPastFairDetail
   const activeHref = isAbout ? '#sobre-nosotros' : isPlans ? '#planes' : isEntrepreneurs ? '#emprendedores' : isFairs ? '#proximas-ferias' : '#inicio'
   const participateHref = isPlans ? '#planes' : isFairs ? fairApplicationHref(featuredFair) : isEntrepreneurs ? '#planes-postular' : '#participar'
 
@@ -437,7 +438,7 @@ function App() {
       ) : isEntrepreneurs ? (
         <Entrepreneurs />
       ) : isFairs ? (
-        <UpcomingFairs />
+        <UpcomingFairs selectedEditionId={isPastFairDetail ? currentHash.slice('#feria/'.length) : null} />
       ) : (
       <main>
         <section className="hero" aria-labelledby="hero-title">
