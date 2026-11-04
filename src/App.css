@@ -792,7 +792,11 @@ button:focus-visible {
   /* Tarjetas estáticas: el destaque avanza por iluminación, no por cambios de tamaño. */
 }
 
+/* Los colores de iluminación se derivan del ícono de cada paso. */
 .process-item {
+  --process-accent: #f28f96;
+  --process-accent-rgb: 242, 143, 150;
+  --process-accent-deep: #b94a63;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -808,6 +812,24 @@ button:focus-visible {
   transition: box-shadow 650ms cubic-bezier(.22, 1, .36, 1),
               border-color 650ms ease,
               background-color 650ms ease;
+}
+
+.process-item:nth-child(2) {
+  --process-accent: #f3b16f;
+  --process-accent-rgb: 243, 177, 111;
+  --process-accent-deep: #9d602c;
+}
+
+.process-item:nth-child(3) {
+  --process-accent: #8fc28c;
+  --process-accent-rgb: 143, 194, 140;
+  --process-accent-deep: #4c8854;
+}
+
+.process-item:nth-child(4) {
+  --process-accent: #ef9d9f;
+  --process-accent-rgb: 239, 157, 159;
+  --process-accent-deep: #ad4f5a;
 }
 
 .process-item:hover,
@@ -830,8 +852,8 @@ button:focus-visible {
   right: 28px;
   height: 5px;
   border-radius: 0 0 20px 20px;
-  background: linear-gradient(90deg, #ffa16e, #d75578 55%, #ffba8a);
-  box-shadow: 0 4px 17px rgba(230, 117, 119, .38);
+  background: var(--process-accent);
+  box-shadow: 0 4px 17px rgba(var(--process-accent-rgb), .40);
   opacity: 0;
   transform: scaleX(.4);
   transition: opacity 580ms ease, transform 650ms cubic-bezier(.22, 1, .36, 1);
@@ -840,11 +862,11 @@ button:focus-visible {
 
 .process-grid[data-illumination-active="true"] .process-item[data-active="true"] {
   z-index: 1;
-  border-color: #df7a86;
+  border-color: var(--process-accent);
   background-color: #fff9f6;
-  box-shadow: 0 0 0 4px rgba(240, 147, 142, .18),
-              0 20px 45px rgba(184, 83, 97, .19),
-              0 0 38px rgba(245, 154, 133, .22);
+  box-shadow: 0 0 0 4px rgba(var(--process-accent-rgb), .18),
+              0 20px 45px rgba(var(--process-accent-rgb), .19),
+              0 0 38px rgba(var(--process-accent-rgb), .22);
 }
 
 .process-grid[data-illumination-active="true"] .process-item[data-active="true"]::before {
@@ -858,7 +880,7 @@ button:focus-visible {
 
 .process-grid[data-illumination-active="true"] .process-item[data-active="true"] .process-number {
   color: #fff;
-  background-color: #b95066;
+  background-color: var(--process-accent-deep);
 }
 
 .process-icon {
@@ -866,8 +888,8 @@ button:focus-visible {
 }
 
 .process-grid[data-illumination-active="true"] .process-item[data-active="true"] .process-icon {
-  box-shadow: 0 10px 24px rgba(184, 83, 97, .22),
-              0 0 0 5px rgba(255, 193, 167, .43);
+  box-shadow: 0 10px 24px rgba(var(--process-accent-rgb), .28),
+              0 0 0 5px rgba(var(--process-accent-rgb), .50);
 }
 
 .process-number {
