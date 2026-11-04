@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import AboutUs from './AboutUs'
+import StandPlans from './StandPlans'
 import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
@@ -156,6 +157,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [currentHash, setCurrentHash] = useState(() => window.location.hash)
   const isAbout = currentHash.startsWith('#sobre-nosotros')
+  const isPlans = currentHash === '#planes' || currentHash === '#planes-de-stand'
 
   useEffect(() => {
     const onHashChange = () => {
@@ -167,13 +169,13 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (currentHash === '#sobre-nosotros') {
+    if (currentHash === '#sobre-nosotros' || isPlans) {
       window.scrollTo(0, 0)
     }
-  }, [currentHash])
+  }, [currentHash, isPlans])
 
   return (
-    <div id="inicio" className={`site ${isAbout ? 'site-about' : ''}`}>
+    <div id="inicio" className={`site ${isAbout ? 'site-about' : isPlans ? 'site-plans' : ''}`}>
       <header className="topbar">
         <div className="topbar-content">
           <a href="#inicio" className="brand" aria-label="Del Scroll al Stand — Inicio">
@@ -190,11 +192,11 @@ function App() {
             className={`primary-nav ${menuOpen ? 'is-open' : ''}`}
             aria-label="Navegación principal"
           >
-            {navigation.filter((item) => isAbout || item.label !== 'Galería').map((item) => (
+            {navigation.filter((item) => isAbout || isPlans || item.label !== 'Galería').map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : item.href === '#inicio') ? 'is-active' : ''}`}
+                className={`nav-link ${(isAbout ? item.href === '#sobre-nosotros' : isPlans ? item.href === '#planes' : item.href === '#inicio') ? 'is-active' : ''}`}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.label}
@@ -202,15 +204,30 @@ function App() {
             ))}
             <a
               className="mobile-participate"
-              href="#participar"
-              onClick={() => setMenuOpen(false)}
+              href={isPlans ? '#planes' : '#participar'}
+              onClick={(event) => {
+                setMenuOpen(false)
+                if (isPlans) {
+                  event.preventDefault()
+                  document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+              }}
             >
               <CalendarDays aria-hidden="true" size={19} />
               Quiero participar!
             </a>
           </nav>
 
-          <a className="header-cta" href="#participar">
+          <a
+            className="header-cta"
+            href={isPlans ? '#planes' : '#participar'}
+            onClick={(event) => {
+              if (isPlans) {
+                event.preventDefault()
+                document.getElementById('stand-plans-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            }}
+          >
             <CalendarDays aria-hidden="true" size={20} />
             Quiero participar!
           </a>
@@ -230,6 +247,8 @@ function App() {
 
       {isAbout ? (
         <AboutUs />
+      ) : isPlans ? (
+        <StandPlans />
       ) : (
       <main>
         <section className="hero" aria-labelledby="hero-title">
