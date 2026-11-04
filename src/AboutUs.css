@@ -168,9 +168,7 @@
   text-align: center;
 }
 
-.about-title-with-rays .about-rays:last-child {
-  transform: scaleX(-1);
-}
+.about-title-with-rays .title-rays { color: #f9af00; }
 
 .about-intro-copy p {
   max-width: 605px;
@@ -242,10 +240,11 @@
   font: 700 clamp(26px, 2.9vw, 36px)/1.05 'Fredoka', sans-serif;
 }
 
-.about-pillar h2 .about-rays {
-  width: 42px;
-  height: 46px;
-  flex: 0 0 42px;
+.about-pillar h2 .title-rays {
+  width: 30px;
+  height: 36px;
+  flex: 0 0 30px;
+  color: #f9af00;
 }
 
 .about-pillar p {
@@ -364,18 +363,23 @@
   min-width: 0;
 }
 
-.about-purpose-copy > .about-rays {
-  position: absolute;
-  top: 28px;
-  left: -4px;
-  stroke: #ffbf0b;
+.about-purpose-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.about-purpose-title .title-rays {
+  color: #ffbf0b;
+  width: 31px;
+  height: 40px;
+  flex-basis: 31px;
 }
 
 .about-purpose-copy h2 {
   margin: 0 0 11px;
   font: italic 700 clamp(35px, 4.5vw, 60px)/.95 'Fredoka',sans-serif;
   letter-spacing: -.02em;
-  padding-left: 33px;
+  padding-left: 0;
 }
 
 .about-purpose-copy h2 em {
@@ -441,12 +445,12 @@
   .about-hero-rays-right { right: 0; }
   .about-hero-copy>p { font-size: 16px; }
   .about-hero-photo { min-height: 240px; }
-  .about-title-with-rays .about-rays { width: 38px; height: 46px; flex-basis: 38px; }
+  .about-title-with-rays .title-rays { width: 27px; height: 34px; flex-basis: 27px; }
   .about-title-with-rays h2 { font-size: 28px; }
   .about-pillar { grid-template-columns: 74px 1fr; padding: 15px 12px; gap: 8px; border-radius: 25px; }
   .about-pillar-icon svg { max-width: 70px; }
   .about-pillar h2 { font-size: 25px; }
-  .about-pillar h2 .about-rays { display: none; }
+  .about-pillar h2 .title-rays { width: 21px; height: 28px; flex-basis: 21px; }
   .about-pillar p { font-size: 13px; }
   .about-value { padding-inline: 5px; min-height: 160px; }
   .about-value-icon { width: 97px; height: 97px; }
@@ -455,4 +459,13 @@
   .about-purpose-image { height: 235px; min-height: auto; }
   .about-purpose-copy h2 { font-size: 41px; }
   .about-purpose-copy p { font-size: 16px; }
+}
+
+@media (max-width: 600px) {
+  .about-purpose-title { gap: 4px; }
+  .about-purpose-title .title-rays {
+    width: 24px;
+    height: 31px;
+    flex-basis: 24px;
+  }
 }

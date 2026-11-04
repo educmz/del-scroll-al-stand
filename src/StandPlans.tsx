@@ -4,6 +4,7 @@ import {
   Flag, Megaphone, MessageCircle,
   Send, ShieldCheck, Sparkles, Store, Table2, UsersRound, Zap,
 } from 'lucide-react'
+import TitleRays from './TitleRays'
 import './StandPlans.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -87,9 +88,9 @@ const planTestimonials = [
 function Heading({ children }: { children: string }) {
   return (
     <div className="plans-section-heading">
-      <span className="plans-heading-rays" aria-hidden="true">✦</span>
+      <TitleRays side="left" />
       <h2>{children}</h2>
-      <span className="plans-heading-rays" aria-hidden="true">✦</span>
+      <TitleRays side="right" />
     </div>
   )
 }
@@ -288,7 +289,11 @@ export default function StandPlans() {
 
       <section className="plans-compare" aria-labelledby="plans-comparison-title">
         <div className="plans-compare-intro">
-          <h2 id="plans-comparison-title">Comparativa<br />de planes</h2>
+          <div className="plans-accent-heading">
+            <TitleRays side="left" />
+            <h2 id="plans-comparison-title">Comparativa<br />de planes</h2>
+            <TitleRays side="right" />
+          </div>
           <p>Elige fácilmente el plan que mejor se adapte a tus objetivos.</p>
         </div>
         <div className="plans-table-scroll">
@@ -311,7 +316,11 @@ export default function StandPlans() {
       </section>
 
       <section className="plans-services" aria-labelledby="plans-services-title">
-        <h2 id="plans-services-title">Servicios que<br />potencian tu stand</h2>
+        <div className="plans-accent-heading">
+          <TitleRays side="left" />
+          <h2 id="plans-services-title">Servicios que<br />potencian tu stand</h2>
+          <TitleRays side="right" />
+        </div>
         <div className="plans-services-grid">
           {services.map(({ title, text, icon: Icon, tone }) => (
             <div className="plans-service" key={title}>
@@ -324,7 +333,11 @@ export default function StandPlans() {
 
       <section className="plans-application" aria-label="Postulación de expositores">
         <div className="plans-apply-left">
-          <h2>Postula como expositor</h2>
+          <div className="plans-accent-heading">
+            <TitleRays side="left" />
+            <h2>Postula como expositor</h2>
+            <TitleRays side="right" />
+          </div>
           <p className="plans-apply-intro">Es muy fácil. Completa el formulario y nuestro equipo revisará tu propuesta.</p>
           <div className="plans-apply-content">
             <ol className="plans-apply-steps">

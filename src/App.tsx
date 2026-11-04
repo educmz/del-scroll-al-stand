@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import AboutUs from './AboutUs'
+import TitleRays from './TitleRays'
 import StandPlans from './StandPlans'
 import Entrepreneurs from './Entrepreneurs'
 import UpcomingFairs from './UpcomingFairs'
@@ -89,13 +90,9 @@ const steps = [
 function SectionHeading({ children }: { children: string }) {
   return (
     <div className="info-section-heading">
-      <svg className="heading-rays heading-rays-left" viewBox="0 0 58 58" aria-hidden="true">
-        <path d="M47 5 53 23M24 15 40 32M10 43 32 45" />
-      </svg>
+      <TitleRays side="left" />
       <h2>{children}</h2>
-      <svg className="heading-rays heading-rays-right" viewBox="0 0 58 58" aria-hidden="true">
-        <path d="M47 5 53 23M24 15 40 32M10 43 32 45" />
-      </svg>
+      <TitleRays side="right" />
     </div>
   )
 }
@@ -380,13 +377,7 @@ function App() {
         </section>
 
         <section className="benefits-and-process" aria-label="Beneficios y participación">
-          <div className="benefits-heading">
-            <span className="section-eyebrow">TU MARCA MERECE MÁS</span>
-            <SectionHeading>¿Por qué participar con nosotros?</SectionHeading>
-            <p className="section-intro">
-              Mucho más que un espacio para vender: nuevas conexiones, experiencias y oportunidades para crecer.
-            </p>
-          </div>
+          <SectionHeading>¿Por qué participar con nosotros?</SectionHeading>
 
           <div className="benefits-grid" id="emprendedores">
             {benefits.map((benefit) => {
@@ -395,9 +386,9 @@ function App() {
                 <article className="benefit-item" key={benefit.title}>
                   <div className={'benefit-icon benefit-icon-' + benefit.tone}>
                     <Icon
-                      size={40}
-                      strokeWidth={benefit.tone === 'mint' ? 2.6 : 2}
-                      fill={benefit.tone === 'pink' ? '#f36a7a' : 'none'}
+                      size={50}
+                      strokeWidth={benefit.tone === 'mint' ? 3 : 2}
+                      fill={benefit.tone === 'pink' ? '#ff6870' : 'none'}
                       stroke={benefit.tone === 'pink' ? 'none' : 'currentColor'}
                       aria-hidden="true"
                     />
@@ -412,22 +403,17 @@ function App() {
           </div>
 
           <div className="process-heading" id="planes">
-            <span className="section-eyebrow section-eyebrow-mint">ASÍ DE FÁCIL ES EMPEZAR</span>
             <SectionHeading>¿Cómo funciona?</SectionHeading>
-            <p className="section-intro">
-              Te acompañamos desde el primer paso hasta el momento de encontrarte con tus clientes.
-            </p>
           </div>
 
           <div className="process-background" id="participar">
             <div className="process-grid">
-              {steps.map((step, index) => {
+              {steps.map((step) => {
                 const Icon = step.icon
                 return (
                   <article className="process-item" key={step.title}>
-                    <span className="process-number">PASO {String(index + 1).padStart(2, '0')}</span>
                     <div className="process-icon">
-                      <Icon size={42} strokeWidth={2} aria-hidden="true" />
+                      <Icon size={55} strokeWidth={2.2} aria-hidden="true" />
                     </div>
                     <h3>{step.title}</h3>
                     <p>{step.description}</p>

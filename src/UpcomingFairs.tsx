@@ -3,6 +3,7 @@ import {
   ArrowLeft, ArrowRight, CalendarDays, MapPin, MessageCircle,
   Gift, Snowflake, Sparkles,
 } from 'lucide-react'
+import TitleRays from './TitleRays'
 import './UpcomingFairs.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -68,14 +69,6 @@ function EventImage({ file, alt, className = '' }: { file: string; alt: string; 
   )
 }
 
-function FestiveRays() {
-  return (
-    <span className="fair-title-rays" aria-hidden="true">
-      <i /><i /><i />
-    </span>
-  )
-}
-
 function WhatsAppButton() {
   const phone = (import.meta.env.VITE_APPLICATION_WHATSAPP_NUMBER || '').replace(/\D/g, '')
   const message = 'Hola, quisiera información sobre la Feria Navideña del 12 y 13 de diciembre de 2026 de Del Scroll al Stand.'
@@ -102,7 +95,7 @@ function Gallery() {
 
   return (
     <section className="fair-gallery" aria-labelledby="fair-gallery-title">
-      <h2 id="fair-gallery-title">Galería de ediciones anteriores <FestiveRays /></h2>
+      <h2 id="fair-gallery-title"><TitleRays side="left" /><span>Galería de ediciones anteriores</span><TitleRays side="right" /></h2>
       <div className="fair-gallery-frame">
         <button className="fair-gallery-arrow fair-gallery-prev" type="button" aria-label="Ver fotografías anteriores" onClick={() => changePage(-1)}>
           <ArrowLeft size={26} strokeWidth={3} />
@@ -184,7 +177,7 @@ export default function UpcomingFairs() {
       <div className="fair-content">
         <section className="fair-details-grid" aria-labelledby="fair-details-title">
           <div className="fair-details-left">
-            <h2 id="fair-details-title" className="fair-serif-heading">Detalles del evento <FestiveRays /></h2>
+            <h2 id="fair-details-title" className="fair-serif-heading"><TitleRays side="left" /><span>Detalles del evento</span><TitleRays side="right" /></h2>
             <div className="fair-detail-cards">
               <article className="fair-detail-card">
                 <div className="fair-detail-icon"><CalendarDays size={55} strokeWidth={2.1} aria-hidden="true" /></div>
@@ -204,7 +197,7 @@ export default function UpcomingFairs() {
 
         <section className="fair-location-gallery" aria-label="Ubicación y galería">
           <div className="fair-location">
-            <h2 className="fair-serif-heading">Ubicación del evento <FestiveRays /></h2>
+            <h2 className="fair-serif-heading"><TitleRays side="left" /><span>Ubicación del evento</span><TitleRays side="right" /></h2>
             <div className="fair-location-photo-wrap">
               <EventImage file="parque-proceres.png" alt="Monumento del Parque Próceres de la Independencia" className="fair-location-photo" />
               <a href={mapLink} target="_blank" rel="noopener noreferrer" className="fair-location-tag">
@@ -218,7 +211,7 @@ export default function UpcomingFairs() {
 
         <section className="fair-categories-faq" aria-label="Categorías y preguntas frecuentes">
           <div className="fair-categories">
-            <h2 className="fair-serif-heading">Categorías participantes</h2>
+            <h2 className="fair-serif-heading"><TitleRays side="left" /><span>Categorías participantes</span><TitleRays side="right" /></h2>
             <p>Recibimos emprendimientos de diversos rubros navideños y locales</p>
             <div className="fair-categories-grid">
               {categories.map((category) => (
@@ -230,7 +223,7 @@ export default function UpcomingFairs() {
             </div>
           </div>
           <div className="fair-faq" id="fair-faq">
-            <h2 className="fair-serif-heading">Preguntas frecuentes</h2>
+            <h2 className="fair-serif-heading"><TitleRays side="left" /><span>Preguntas frecuentes</span><TitleRays side="right" /></h2>
             <div className="fair-faq-list">
               {questions.map((item) => (
                 <details key={item.question} open>
