@@ -707,7 +707,8 @@ button:focus-visible {
 /* Pulso secuencial: una tarjeta crece ligeramente y vuelve a su tamaño
    antes de activar la siguiente. La propiedad scale respeta el hover existente. */
 .process-grid.is-animating .process-item {
-  animation: process-card-relay 10s cubic-bezier(.4, 0, .2, 1) infinite;
+  /* Ease-in-out en ambos sentidos: sin escalón al reducir el tamaño. */
+  animation: process-card-relay 10s cubic-bezier(.45, 0, .55, 1) infinite;
 }
 
 .process-grid.is-animating .process-item:nth-child(1) { animation-delay: 0s; }
@@ -716,9 +717,8 @@ button:focus-visible {
 .process-grid.is-animating .process-item:nth-child(4) { animation-delay: 7.5s; }
 
 @keyframes process-card-relay {
-  0%, 18%, 100% { scale: 1; }
-  7% { scale: 1.045; }
-  12% { scale: 1.035; }
+  0%, 19%, 100% { scale: 1; }
+  7% { scale: 1.04; }
 }
 
 .process-number {
