@@ -695,6 +695,7 @@ button:focus-visible {
   background: linear-gradient(155deg, #ffffff 0%, #fffdfb 100%);
   box-shadow: 0 11px 28px rgba(93, 52, 49, .09);
   text-align: center;
+  transform-origin: center 88%;
   transition: transform 300ms cubic-bezier(.22, 1, .36, 1), box-shadow 300ms ease;
 }
 
@@ -703,8 +704,9 @@ button:focus-visible {
   box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
 }
 
-/* Relevo automático: cada tarjeta se eleva, aterriza y da un rebote pequeño.
-   Translate/scale son independientes de transform, así conservamos el hover. */
+/* Vaivén secuencial: cada tarjeta se ladea a izquierda y derecha,
+   rebota con amplitud decreciente y pasa el turno a la siguiente.
+   rotate y translate independientes preservan el hover de las tarjetas. */
 .process-grid.is-animating .process-item {
   animation: process-card-relay 10s cubic-bezier(.4, 0, .2, 1) infinite;
 }
@@ -715,11 +717,12 @@ button:focus-visible {
 .process-grid.is-animating .process-item:nth-child(4) { animation-delay: 7.5s; }
 
 @keyframes process-card-relay {
-  0%, 16%, 100% { translate: 0 0; scale: 1; }
-  4% { translate: 0 -18px; scale: 1.012; }
-  8% { translate: 0 2px; scale: .997; }
-  11% { translate: 0 -6px; scale: 1.004; }
-  14.5% { translate: 0 0; scale: 1; }
+  0%, 17%, 100% { rotate: 0deg; translate: 0 0; }
+  3% { rotate: -4deg; translate: -4px 0; }
+  6% { rotate: 3.2deg; translate: 4px 0; }
+  9% { rotate: -1.8deg; translate: -2px 0; }
+  12% { rotate: 0.9deg; translate: 1px 0; }
+  15% { rotate: 0deg; translate: 0 0; }
 }
 
 .process-number {
@@ -916,8 +919,8 @@ button:focus-visible {
 
   .process-grid.is-animating .process-item {
     animation: none;
+    rotate: 0deg;
     translate: 0 0;
-    scale: 1;
   }
 }
 
