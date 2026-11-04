@@ -15,10 +15,10 @@ const baseUrl = import.meta.env.BASE_URL
 
 const navigation = [
   { label: 'Inicio', href: '#inicio' },
-  { label: 'Próximas ferias', href: '#proximas-ferias' },
-  { label: 'Para emprendedores', href: '#emprendedores' },
-  { label: 'Planes de stand', href: '#planes' },
-  { label: 'Sobre nosotros', href: '#sobre-nosotros' },
+  { label: 'Ferias', href: '#proximas-ferias' },
+  { label: 'Emprendedores', href: '#emprendedores' },
+  { label: 'Planes y precios', href: '#planes' },
+  { label: 'Nosotros', href: '#sobre-nosotros' },
 ]
 
 // Silueta trazada a partir de la referencia; mantiene el mismo perfil en cualquier tamaño.
