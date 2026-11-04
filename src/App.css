@@ -812,7 +812,7 @@ button:focus-visible {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: clamp(16px, 1.8vw, 26px);
-  /* Tamaño y separación constantes: Spotlight solo cambia la intensidad visual. */
+  /* Tarjetas estáticas: el destaque avanza por iluminación, no por cambios de tamaño. */
 }
 
 .process-item {
@@ -828,24 +828,69 @@ button:focus-visible {
   background: linear-gradient(155deg, #ffffff 0%, #fffdfb 100%);
   box-shadow: 0 11px 28px rgba(93, 52, 49, .09);
   text-align: center;
-  transition: box-shadow 650ms ease, border-color 650ms ease;
+  transition: box-shadow 650ms cubic-bezier(.22, 1, .36, 1),
+              border-color 650ms ease,
+              background-color 650ms ease;
 }
 
 .process-item:hover,
 .process-item:focus-visible {
-  box-shadow: 0 20px 36px rgba(93, 52, 49, .14);
+  box-shadow: 0 20px 40px rgba(93, 52, 49, .17);
 }
 
 .process-item:focus-visible {
   outline: 2px solid #bd7b82;
-  outline-offset: 3px;
+  outline-offset: 4px;
 }
 
-/* Spotlight: sin redistribución ni escalado. La tarjeta activa conserva su
-   color original y las demás se atenúan con Motion de forma progresiva. */
-.process-grid[data-spotlight-active="true"] .process-item[data-active="true"] {
-  border-color: #e8b6a8;
-  box-shadow: 0 18px 36px rgba(93, 52, 49, .14);
+/* Iluminación secuencial: borde, halo coral y una línea luminosa superior.
+   No se atenúan las demás tarjetas ni se altera su distribución. */
+.process-item::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 28px;
+  right: 28px;
+  height: 5px;
+  border-radius: 0 0 20px 20px;
+  background: linear-gradient(90deg, #ffa16e, #d75578 55%, #ffba8a);
+  box-shadow: 0 4px 17px rgba(230, 117, 119, .38);
+  opacity: 0;
+  transform: scaleX(.4);
+  transition: opacity 580ms ease, transform 650ms cubic-bezier(.22, 1, .36, 1);
+  pointer-events: none;
+}
+
+.process-grid[data-illumination-active="true"] .process-item[data-active="true"] {
+  z-index: 1;
+  border-color: #df7a86;
+  background-color: #fff9f6;
+  box-shadow: 0 0 0 4px rgba(240, 147, 142, .18),
+              0 20px 45px rgba(184, 83, 97, .19),
+              0 0 38px rgba(245, 154, 133, .22);
+}
+
+.process-grid[data-illumination-active="true"] .process-item[data-active="true"]::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.process-number {
+  transition: background-color 580ms ease, color 580ms ease;
+}
+
+.process-grid[data-illumination-active="true"] .process-item[data-active="true"] .process-number {
+  color: #fff;
+  background-color: #b95066;
+}
+
+.process-icon {
+  transition: box-shadow 600ms ease;
+}
+
+.process-grid[data-illumination-active="true"] .process-item[data-active="true"] .process-icon {
+  box-shadow: 0 10px 24px rgba(184, 83, 97, .22),
+              0 0 0 5px rgba(255, 193, 167, .43);
 }
 
 .process-number {
