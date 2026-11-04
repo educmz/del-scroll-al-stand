@@ -119,33 +119,42 @@ ni envía datos por sí solo; para WhatsApp sigue la configuración del apartado
 
 Antes de difundir la feria, confirma la fecha, dirección y condiciones con el equipo organizador.
 
-## Próximas ferias
+## Ferias
 
-La ruta `#proximas-ferias` muestra el evento **Feria Navideña: Mercado de Regalos**,
-con portada, detalles y mapa, ubicación y galería, y categorías participantes.
+La ruta `#proximas-ferias` es la **agenda de ferias**. Presenta la Feria Navideña
+2026 como edición destacada, incluye fecha y ubicación, mapa, información para
+visitantes, categorías previstas, próximas ediciones y acceso a la postulación.
 
-Las **preguntas frecuentes** se encuentran ahora en Inicio, justo antes del CTA final,
-en la ruta `#preguntas-frecuentes`. El enlace anterior
-`#proximas-ferias-preguntas` también lleva allí.
-Las fechas y el lugar de la maqueta se basan en la referencia proporcionada
-(12 y 13 de diciembre de 2026, Parque Próceres de la Independencia, Jesús María, Lima).
-Deben confirmarse con el organizador antes de anunciarse oficialmente.
+La información de ferias se mantiene en **`src/fairCatalog.ts`**:
 
-El mapa utiliza Google Maps insertado mediante una búsqueda por nombre del parque,
-y un enlace externo para abrir la ubicación. No requiere una API key.
+- `featuredFair`: próxima feria destacada. Fecha y lugar configurados:
+  **12 y 13 de diciembre de 2026, Parque Próceres de la Independencia, Jesús María**.
+- `upcomingFairs`: agregar solo ferias futuras con datos confirmados. Mientras esté vacío,
+  la web muestra que no hay nuevas fechas anunciadas, sin inventar eventos.
+- `pastEditions`: registrar ediciones realizadas con fotografías auténticas en
+  `public/images/`. La galería se oculta si aún no existe material real.
+- `applicationsOpen`: establecer `true` o `false` cuando se confirme el estado
+  de la convocatoria. Sin valor, se muestra «Convocatoria por confirmar».
+- `schedule` y `access`: completar al conocer horario y condiciones de ingreso.
+  Hasta entonces, la web informa que están pendientes.
 
-Las fotografías originales pueden subirse a `public/images/` con estos nombres:
+La portada de Feria Navideña usa el recurso **`public/images/feria-navidad-banner.png`**
+disponible en el repositorio, y su respaldo visual es `feria-portada.png`.
+Las fotografías de ferias pasadas no se sustituyen por fotos ilustrativas:
+solo se publican cuando se registran ediciones verificadas.
 
-- `feria-navidad-portada.png`: imagen principal de la cabecera navideña.
-- `parque-proceres.png`: fotografía de la ubicación del evento.
-- `feria-galeria-1.png` a `feria-galeria-6.png`: galería de ediciones anteriores.
+El visitante puede revisar los detalles y abrir Google Maps. Los emprendedores
+pueden pulsar «Quiero ser expositor» o «Solicitar participación». Esos enlaces
+abren `#planes-postular` con el parámetro `?feria=...`, que preselecciona la feria
+y la incluye en el mensaje del formulario. Si el número de WhatsApp no está
+configurado, el formulario advierte expresamente que **no se ha enviado**.
 
-Si falta alguna, se usa provisionalmente la foto existente `feria-portada.png`.
-Los controles del carrusel de Próximas ferias y las preguntas frecuentes en Inicio funcionan sin backend.
+Las preguntas frecuentes siguen en Inicio (`#preguntas-frecuentes`), también
+accesibles desde el enlace heredado `#proximas-ferias-preguntas`.
 
-El botón `Postular a esta feria` abre el formulario en Planes de stand
-(`#planes-postular`). El botón de WhatsApp se habilita al configurar
-la variable `APPLICATION_WHATSAPP_NUMBER` descrita anteriormente.
+**Antes de publicar:** confirmar fechas, horario, ingreso y estado de la
+convocatoria con la organización; no presentar categorías previstas como
+marcas confirmadas.
 
 ## Banners compartidos de las cuatro páginas internas
 
@@ -158,7 +167,7 @@ Para cambiar las fotos, sube los archivos a `public/images/`:
 
 | Página | Nombre de imagen |
 | --- | --- |
-| Próximas ferias | `feria-navidad-portada.png` |
+| Ferias | `feria-navidad-banner.png` |
 | Para emprendedores | `para-emprendedores-portada.png` |
 | Planes de stand | `planes-portada.png` |
 | Sobre nosotros | `sobre-nosotros-portada.png` |
