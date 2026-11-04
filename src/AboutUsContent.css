@@ -87,7 +87,10 @@
   margin: 0;
   color: #62515a;
   font: 400 clamp(15px, 1.17vw, 17px)/1.82 'Poppins', sans-serif;
-  text-wrap: pretty;
+  text-align: justify;
+  text-align-last: left;
+  text-wrap: normal;
+  hyphens: auto;
 }
 
 .about-story-lead {
