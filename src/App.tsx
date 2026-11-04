@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CalendarDays, ChartNoAxesCombined, CirclePlay, Heart, Menu, Monitor, Store, UsersRound, X } from 'lucide-react'
+import { CalendarDays, ChartNoAxesCombined, CirclePlay, Facebook, Heart, Instagram, Menu, MessageCircle, Monitor, Music2, Store, UsersRound, X } from 'lucide-react'
 import './App.css'
 
 const baseUrl = import.meta.env.BASE_URL
@@ -92,6 +92,61 @@ function SectionHeading({ children }: { children: string }) {
         <path d="M47 5 53 23M24 15 40 32M10 43 32 45" />
       </svg>
     </div>
+  )
+}
+
+
+const testimonials = [
+  {
+    name: 'Ana R.',
+    handle: '@Anacreativa',
+    quote: 'Fue la mejor experiencia para mi marca. Conocí clientes increíbles y mis ventas superaron mis expectativas',
+    category: 'Diseño y papelería',
+    image: 'testimonio-ana.webp',
+  },
+  {
+    name: 'Diego M.',
+    handle: '@saboresdiego',
+    quote: 'La organización es espectacular, todo muy claro y el ambiente de la feria es súper bonito y familiar',
+    category: 'Gastronomía',
+    image: 'testimonio-diego.webp',
+  },
+  {
+    name: 'Lucía P.',
+    handle: '@luciamoda',
+    quote: 'Me encantó la temática, la difusión y el apoyo del equipo. Definitivamente volveré a participar',
+    category: 'Moda',
+    image: 'testimonio-lucia.webp',
+  },
+]
+
+function MarketStandIllustration() {
+  return (
+    <svg
+      className="market-stand-illustration"
+      viewBox="0 0 220 210"
+      aria-hidden="true"
+    >
+      <g transform="rotate(-8 112 105)">
+        <path d="M28 45 172 45 185 69 39 69Z" fill="#ffbd00" />
+        <path d="M41 69 178 69 170 197 53 197Z" fill="#c32854" />
+        <path d="M57 75 69 75 80 194 64 194Z" fill="#f64b65" />
+        <path d="M95 75 109 75 121 194 103 194Z" fill="#f64b65" />
+        <path d="M136 75 148 75 162 194 145 194Z" fill="#f64b65" />
+        <path d="M30 45 165 24 188 55 40 70Z" fill="#ffc900" />
+        <path d="M38 69 187 53 186 70 39 85Z" fill="#efa100" />
+        <path d="M38 85Q49 99 59 84Q69 99 80 82Q92 98 103 80Q114 95 126 77Q137 93 149 75Q162 89 174 71L186 70" fill="#ab2e5b"/>
+        <path d="M35 163 184 147 186 166 39 183Z" fill="#ffba00" />
+        <rect x="116" y="101" width="23" height="37" rx="2" fill="#bd2953" stroke="#ffbf00" strokeWidth="5"/>
+        <path d="M121 107H134M121 114H134M121 122H134" stroke="#ffbf00" strokeWidth="3"/>
+        <path d="M55 52l17-2-12 5M89 48l17-2-12 5M128 43l17-2-12 5" stroke="#f39b00" strokeWidth="4" strokeLinecap="round"/>
+      </g>
+      <g fill="#a62c57">
+        <rect x="193" y="163" width="9" height="35" rx="2" />
+        <rect x="176" y="162" width="37" height="8" rx="4" transform="rotate(-10 194 166)"/>
+        <path d="M187 170 182 207M203 170 209 207" stroke="#a62c57" strokeWidth="5" />
+      </g>
+    </svg>
   )
 }
 
@@ -273,7 +328,93 @@ function App() {
             </div>
           </div>
         </section>
+
+        <section className="testimonials-section" id="testimonios" aria-label="Testimonios de emprendedores">
+          <SectionHeading>Lo que dicen nuestros emprendedores</SectionHeading>
+          <div className="testimonials-grid">
+            {testimonials.map((testimonial) => (
+              <article className="testimonial-card" key={testimonial.name}>
+                <img
+                  className="testimonial-photo"
+                  src={`${baseUrl}images/${testimonial.image}`}
+                  alt={`Retrato de ${testimonial.name}`}
+                  width="134"
+                  height="134"
+                  loading="lazy"
+                />
+                <div className="testimonial-body">
+                  <div className="testimonial-stars" aria-label="5 estrellas">★★★★★</div>
+                  <blockquote>“{testimonial.quote}”</blockquote>
+                  <p className="testimonial-author">{testimonial.name} <span>{testimonial.handle}</span></p>
+                  <span className="testimonial-category">{testimonial.category}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="join-banner" aria-labelledby="join-title">
+          <MarketStandIllustration />
+          <div className="join-copy">
+            <h2 id="join-title">¿Listo para llevar tu marca del scroll al stand?</h2>
+            <p>Sé parte de nuestras próximas ferias y conecta con más personas en el mundo real.</p>
+          </div>
+          <a className="join-cta" href="#participar">
+            <Store aria-hidden="true" size={26} strokeWidth={1.8} />
+            Quiero participar ahora
+          </a>
+          <svg className="join-rays" viewBox="0 0 58 58" aria-hidden="true">
+            <path d="M5 24 31 17M13 38 38 47M31 9 48 4" />
+          </svg>
+        </section>
       </main>
+
+      <footer className="site-footer" id="sobre-nosotros">
+        <svg className="footer-wave" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 24 C220 46 475 48 700 31 S1180 0 1440 24 L1440 48 L0 48 Z" />
+        </svg>
+        <div className="footer-content">
+          <div className="footer-identity">
+            <img
+              className="footer-logo"
+              src={`${baseUrl}images/logo.png`}
+              alt="Del Scroll al Stand"
+              loading="lazy"
+            />
+            <p><strong>Ferias temáticas y mercados temporales</strong> para emprendedores locales</p>
+          </div>
+
+          <nav className="footer-column" aria-label="Enlaces">
+            <h3>Enlaces</h3>
+            <a href="#inicio">Inicio</a>
+            <span>Próximas ferias</span>
+            <a href="#planes">Planes de stand</a>
+          </nav>
+
+          <nav className="footer-column footer-for-entrepreneurs" aria-label="Para emprendedores">
+            <h3>Para emprendedores</h3>
+            <a href="#participar">Cómo participar</a>
+            <span>Preguntas frecuentes</span>
+            <span>Términos y condiciones</span>
+          </nav>
+
+          <nav className="footer-column" aria-label="Sobre nosotros">
+            <h3>Sobre nosotros</h3>
+            <a href="#sobre-nosotros">Nuestra historia</a>
+            <span>Contacto</span>
+          </nav>
+
+          <div className="footer-socials">
+            <h3>Síguenos</h3>
+            <div className="social-icons" aria-label="Redes sociales, pendientes de configurar">
+              <span className="social-icon" title="Instagram"><Instagram size={30} strokeWidth={2.5} /></span>
+              <span className="social-icon" title="Facebook"><Facebook size={30} fill="currentColor" strokeWidth={1.6}/></span>
+              <span className="social-icon" title="TikTok"><Music2 size={30} strokeWidth={3} /></span>
+              <span className="social-icon" title="WhatsApp"><MessageCircle size={30} strokeWidth={2.5} /></span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
