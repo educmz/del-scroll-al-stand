@@ -36,7 +36,7 @@ La compilación genera los archivos estáticos en `dist/`.
 ## Ramas
 
 - `develop`: trabajo y validación de cambios.
-- `main`: producción, cuando se cree y publique.
+- `main`: rama de producción; despliega automáticamente con GitHub Pages.
 
 Los cambios en `develop` se verifican automáticamente mediante GitHub Actions.
 
@@ -46,10 +46,64 @@ El proyecto utiliza `base: '/del-scroll-al-stand/'` en `vite.config.ts`, necesar
 
 https://educmz.github.io/del-scroll-al-stand/
 
-1. Crea la rama `main` cuando el sitio esté listo para producción.
-2. En GitHub, entra en **Settings → Pages → Build and deployment** y elige **GitHub Actions**.
-3. Al enviar cambios a `main`, el flujo `.github/workflows/deploy.yml` instalará dependencias, compilará y publicará `dist/`.
+1. En GitHub, entra en **Settings → Pages → Build and deployment** y asegúrate de que esté seleccionada la opción **GitHub Actions**.
+2. Cada cambio enviado a `main` ejecuta `.github/workflows/deploy.yml` e instala dependencias, compila y publica `dist/`.
 
 El workflow está configurado para `main`, por lo que trabajar en `develop` no publica la web.
 
 > Nota: revisa las restricciones de GitHub Pages para sitios comerciales antes de utilizarlo como alojamiento oficial del negocio.
+
+## Página Planes de stand
+
+La ruta `#planes` muestra la vista independiente de planes de stand, con tres tarjetas,
+comparativa, servicios, testimonios de referencia y formulario de postulación.
+
+Las siguientes imágenes pueden añadirse a `public/images/` para sustituir la foto de feria provisional:
+
+- `planes-portada.png`: imagen principal de la página de planes.
+- `stand-basico.png`: fotografía del stand básico.
+- `stand-plus.png`: fotografía del stand plus.
+- `stand-premium.png`: fotografía del stand premium.
+
+Si falta alguna, se usa `feria-portada.png` como respaldo.
+
+### Postulaciones sin backend
+
+No se almacenan datos ni se envían a servidores propios. El formulario valida los campos y,
+si hay un número configurado, abre WhatsApp con un mensaje prellenado. **La persona debe
+confirmar el envío dentro de WhatsApp.** Si falta el número, se indica que no se ha enviado nada
+y se intenta copiar el contenido del formulario al portapapeles.
+
+En local crea un archivo `.env.local` (no lo subas a GitHub):
+
+```env
+VITE_APPLICATION_WHATSAPP_NUMBER=51999999999
+```
+
+Sustituye el número de ejemplo por el WhatsApp real del emprendimiento, con prefijo de país,
+solo números.
+
+Para GitHub Pages ve a **Settings → Secrets and variables → Actions → Variables**
+y crea la variable `APPLICATION_WHATSAPP_NUMBER` con ese número real.
+El workflow lo incorpora como `VITE_APPLICATION_WHATSAPP_NUMBER` durante la compilación de `main`.
+Al estar incluido en el JavaScript público, **no debe considerarse secreto**.
+
+Los precios, beneficios y testimonios de la maqueta son contenido de referencia y deben
+confirmarse antes de abrir postulaciones.
+
+## Página Para emprendedores
+
+La ruta `#emprendedores` muestra una vista independiente con:
+
+- Portada temática navideña con accesos a planes y al formulario.
+- Cuatro beneficios y cinco servicios para expositores.
+- Bloque de la feria navideña **12 y 13 de diciembre de 2026**, en Parque Próceres de la Independencia, Jesús María, Lima, según la referencia de diseño.
+
+La imagen `public/images/para-emprendedores-portada.png` se utiliza como fotografía principal.
+Mientras no exista, aparece la imagen de feria `feria-portada.png`.
+
+Los botones **Postula tu Marca** y **Postula Ahora** llevan a la página de planes
+y desplazan el contenido hasta el formulario existente. **Conoce los Planes** abre la comparativa.
+El formulario no registra ni envía datos por sí solo; para WhatsApp sigue la configuración del apartado anterior.
+
+Antes de difundir la feria, confirma la fecha, dirección y condiciones con el equipo organizador.
