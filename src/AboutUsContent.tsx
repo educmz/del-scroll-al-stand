@@ -7,28 +7,24 @@ const baseUrl = import.meta.env.BASE_URL
 
 const values = [
   {
-    number: '01',
     title: 'Apoyo al emprendedor',
     description: 'Acompañamos a las marcas para que puedan mostrar lo que hacen con orgullo.',
     Icon: Handshake,
     tone: 'rose',
   },
   {
-    number: '02',
     title: 'Comunidad y colaboración',
     description: 'Creemos en los encuentros que generan conexiones y nuevas oportunidades.',
     Icon: UsersRound,
     tone: 'peach',
   },
   {
-    number: '03',
     title: 'Confianza y seguridad',
     description: 'Cuidamos cada detalle para construir experiencias cercanas y organizadas.',
     Icon: ShieldCheck,
     tone: 'mint',
   },
   {
-    number: '04',
     title: 'Calidad en la experiencia',
     description: 'Buscamos que cada feria sea especial para marcas y visitantes.',
     Icon: Gem,
@@ -165,11 +161,10 @@ export default function AboutUsContent() {
           description="Principios que se reflejan en la manera en que organizamos y vivimos cada encuentro."
         />
         <div className="about-values-cards">
-          {values.map(({ number, title, description, Icon, tone }) => (
-            <article className={`about-value-card about-value-card-${tone}`} key={number}>
+          {values.map(({ title, description, Icon, tone }) => (
+            <article className={`about-value-card about-value-card-${tone}`} key={title}>
               <div className="about-value-card-top">
                 <span className="about-value-card-icon"><Icon size={32} strokeWidth={1.85} aria-hidden="true" /></span>
-                <span className="about-value-card-number">VALOR {number}</span>
               </div>
               <h3>{title}</h3>
               <p>{description}</p>
